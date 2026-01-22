@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Planning Dashboard KPI Card: margins -->
+    <t t-name="carpentry_planning.PlanningDashboard.margins" owl="1">
+        <t t-set="m" t-value="data['margins']" />
+
+
+        <h6>Contributive margin</h6>
+        <span t-att-class="m['margin_contributive_actual_class']">
+            <t t-esc="m['margin_contributive_actual']" />
+            (<t t-esc="m['margin_contributive_actual_rate']" /> %)
+        </span>
+
+        <h6 class="mt-4">Costs margin</h6>
+        <span t-att-class="m['margin_costs_actual_class']">
+            <t t-esc="m['margin_costs_actual']" />
+            (<t t-esc="m['margin_costs_actual_rate']" /> %)
+        </span>
+    </t>
+
+</templates>

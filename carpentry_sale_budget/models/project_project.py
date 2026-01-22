@@ -138,7 +138,7 @@ class Project(models.Model):
 
     #===== Carpentry Planning =====#
     def get_planning_dashboard_data(self):
-        return super().get_planning_dashboard_data() # | self.get_budget_margins_data()
+        return super().get_planning_dashboard_data() | {"margins": self.get_budget_margins_data()}
 
     def get_budget_margins_data(self):
         """ Format data for project budget report & planning views """
@@ -156,7 +156,7 @@ class Project(models.Model):
         currency = self.company_id.currency_id # can be empty
         for key in keys:
             if not self[key]:
-                data[key] = False
+                data[key] = 0.0
             elif self._fields[key].type == 'monetary' and currency:
                 data[key] = formatLang(self.env, self[key], currency_obj=currency)
             else:
