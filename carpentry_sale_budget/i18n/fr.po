@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-18 21:06+0000\n"
-"PO-Revision-Date: 2025-08-18 23:09+0200\n"
+"POT-Creation-Date: 2026-01-22 22:42+0000\n"
+"PO-Revision-Date: 2026-01-22 23:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,12 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: carpentry_sale_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_sale_budget.edit_project_carpentry_budget
 msgid "Actual"
 msgstr "Revue"
+
+#. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/planning/planning_dashboard.js:0
+#, python-format
+msgid "Budget"
+msgstr "Budget"
 
 #. module: carpentry_sale_budget
 #: model:ir.model.fields,field_description:carpentry_sale_budget.field_project_project__budget_up_to_date
@@ -59,7 +66,10 @@ msgid "Budget?"
 msgstr "Budget mis à jour ?"
 
 #. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/planning/planning_dashboard.xml:0
 #: model:ir.model.fields,field_description:carpentry_sale_budget.field_project_project__margin_contributive
+#, python-format
 msgid "Contributive margin"
 msgstr "Marge contributive"
 
@@ -79,14 +89,30 @@ msgid "Contributive margin (actual) (%)"
 msgstr "Marge contributive (réel) (%)"
 
 #. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/project_budget_report/project_budget_report_view.xml:0
+#, python-format
+msgid "Contributive:"
+msgstr "Contributive :"
+
+#. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/planning/planning_dashboard.xml:0
+#, python-format
+msgid "Costs margin"
+msgstr "Marge sûr coûts"
+
+#. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/project_budget_report/project_budget_report_view.xml:0
+#, python-format
+msgid "Costs:"
+msgstr "Sur coûts :"
+
+#. module: carpentry_sale_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_sale_budget.edit_project_carpentry_budget
 msgid "Fees"
 msgstr "Frais"
-
-#. module: carpentry_sale_budget
-#: model:ir.model.fields,field_description:carpentry_sale_budget.field_sale_order_line__project_id
-msgid "Generated Project"
-msgstr "Projet généré"
 
 #. module: carpentry_sale_budget
 #: model:ir.model.fields,help:carpentry_sale_budget.field_sale_order__lines_budget_updated
@@ -140,6 +166,13 @@ msgid "Project"
 msgstr "Projet"
 
 #. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/project_budget_report/project_budget_report_view.xml:0
+#, python-format
+msgid "Project margins"
+msgstr "Marges du projet"
+
+#. module: carpentry_sale_budget
 #: model:ir.model.fields,field_description:carpentry_sale_budget.field_project_project__fees_prorata
 msgid "Prorata"
 msgstr ""
@@ -157,19 +190,6 @@ msgid ""
 msgstr ""
 "Score de fiabilité des marges revues, calculé selon la formule [Budget "
 "réservé / Budget disponible]"
-
-#. module: carpentry_sale_budget
-#: model:ir.model.fields,help:carpentry_sale_budget.field_project_project__margin_costs_actual
-msgid "Reserved Budget - Real Expense - All fees"
-msgstr "Budget réservé - Dépense réelle - Tous les frais"
-
-#. module: carpentry_sale_budget
-#: model:ir.model.fields,help:carpentry_sale_budget.field_project_project__margin_contributive_actual
-msgid ""
-"Reserved Budget - Real Expense - Only prorata fees (i.e. not structure fees)"
-msgstr ""
-"Budget réservé - Dépense réelle - Seulement les frais au prorata (i.e. pas "
-"les frais de structure)"
 
 #. module: carpentry_sale_budget
 #: model:ir.model,name:carpentry_sale_budget.model_sale_order
@@ -210,3 +230,24 @@ msgid ""
 msgstr ""
 "Marché total - Tous les budgets - Seulement les frais au prorata (i.e. pas "
 "les frais de structure)"
+
+#. module: carpentry_sale_budget
+#: model:ir.model.fields,help:carpentry_sale_budget.field_project_project__margin_costs_actual
+msgid "[Reserved Budget] - [Real Expense] - [All fees]"
+msgstr "Budget réservé - Dépense réelle - Tous les frais"
+
+#. module: carpentry_sale_budget
+#: model:ir.model.fields,help:carpentry_sale_budget.field_project_project__margin_contributive_actual
+msgid ""
+"[Reserved Budget] - [Real Expense] - [Only prorata fees (i.e. not structure "
+"fees)]"
+msgstr ""
+"Budget réservé - Dépense réelle - Seulement les frais au prorata (i.e. pas "
+"les frais de structure)"
+
+#. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/project_budget_report/project_budget_report_view.xml:0
+#, python-format
+msgid "📈 Margins"
+msgstr "📈 Marges"
