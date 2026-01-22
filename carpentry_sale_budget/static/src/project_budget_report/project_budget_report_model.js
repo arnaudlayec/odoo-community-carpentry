@@ -21,7 +21,5 @@ export class ProjectBudgetReportModel extends PivotModel {
                 "project.project", "get_budget_margins_data", [this.projectId]
             ));
         }
-        console.log("this.projectId", this.projectId)
-        console.log("this.data.margins", this.data.margins)
     }
 }
