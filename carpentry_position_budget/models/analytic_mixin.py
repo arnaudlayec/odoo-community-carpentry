@@ -31,14 +31,9 @@ class BaseModel(models.AbstractModel):
 
     # @api.onchange('project_id') # must be set in child modules
     def _cascade_project_to_line_analytic_distrib(self, new_project_id=None):
-        debug = False
         field_lines = self._get_fields_related_with(
             ['analytic_distribution', '_synch_project_analytic_distrib_from_record']
         )
-
-        if debug:
-            print(' == _cascade_project_to_line_analytic_distrib == ')
-            print('field_lines', field_lines)
 
         if not field_lines:
             return
@@ -47,11 +42,6 @@ class BaseModel(models.AbstractModel):
         if not onchange: # from `write()`
             new_project = self.env['project.project'].browse(new_project_id)
 
-        if debug:
-            print('onchange', onchange)
-            print('new_project', new_project)
-            print('self', self)
-        
         for parent in self:
             if onchange:
                 new_project = parent.project_id
@@ -85,29 +75,28 @@ class AnalyticMixin(models.AbstractModel):
             (because `_compute_analytic_distribution` is fully overriden in them,
             without call to super())
         """
-        for record in self:
+        records = self.filtered(lambda self: self._filter_can_analytic())
+        for record in records:
             project = record._get_project_from_parent()._origin
             record._synch_project_analytic_distrib_from_record(project)
 
-            # must be called to enforce other analytics than project
-            record._enforce_internal_analytic()
+        # must be called to enforce other analytics than project
+        records._enforce_internal_analytic()
 
     #====== Compute ======#
     def _synch_project_analytic_distrib_from_record(self, new_project):
         """ Cascade `project_id` of the parent record (if changed)
             to the line's analytic distribution 
         """
+        records = self.filtered(lambda self: self._filter_can_analytic())
+        if not records: # early-quit optim
+            return
+        
         self = self.with_context(has_enforced_aac_distrib=True)
         mapped_projects_analytics = self._get_mapped_projects_analytics()
         replace_dict_enforce = self._get_enforce_dict_analytic_internal()
         
-        debug = False
-        if debug:
-            print(' == _synch_project_analytic_distrib_from_record == ')
-            print('mapped_projects_analytics', mapped_projects_analytics)
-            print('replace_dict_enforce', replace_dict_enforce)
-        
-        for record in self:
+        for record in records:
             new_aac_id = new_project.analytic_account_id.id
             if record._should_enforce_internal_analytic():
                 new_aac_id = replace_dict_enforce.get(new_aac_id) or new_aac_id
@@ -141,28 +130,16 @@ class AnalyticMixin(models.AbstractModel):
             2. Set up the cascaded project
         """
         self.ensure_one()
-
-        debug = False
-        if debug:
-            print(' === _cascade_parent_project_to_analytic === ')
-            print('self.analytic_distribution', self.analytic_distribution)
-            print('new_aac_id', new_aac_id)
             
         distrib = self.analytic_distribution or {}
         for aac_id in mapped_projects_analytics.keys():
             if str(aac_id) in distrib:
                 distrib.pop(str(aac_id))
-        
-        if debug:
-            print('distrib-medium', distrib)
 
         if new_aac_id:
             distrib |= {new_aac_id: 100}
 
         self.analytic_distribution = distrib
-        if debug:
-            print('distrib-new_aac_id', distrib)
-            print('self.analytic_distribution (end)', self.analytic_distribution)
 
 
     #====== Helper methods ======#
@@ -191,8 +168,13 @@ class AnalyticMixin(models.AbstractModel):
     @api.onchange('analytic_distribution')
     def _enforce_internal_analytic(self):
         """ Forces analytic (e.g. to *internal* project for all *storable* lines) """
-        self = self.filtered(lambda x: x._should_enforce_internal_analytic())
-        if not self or self._context.get('has_enforced_aac_distrib'): # optim
+        # perf early-quits
+        if self._context.get("has_enforced_aac_distrib"): return
+        records = (
+            self.filtered(lambda self: self._filter_can_analytic())
+            .filtered(lambda x: x._should_enforce_internal_analytic())
+        )
+        if not records:
             return
         self = self.with_context(has_enforced_aac_distrib=True)
         
@@ -208,6 +190,19 @@ class AnalyticMixin(models.AbstractModel):
             Forces analytic of *internal* project for all *storable* lines
         """
         return False
+    
+    def _filter_can_analytic(self):
+        """ For `account.move.line`:
+            - wait for `account_id` to be set to cascade/force analytic
+            - don't cascade/force if account's analytic policy is 'never'
+              (see OCA module 'account_analytic_required')
+        """
+        return (
+            # if OCA module installed & `account_id` field available
+            not hasattr(self.env['account.account'], "analytic_policy")
+            or not hasattr(self, "account_id")
+            or self.account_id and self.account_id.analytic_policy != "never"
+        )
     
     def _get_enforce_dict_analytic_internal(self):
         """ [For inheritance] Returns a static `replace_dict` to be applied in
