@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-18 16:36+0000\n"
-"PO-Revision-Date: 2025-06-18 18:40+0200\n"
+"POT-Creation-Date: 2026-01-22 22:19+0000\n"
+"PO-Revision-Date: 2026-01-22 23:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,52 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid ""
-")\n"
-"                    differs from the cost affected to the project\n"
-"                    ("
-msgstr ""
-")\n"
-"                    est différent du coût affecté au projet\n"
-"                    ("
-
-#. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid ""
-").\n"
-"                    If this is not on purpose, review the \"Budget reservation\" tab."
-msgstr ""
-").\n"
-"                    Si cela n'est pas intentionel, réviser l'onglet \"Réservation de budget\"."
-
-#. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid ""
-"<span class=\"fa fa-floppy-o\"/>\n"
-"                        Please save before continuing."
-msgstr ""
-"<span class=\"fa fa-floppy-o\"/>\n"
-"                        Veuillez sauvegarder avant de continuer."
-
-#. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    The budget reservation\n"
-"                    ("
-msgstr ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    La réservation de budget\n"
-"                    ("
-
-#. module: carpentry_purchase_budget
-#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__affectation_ids
-msgid "Affectations"
-msgstr ""
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_account_analytic_line__move_id
+msgid "Account Move"
+msgstr "Facture"
 
 #. module: carpentry_purchase_budget
 #: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__amount_gain
@@ -73,34 +33,45 @@ msgid "Amount Loss"
 msgstr "Montant de la perte"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__sum_quantity_affected
-msgid "Amount of reserved budget"
-msgstr "Montant budget réservé"
+#: model:ir.model,name:carpentry_purchase_budget.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Ligne analytique"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Budget reservation"
+#: model:ir.model,name:carpentry_purchase_budget.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Ligne de relevé bancaire"
+
+#. module: carpentry_purchase_budget
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_account_move__date_budget
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__date_budget
+msgid "Budget date"
+msgstr "Date de budget"
+
+#. module: carpentry_purchase_budget
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__reservation_ids
+msgid "Budget reservations"
 msgstr "Réservation de budget"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__amount_budgetable
-msgid "Budgetable Amount"
-msgstr "Potentiel de budget à réserver"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__budget_unit
+msgid "Budget unit"
+msgstr "Unité"
+
+#. module: carpentry_purchase_budget
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__budget_verified
+msgid "Budget verified?"
+msgstr "Budget vérifié ?"
 
 #. module: carpentry_purchase_budget
 #: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__budget_analytic_ids
 msgid "Budgets"
-msgstr ""
+msgstr "Budgets"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Choose budgets"
-msgstr "Choisir les budgets"
-
-#. module: carpentry_purchase_budget
-#: model:ir.model.fields,help:carpentry_purchase_budget.field_purchase_order__amount_budgetable
-msgid "Cost amount imputed on the project. Gain = 'Amount of reserved budget' - this amount"
-msgstr "Montant du coût imputé au projet. Gain = \"Réservation de budget\" - ce montant"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__can_reserve_budget
+msgid "Can Reserve Budget"
+msgstr "Peut réserver du budget"
 
 #. module: carpentry_purchase_budget
 #: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__currency_id
@@ -108,97 +79,120 @@ msgid "Currency"
 msgstr "Devise"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model,name:carpentry_purchase_budget.model_carpentry_budget_expense
-msgid "Expenses"
-msgstr "Rapport des dépenses et des budgets"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_account_bank_statement_line__date_budget
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_account_payment__date_budget
+msgid "Date Budget"
+msgstr "Date du budget"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Initially available budgets"
-msgstr "Budgets disponibles initialement"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__expense_ids
+msgid "Expense"
+msgstr "Dépense"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Launch budgets"
-msgstr "Lancements (budgets)"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__is_temporary_gain
+msgid "Is Temporary Gain"
+msgstr "Est un gain temporaire"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid ""
-"Please ensure the \"Products\" tab contains at least 1 non-stored product (with a price) "
-"before placing a reservation."
-msgstr ""
-"Veuillez vous assurer que l'onglet \"Produits\" contienne au moins 1 article non stocké (avec "
-"un prix) avant d'effectuer une réservation."
+#: model:ir.model,name:carpentry_purchase_budget.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Please select budget(s) and possibly launch(es) for placing a reservation."
-msgstr ""
-"Veuillez sélectionner un(des) budget(s) et éventuellement un(des) lancement(s) pour effectuer "
-"une réservation de budget."
+#: model:ir.model,name:carpentry_purchase_budget.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model,name:carpentry_purchase_budget.model_carpentry_group_affectation
-msgid "Position Affectation"
-msgstr "Affectation de repère"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__other_expense_ids
+msgid "Other expenses"
+msgstr "Autres dépenses"
+
+#. module: carpentry_purchase_budget
+#: model:ir.model,name:carpentry_purchase_budget.model_account_payment
+msgid "Payments"
+msgstr "Paiements"
+
+#. module: carpentry_purchase_budget
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__project_id
+msgid "Project"
+msgstr "Projet"
 
 #. module: carpentry_purchase_budget
 #: model:ir.model,name:carpentry_purchase_budget.model_purchase_order
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_account_analytic_line__purchase_id
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_carpentry_budget_expense__purchase_id
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_carpentry_budget_expense_detail__purchase_id
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_carpentry_budget_project__purchase_id
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_carpentry_budget_remaining__purchase_id
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_carpentry_budget_reservation__purchase_id
 msgid "Purchase Order"
 msgstr "Commande fournisseur"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__readonly_affectation
-msgid "Readonly Affectation"
-msgstr "Affectation en lecture seule"
+#: model:ir.model,name:carpentry_purchase_budget.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Ligne de commande d'achat"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Recorded gain:"
-msgstr "Gain enregistré :"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__readonly_budget_analytic_ids
+msgid "Readonly Budget Analytic"
+msgstr "Choix des budgets en lecture seule"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Recorded loss:"
-msgstr "Perte enregistrée :"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__readonly_reservation
+msgid "Readonly Reservation"
+msgstr "Réservations en lecture seule"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Remaining"
-msgstr "Restant"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__total_expense_valued
+msgid "Real expense"
+msgstr "Dépense réelle"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Remaining budgets"
-msgstr "Remaining budget"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__total_budget_reserved
+msgid "Reserved budget"
+msgstr " Budget réservé"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Reserve budget"
-msgstr "Réserver du budget"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__show_budget_banner
+msgid "Show Budget Banner"
+msgstr "Afficher la bannière de budget"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__section_ids
-msgid "Sections"
-msgstr ""
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__show_gain
+msgid "Show Gain"
+msgstr "Afficher le gain"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__sequence
-msgid "Sequence"
-msgstr "Séquence"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__text_no_reservation
+msgid "Text No Reservation"
+msgstr "Texte sans réservation"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model.fields,help:carpentry_purchase_budget.field_purchase_order__sum_quantity_affected
-msgid "Sum of budget reservation"
-msgstr "Total des budgets réservés"
+#: model:ir.model.fields,field_description:carpentry_purchase_budget.field_purchase_order__total_budgetable
+msgid "Total Budgetable"
+msgstr "Total budgétisable"
 
 #. module: carpentry_purchase_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_purchase_budget.purchase_order_form
-msgid "Total expense amount affected to the project:"
-msgstr "Montant total de la dépense affectée au projet :"
+#: model:ir.model.fields,help:carpentry_purchase_budget.field_purchase_order__total_expense_valued
+msgid "Total cost imputed to the budgets"
+msgstr "Total des coûts imputé aux budgets"
 
 #. module: carpentry_purchase_budget
-#: model:ir.model.fields,help:carpentry_purchase_budget.field_purchase_order__section_ids
-msgid "With at least 1 position in commun"
-msgstr "Avec au moins 1 repère en commun"
+#: model:ir.model.fields,help:carpentry_purchase_budget.field_purchase_order__budget_verified
+msgid "Whether the budget reservation has been verified by a tier."
+msgstr "Si la réservation de budget a été vérifiée par un tiers."
+
+#. module: carpentry_purchase_budget
+#: model:ir.model.fields,help:carpentry_purchase_budget.field_purchase_order__project_id
+msgid "Within your favorite projects"
+msgstr "Parmis vos projets favoris"
+
+#. module: carpentry_purchase_budget
+#. odoo-python
+#: code:addons/carpentry_purchase_budget/models/purchase_order.py:0
+#, python-format
+msgid "billing"
+msgstr "facturation"

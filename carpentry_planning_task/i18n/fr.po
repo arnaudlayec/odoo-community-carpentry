@@ -6,24 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-11 11:29+0000\n"
-"PO-Revision-Date: 2025-01-11 11:29+0000\n"
+"POT-Creation-Date: 2026-01-22 21:37+0000\n"
+"PO-Revision-Date: 2026-01-22 21:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: carpentry_planning_task
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task.carpentry_planning_kanban
-msgid "<i class=\"fa fa-plus-square-o\" title=\"title\"/> Task"
-msgstr "<i class=\"fa fa-plus-square-o\" title=\"Titre\"/> Tâche"
-
-#. module: carpentry_planning_task
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task.carpentry_planning_kanban
-msgid "Add a new task"
-msgstr "Ajouter une nouvelle tâche"
 
 #. module: carpentry_planning_task
 #. odoo-python
@@ -37,31 +27,6 @@ msgstr ""
 "est/sont manquante(s). Contexte : %s"
 
 #. module: carpentry_planning_task
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task.view_task_tree2
-msgid "Click to close the task"
-msgstr "Clôturer la tâche"
-
-#. module: carpentry_planning_task
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task.view_task_form2
-msgid "Click to mark as done"
-msgstr "Marquer la tâche comme terminée"
-
-#. module: carpentry_planning_task
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task.view_task_form2
-msgid "Close"
-msgstr "Clôturer"
-
-#. module: carpentry_planning_task
-#: model:ir.model.fields,field_description:carpentry_planning_task.field_project_task__create_date_week
-msgid "Create Week"
-msgstr "Semaine de création"
-
-#. module: carpentry_planning_task
-#: model:ir.model.fields,field_description:carpentry_planning_task.field_project_task__date_deadline
-msgid "Date Deadline"
-msgstr "Date limite"
-
-#. module: carpentry_planning_task
 #: model:ir.model.fields.selection,name:carpentry_planning_task.selection__carpentry_planning_card__task_state__success
 msgid "Done, all on time"
 msgstr "Terminé, dans les temps"
@@ -70,11 +35,6 @@ msgstr "Terminé, dans les temps"
 #: model:ir.model.fields.selection,name:carpentry_planning_task.selection__carpentry_planning_card__task_state__warning
 msgid "Done, some overdue"
 msgstr "Terminé, en retard partiel"
-
-#. module: carpentry_planning_task
-#: model:ir.model.fields,field_description:carpentry_planning_task.field_project_task__date_end
-msgid "Finish Date"
-msgstr "Date de fin"
 
 #. module: carpentry_planning_task
 #. odoo-javascript
@@ -99,16 +59,6 @@ msgid "Late Task(s)"
 msgstr "Tâche(s) en retard"
 
 #. module: carpentry_planning_task
-#: model:ir.model.fields,field_description:carpentry_planning_task.field_project_task__launch_ids
-msgid "Launches"
-msgstr "Lancements"
-
-#. module: carpentry_planning_task
-#: model:ir.model,name:carpentry_planning_task.model_carpentry_planning_card
-msgid "Planning Card"
-msgstr "Cartes du planning"
-
-#. module: carpentry_planning_task
 #: model:ir.model.fields,field_description:carpentry_planning_task.field_project_task__card_res_id
 msgid "Planning Card ID"
 msgstr "ID de la carte du planning"
@@ -131,14 +81,8 @@ msgid "Planning Tasks"
 msgstr "Tâches du planning"
 
 #. module: carpentry_planning_task
-#: model:ir.model.fields,field_description:carpentry_planning_task.field_project_task__kanban_state
-msgid "Status"
-msgstr "Statut"
-
-#. module: carpentry_planning_task
-#: model:ir.model,name:carpentry_planning_task.model_project_task
 #: model:ir.model.fields,field_description:carpentry_planning_task.field_carpentry_planning_card__task_ids
-msgid "Task"
+msgid "Related Tasks"
 msgstr "Tâche"
 
 #. module: carpentry_planning_task
@@ -185,23 +129,3 @@ msgstr "Couleur de l'état de la tâche"
 #: model:ir.model.fields,field_description:carpentry_planning_task.field_carpentry_planning_card__task_week
 msgid "Task Week"
 msgstr "Semaine de la tâche"
-
-#. module: carpentry_planning_task
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task.view_task_tree2
-msgid "Task is closed, click to re-open it"
-msgstr "Ré-ouvrir la tâche (qui est actuellement clôturée)"
-
-#. module: carpentry_planning_task
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task.carpentry_planning_kanban
-msgid ""
-"Tasks remaining / Tasks total\n"
-"                            - Normal: in progress\n"
-"                            - Red: at least 1 open task is late\n"
-"                            - Orange: all done with overdue\n"
-"                            - Green: all done on time"
-msgstr ""
-"Tâches restantes / Tâches totales\n"
-"                                - Normal : en cours\n"
-"                                - Rouge : au moins une tâche ouverte est en retard\n"
-"                                - Orange : toutes les tâches sont terminées, avec retard\n"
-"                                - Vert : toutes les tâches ont été accomplies dans les délais"

@@ -6,21 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 12:49+0000\n"
-"PO-Revision-Date: 2025-06-30 14:57+0200\n"
+"POT-Creation-Date: 2026-01-22 21:37+0000\n"
+"PO-Revision-Date: 2026-01-22 22:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr_FR\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: carpentry_position
 #. odoo-python
 #: code:addons/carpentry_position/models/carpentry_position.py:0
-#: code:addons/carpentry_position/tests/test_carpentry_position.py:0
+#: code:addons/carpentry_position/tests/test_carpentry_03_position.py:0
 #, python-format
 msgid " (copied)"
 msgstr " (copié)"
@@ -33,7 +33,7 @@ msgid ""
 "phases\n"
 "                    or launches. See <strong>Positions</strong>, <strong>Phases</strong> or "
 "<strong>Launches</strong>\n"
-"                    for more details.\n"
+"                    menu items.\n"
 "                </span>"
 msgstr ""
 "<span attrs=\"{'invisible': [('position_fully_affected', '=', True)]}\">\n"
@@ -43,24 +43,34 @@ msgstr ""
 "                </span>"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__active
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__active
+#. odoo-python
+#: code:addons/carpentry_position/models/carpentry_affectation.py:0
+#, python-format
+msgid ""
+"A position from a phase cannot be affected to several launchs.\n"
+"- Position: %(position)s \n"
+"- Phase: %(phase)s \n"
+"- Other launch: %(other_launchs)s \n"
+"- Current launch: %(launch)s "
+msgstr ""
+"Un repère ne peut pas être affecté à plusieurs lancements depuis une même phase.\n"
+"- Repère : %(position)s \n"
+"- Phase : %(phase)s \n"
+"- Autre(s) lancement(s) : %(other_launchs)s \n"
+"- Lancement actuel : %(launch)s "
+
+#. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__active
 msgid "Active"
 msgstr "Actif"
 
 #. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__active
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__active
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_mixin__active
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__active
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__active
 msgid "Active?"
 msgstr "Actif ?"
-
-#. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_form
-msgid "Add any non-affected positions of the linked lots to the current phase"
-msgstr "Ajouter tous les repères non pleinement affectés des lots liés à cette phase"
 
 #. module: carpentry_position
 #: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_launch_form
@@ -68,24 +78,8 @@ msgid "Affect all"
 msgstr "Tout affecter"
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_affectation_search
 #: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_position_tree
 msgid "Affectation"
-msgstr ""
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_project_project__affectation_ids_temp_launch
-msgid "Affectation Ids Temp Launch"
-msgstr ""
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_project_project__affectation_ids_temp_phase
-msgid "Affectation Ids Temp Phase"
-msgstr ""
-
-#. module: carpentry_position
-#: model:ir.model,name:carpentry_position.model_carpentry_group_affectation_mixin
-msgid "Affectation Mixin"
 msgstr ""
 
 #. module: carpentry_position
@@ -94,10 +88,12 @@ msgid "Affectation status"
 msgstr "Statut d'affectation"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_mixin__affectation_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__affectation_ids
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__affectation_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__affectation_ids
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__affectation_ids
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__affectation_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_project_project__affectation_ids
 msgid "Affectations"
 msgstr "Affectations des repères"
 
@@ -107,24 +103,17 @@ msgid "Affectations in Phases"
 msgstr "Affectations dans les phases"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__affected
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__affected
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__affected
 msgid "Affected"
 msgstr "Affecté"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__quantity_affected
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__quantity_affected
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__quantity_affected
 msgid "Affected quantity"
 msgstr "Quantité affectée"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_project_project__affectation_ids_project
-msgid "All affectations"
-msgstr "Toutes les affectations"
-
-#. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_launch_form
+#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_affectation_tree_phase
 msgid "Already affected"
 msgstr "Déjà affecté"
 
@@ -135,21 +124,18 @@ msgid "Archived"
 msgstr "Archivé"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__quantity_available
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__quantity_available
-msgid "Available"
-msgstr "Disponible"
+#: model:ir.ui.menu,name:carpentry_position.menu_carpentry_group
+msgid "Carpentry"
+msgstr "Menuiserie"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__affectation_ids
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__affectation_ids
-msgid "Children Affectations"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__children_ids
+msgid "Children affectations"
 msgstr "Affectations enfantes"
 
 #. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__company_id
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__company_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_mixin__company_id
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__company_id
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__company_id
 msgid "Company"
@@ -167,12 +153,16 @@ msgid "Create a first Launch."
 msgstr "Créer un premier Lancement."
 
 #. module: carpentry_position
+#: model_terms:ir.actions.act_window,help:carpentry_position.action_open_lot
+msgid "Create a first Lot."
+msgstr "Créer un premier Lot."
+
+#. module: carpentry_position
 #: model_terms:ir.actions.act_window,help:carpentry_position.action_open_phase
 msgid "Create a first Phase."
 msgstr "Créer une première Phase."
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__create_uid
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__create_uid
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__create_uid
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__create_uid
@@ -181,7 +171,6 @@ msgid "Created by"
 msgstr "Créé par"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__create_date
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__create_date
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__create_date
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__create_date
@@ -190,19 +179,12 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__currency_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__currency_id
-msgid "Currency"
-msgstr "Devise"
-
-#. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__description
 msgid "Description"
 msgstr ""
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__display_name
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__display_name
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__display_name
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__display_name
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__display_name
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__display_name
@@ -211,53 +193,7 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_form
-msgid "Edit Affectations"
-msgstr "Modifier les affectations"
-
-#. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_form
-msgid "Edit Linked Lots"
-msgstr "Modifier les lots liés"
-
-#. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_launch_form
-msgid "Edit Linked Phases"
-msgstr "Modifier les phases liées"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__group_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__group_id
-msgid "Group ID"
-msgstr "ID du groupe"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__group_res_model
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__group_res_model
-msgid "Group Model"
-msgstr "Modèle de groupe"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__group_model_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__group_model_id
-msgid "Group Model ID"
-msgstr "Groupe Modèle ID"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__group_ref
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__group_ref
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__group_ref
-msgid "Group Ref"
-msgstr "Réf. du groupe"
-
-#. module: carpentry_position
-#: model:ir.model,name:carpentry_position.model_carpentry_group_mixin
-msgid "Group of Positions"
-msgstr "Groupe de repères"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__id
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__id
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__id
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__id
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__id
@@ -266,25 +202,12 @@ msgid "ID"
 msgstr ""
 
 #. module: carpentry_position
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_position__state
-msgid "Indicates whether quantity is fully affected or not in phases and launches"
-msgstr "Indique si la quantité est entièrement affectée ou non dans les phases et les lancements"
-
-#. module: carpentry_position
-#: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_group_affectation_group_record
-#: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_group_affectation_temp_group_record
-msgid "Integrity error (unicity of 1 group and 1 record per cell)."
-msgstr "Erreur d'intégrité (unicité de 1 groupe et 1 enregistrement par cellule)."
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__is_affectable
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__is_affectable
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__is_affectable
 msgid "Is Affectable"
-msgstr "Peut être affecté"
+msgstr "Est affectable"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation____last_update
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp____last_update
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation____last_update
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch____last_update
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot____last_update
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase____last_update
@@ -293,7 +216,6 @@ msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__write_uid
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__write_uid
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__write_uid
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__write_uid
@@ -302,7 +224,6 @@ msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__write_date
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__write_date
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__write_date
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__write_date
@@ -311,9 +232,14 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__launch_id
+#: model:ir.model.fields.selection,name:carpentry_position.selection__carpentry_affectation__mode__launch
+msgid "Launch"
+msgstr "Lancement"
+
+#. module: carpentry_position
 #: model:ir.actions.act_window,name:carpentry_position.action_open_launch
 #: model:ir.actions.server,name:carpentry_position.action_open_launch_srv
-#: model:ir.model.fields,field_description:carpentry_position.field_project_project__launch_ids
 #: model:ir.ui.menu,name:carpentry_position.menu_carpentry_launch
 msgid "Launches"
 msgstr "Lancements"
@@ -321,42 +247,72 @@ msgstr "Lancements"
 #. module: carpentry_position
 #: model_terms:ir.actions.act_window,help:carpentry_position.action_open_launch
 msgid ""
-"Launches correspond to the launch in production of group of Positions. They are the\n"
-"                steering units of the project: every steps of the project can be linked to 1 or "
-"several\n"
-"                launch, like Purchase Orders or Production Work Order.\n"
-"                The Project Planning is organized by Launches."
+"Launches are the Positions' group planned to be manufactured, a little\n"
+"                before Manufacturing Order. They are the steering units of the project,\n"
+"                like sub-projects: every Purchase Orders, Manufacturing Orders, etc.\n"
+"                can be linked to 1 or several launchs.\n"
+"\n"
+"                The Project Planning is steered by Launches."
 msgstr ""
-"Les lancements correspondent au lancement en production d'un ensemble de Repères. Ils sont l'unité de "
-"pilotage d'un chantier : toutes les étapes du projet peuvent être reliées à 1 plusieurs lancements, "
-"comme les commandes fournisseurs ou les ordres de fabrication. Le planning du projet est organisé par "
-"lancement."
+"Les lancements sont les groupes de planification des repères pour la fabrication, juste avant les Ordres "
+"de Fabrication.\n"
+"Ils sont les unités de pilotage d'une affaire, comme des sous-projets : chaque Commande Fournisseur, Ordre "
+"de Fabrication, etc. peut être lié à 1 ou plusieurs lancements.\n"
+"Le planning projet est piloté par Lancements."
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_form
-msgid "Linked Lots"
-msgstr "Lots liés"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__launch_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__launch_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__launch_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__launch_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__launch_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_project_project__launch_ids
+msgid "Launchs"
+msgstr "Lancements"
 
 #. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__lot_id
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__lot_id
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_affectation_tree
 msgid "Lot"
 msgstr ""
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__seq_group
-msgid "Lot Sequence"
-msgstr "Séquence des lots"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__sequence_lot
+msgid "Lot sequence"
+msgstr "Séquence du lot"
 
 #. module: carpentry_position
+#: model:ir.actions.act_window,name:carpentry_position.action_open_lot
+#: model:ir.actions.server,name:carpentry_position.action_open_lot_srv
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__lot_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__lot_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__lot_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__lot_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__lot_ids
 #: model:ir.model.fields,field_description:carpentry_position.field_project_project__lot_ids
+#: model:ir.ui.menu,name:carpentry_position.menu_carpentry_lot
 msgid "Lots"
+msgstr ""
+
+#. module: carpentry_position
+#: model_terms:ir.actions.act_window,help:carpentry_position.action_open_lot
+msgid ""
+"Lots are the first way of groupping the Positions in the project.\n"
+"                They are defined in the call for tender, at the beginning of commercial phase.\n"
+"                They are used in the design &amp; calculation tools to simulate the project."
+msgstr ""
+"Les lots sont les tous premiers moyens d'organiser les Repères dans l'affaire.\n"
+"Ils sont définis au moment de l'appel d'offre avec le client, au début de la phase commerciale du projet.\n"
+"Ils sont utilisés dans les solutions métiers de dessin et de calcul."
+
+#. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__mode
+msgid "Mode"
 msgstr ""
 
 #. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__name
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__name
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_mixin__name
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__name
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__name
 #: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_form
@@ -375,10 +331,15 @@ msgstr ""
 
 #. module: carpentry_position
 #. odoo-python
-#: code:addons/carpentry_position/models/carpentry_group_affectation.py:0
+#: code:addons/carpentry_position/models/carpentry_affectation_mixin.py:0
 #, python-format
-msgid "One line cannot be affected to several columns (%s)."
-msgstr "Une ligne ne peut pas être affectée à plusieurs colonnes (%s)."
+msgid "Operation not supported"
+msgstr "Opération non supportée"
+
+#. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__parent_id
+msgid "Parent affectation"
+msgstr "Affectation parente"
 
 #. module: carpentry_position
 #: model:ir.model.fields.selection,name:carpentry_position.selection__carpentry_position__state__warning_launch
@@ -391,13 +352,20 @@ msgid "Partial on phase(s)"
 msgstr "Partiel sur les phase(s)"
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_launch_form
+#: model:ir.model,name:carpentry_position.model_carpentry_group_phase
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__phase_id
+#: model:ir.model.fields.selection,name:carpentry_position.selection__carpentry_affectation__mode__phase
 msgid "Phase"
 msgstr ""
 
 #. module: carpentry_position
 #: model:ir.actions.act_window,name:carpentry_position.action_open_phase
 #: model:ir.actions.server,name:carpentry_position.action_open_phase_srv
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__phase_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__phase_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__phase_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__phase_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__phase_ids
 #: model:ir.model.fields,field_description:carpentry_position.field_project_project__phase_ids
 #: model:ir.ui.menu,name:carpentry_position.menu_carpentry_phase
 msgid "Phases"
@@ -406,24 +374,21 @@ msgstr ""
 #. module: carpentry_position
 #: model_terms:ir.actions.act_window,help:carpentry_position.action_open_phase
 msgid ""
-"Phases correspond to the contractual groupping of Positions on-site installation with the project's "
-"customer.\n"
-"                They match with the installation phases of Positions on the building (e.g. frontages)."
+"Phases are the contractual groupping of Positions with the project's customer.\n"
+"                They match with the site installation phases of Positions on the building (e.g. frontages)."
 msgstr ""
-"Les Phases correspondent au regroupement contractuel des phases d'installation des Repères sur le "
-"chantier, en accord avec le client et le planning contractuel du projet."
+"Les phases sont le regroupement contractuel des Repères avec le client de l'affaire.\n"
+"Ils correspondent aux phases de pose des Repères sur le bâtiment (ex. façades)."
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__position_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__position_id
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_affectation_tree
+#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_form
+msgid "Please save before continuing"
+msgstr "Veuillez sauvegarder avant de continuer"
+
+#. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__position_id
 msgid "Position"
 msgstr "Repère"
-
-#. module: carpentry_position
-#: model:ir.model,name:carpentry_position.model_carpentry_group_affectation_temp
-msgid "Position Affectation (Temp)"
-msgstr "Affectation de repère"
 
 #. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_project_project__position_fully_affected
@@ -431,14 +396,18 @@ msgid "Position Fully Affected"
 msgstr "Repère entièrement affecté"
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_affectation_tree
-msgid "Position quantity"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__quantity_position
+msgid "Position's quantity"
 msgstr "Quantité du repère"
 
 #. module: carpentry_position
 #: model:ir.actions.act_window,name:carpentry_position.action_open_position
 #: model:ir.actions.server,name:carpentry_position.action_open_position_srv
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__affectation_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__position_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__position_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__position_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__position_ids
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__position_ids
 #: model:ir.model.fields,field_description:carpentry_position.field_project_project__position_ids
 #: model:ir.ui.menu,name:carpentry_position.menu_carpentry_position
 #: model_terms:ir.ui.view,arch_db:carpentry_position.edit_project
@@ -446,36 +415,23 @@ msgid "Positions"
 msgstr "Repères"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_mixin__sum_quantity_affected
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__sum_quantity_affected
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__sum_quantity_affected
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__sum_quantity_affected
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__position_count
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__position_count
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__position_count
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__position_count
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__position_count
 #: model:ir.model.fields,field_description:carpentry_position.field_project_project__position_count
 msgid "Positions Count"
 msgstr "Repères"
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_affectation_temp_matrix
-msgid "Positions affectation in Launches"
-msgstr "Affectations des repères dans les lancements"
-
-#. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_affectation_temp_matrix
-msgid "Positions affectation in Phases"
-msgstr "Affectations des repères dans les phases"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__project_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__project_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__project_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_mixin__project_id
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__project_id
 msgid "Project"
 msgstr "Projet"
 
 #. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__project_id_domain
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__project_id_domain
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_mixin__project_id_domain
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__project_id_domain
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__project_id_domain
 msgid "Project Id Domain"
@@ -483,14 +439,18 @@ msgstr ""
 
 #. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__quantity
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_launch_form
 msgid "Quantity"
 msgstr "Quantité"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__quantity_affected
-msgid "Quantity Affected"
-msgstr "Quantité affectée"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__sum_affected_siblings
+msgid "Quantity affected to siblings"
+msgstr "Quantité affectée aux voisins"
+
+#. module: carpentry_position
+#: model:ir.model.fields,help:carpentry_position.field_carpentry_affectation__quantity_position
+msgid "Quantity initially available in the project"
+msgstr "Quantité initiale disponible dans le projet"
 
 #. module: carpentry_position
 #: model:ir.model.fields,help:carpentry_position.field_carpentry_position__quantity_remaining_to_affect
@@ -503,41 +463,24 @@ msgid "Range"
 msgstr "Gamme"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_mixin__readonly_affectation
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__readonly_affectation
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__readonly_affectation
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__readonly_affectation
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__readonly_affectation
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__readonly_affectation
+#: model:ir.model.fields,field_description:carpentry_position.field_project_project__readonly_affectation
 msgid "Readonly Affectation"
 msgstr "Affectation en lecture seule"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__record_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__record_id
-msgid "Record ID"
-msgstr "ID de l'enregistrement"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__record_res_model
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__record_res_model
-msgid "Record Model"
-msgstr "Modèle d'enregistrement"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__record_model_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__record_model_id
-msgid "Record Model ID"
-msgstr "ID du modèle"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__record_ref
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__record_ref
-msgid "Record Ref"
-msgstr "Réf de l'enregistrement"
-
-#. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_form
-msgid "Refresh from Linked Lots"
-msgstr "Rafraîchir depuis les lots liés"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__readonly_parent_group
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__readonly_parent_group
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__readonly_parent_group
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__readonly_parent_group
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__readonly_parent_group
+#: model:ir.model.fields,field_description:carpentry_position.field_project_project__readonly_parent_group
+msgid "Readonly Parent Group"
+msgstr "Groupe parent en lecture seule"
 
 #. module: carpentry_position
 #: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_tree
@@ -545,91 +488,48 @@ msgid "Related Lots"
 msgstr "Lots liés"
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_launch_form
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_launch_tree
-msgid "Related Phases"
-msgstr "Phases liées"
-
-#. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__quantity_remaining_to_affect
 msgid "Remaining"
 msgstr "Restant"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__quantity_remaining_to_affect
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__quantity_remaining_to_affect
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__quantity_remaining_to_affect
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation_mixin__quantity_remaining_to_affect
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__quantity_remaining_to_affect
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__quantity_remaining_to_affect
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__quantity_remaining_to_affect
+#: model:ir.model.fields,field_description:carpentry_position.field_project_project__quantity_remaining_to_affect
 msgid "Remaining to affect"
-msgstr "Reste à affecter"
+msgstr "Quantité restante à affecter"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__section_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__section_id
-msgid "Section ID"
-msgstr "ID de la section"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__section_res_model
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__section_res_model
-msgid "Section Model"
-msgstr "Modèle de section"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__section_model_id
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__section_model_id
-msgid "Section Model ID"
-msgstr "Section Modèle ID"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__section_ref
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__section_ref
-msgid "Section Ref"
-msgstr "Section Réf"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_mixin__section_ids
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__section_ids
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__section_ids
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__section_ids
-msgid "Sections"
-msgstr ""
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__seq_group
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__seq_group
-msgid "Seq Group"
-msgstr "Groupe Seq"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__seq_section
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__seq_section
-msgid "Seq Section"
-msgstr "Section Seq"
-
-#. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__sequence
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_mixin__sequence
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__sequence
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__sequence_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_launch__sequence
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_lot__sequence
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_mixin__sequence
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_phase__sequence
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__sequence
 msgid "Sequence"
 msgstr "Séquence"
 
 #. module: carpentry_position
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_affectation_mixin__sum_quantity_affected
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_launch__sum_quantity_affected
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_lot__sum_quantity_affected
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_phase__sum_quantity_affected
-msgid "Sum of affected quantities"
-msgstr "Somme des quantités affectées"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__sequence_group
+msgid "Sequence Group"
+msgstr "Séquence du groupe"
 
 #. module: carpentry_position
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation__sum_affected_siblings
-#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_group_affectation_temp__sum_affected_siblings
-msgid "Sum of affected to neighbors"
-msgstr "Somme des quantités affectées aux voisins"
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__sequence_parent_group
+msgid "Sequence Parent Group"
+msgstr "Séquence du groupe parent"
+
+#. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__launch_sibling_ids
+msgid "Sibling affectations"
+msgstr "Affectations des voisins"
+
+#. module: carpentry_position
+#: model:ir.model.fields,field_description:carpentry_position.field_carpentry_affectation__phase_sibling_ids
+msgid "Sibling positions"
+msgstr "Repères des voisins"
 
 #. module: carpentry_position
 #: model:ir.model.fields,field_description:carpentry_position.field_carpentry_position__surface
@@ -638,62 +538,60 @@ msgstr ""
 
 #. module: carpentry_position
 #. odoo-python
-#: code:addons/carpentry_position/models/carpentry_group_affectation.py:0
+#: code:addons/carpentry_position/models/carpentry_affectation.py:0
 #, python-format
 msgid ""
 "The affected quantity is higher than the one available in the project:\n"
-"- Records: '%s' and '%s'\n"
-"- Total available quantity in the project: %s\n"
-"- Affected quantity in the current item: %s\n"
-"- Affected quantity on neighbors: %s\n"
-"- Overconsumption: %s"
+"\n"
+"Position: %(position)s\n"
+"Phase: %(phase)s\n"
+"Lot: %(lot)s\n"
+"Available total in the project: %(quantity_initially_available)s\n"
+"Affected quantity in the current item: %(quantity_affected)s\n"
+"Affected quantity on neighbors: %(quantity_siblings)s\n"
+"Overconsumption: %(overconsumption)s"
 msgstr ""
-"La quantité affectée est supérieure à celle disponible dans le projet :\n"
-"- Enregistrements concernés : '%s' et '%s'\n"
-"- Quantité totale initialement disponible dans le projet : %s\n"
-"- Tentative d'affectation : %s\n"
-"- Quantité déjà affectées dans les objets voisins : %s\n"
-"- Sur-consommation : %s"
+"La quantité disponible est supérieure à celle disponible dans le projet :\n"
+"\n"
+"Repère : %(position)s\n"
+"Phase : %(phase)s\n"
+"Lot : %(lot)s\n"
+"Total disponible dans le projet : %(quantity_initially_available)s\n"
+"Quantité affecté à l'enregistrement en question : %(quantity_affected)s\n"
+"Quantité affectée sur les voisins : %(quantity_siblings)s\n"
+"Sur-consommation : %(overconsumption)s"
 
 #. module: carpentry_position
-#. odoo-python
-#: code:addons/carpentry_position/models/carpentry_group_affectation.py:0
-#, python-format
-msgid ""
-"This affectation cannot be deleted since used by another record (like a Launch, Sale Order, "
-"Fabrication Order, ...)"
-msgstr ""
-"Cette affectation ne peut pas être supprimée car elle est utilisée par un autre enregistrement (comme "
-"un lancement, une commande client, un ordre de fabrication, ...)"
-
-#. module: carpentry_position
+#: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_affectation_mixin_name_per_project
 #: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_group_launch_name_per_project
 #: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_group_lot_name_per_project
-#: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_group_mixin_name_per_project
 #: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_group_phase_name_per_project
 #: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_plan_set_name_per_project
+#: model:ir.model.constraint,message:carpentry_position.constraint_carpentry_position_name_per_project
 msgid "This name already exists within the project."
 msgstr "Ce nom existe déjà dans le projet."
 
 #. module: carpentry_position
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_affectation_mixin__section_ids
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_launch__section_ids
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_lot__section_ids
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_phase__section_ids
-msgid "With at least 1 position in commun"
-msgstr "Avec au moins 1 repère en commun"
+#. odoo-python
+#: code:addons/carpentry_position/models/carpentry_affectation.py:0
+#, python-format
+msgid "This position is affected to a launch, so it cannot be unaffected from this phase"
+msgstr "Ce repère est affecté à un lancement, donc il ne peut pas être désaffecté de cette phase"
 
 #. module: carpentry_position
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_lot__project_id
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_mixin__project_id
+#: model:ir.model.fields,help:carpentry_position.field_carpentry_position__state
+msgid "Whether quantity is fully affected or not in phases and launches"
+msgstr "Indique si la quantité est entièrement affectée ou non dans les phases et les lancements"
+
+#. module: carpentry_position
+#: model:ir.model.fields,help:carpentry_position.field_carpentry_affectation__project_id
 msgid "Within your favorite projects"
 msgstr "Parmis vos projets favoris"
 
 #. module: carpentry_position
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_affectation__quantity_remaining_to_affect
-#: model:ir.model.fields,help:carpentry_position.field_carpentry_group_affectation_temp__quantity_remaining_to_affect
-msgid "[Available quantity in the project] - [Sum of quantities already affected]"
-msgstr "[Quantité du repère] - [Somme des quantités du repère déjà affectées dans le projet]"
+#: model:ir.model.fields,help:carpentry_position.field_carpentry_affectation__quantity_remaining_to_affect
+msgid "[Available quantity in the project] - [Quantities already affected]"
+msgstr "[Quantité disponible dans le projet] - [Quantités déjà affectées]"
 
 #. module: carpentry_position
 #: model:ir.model.fields.selection,name:carpentry_position.selection__carpentry_position__state__na
@@ -701,8 +599,7 @@ msgid "n/a"
 msgstr ""
 
 #. module: carpentry_position
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_affectation_search
-#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_lot_search
+#: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_affectation_search
 #: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_group_phase_search
 #: model_terms:ir.ui.view,arch_db:carpentry_position.carpentry_position_search
 msgid "★ Projects"

@@ -209,7 +209,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
     @api.depends('project_id', 'launch_ids')
     def _compute_readonly_budget_analytic_ids(self):
         """ Same than `readonly_reservation`, but
-             let `budget_analytic_ids` writable when
+             leave `budget_analytic_ids` writable when
              modifying `budget_analytic_ids` itself
         """
         self.readonly_budget_analytic_ids = not bool(self == self._origin)

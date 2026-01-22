@@ -38,7 +38,8 @@
                     <field t-att-name="fields['total_budgetable']" readonly="1" />
                     <field t-att-name="fields['budget_unit']" readonly="1" />
                 </strong>).
-                If this is not on purpose, review the "Budget" tab. </div>
+                If this is not on purpose, review the "Budget" tab.
+            </div>
         </div>
     </template>
 
@@ -87,9 +88,11 @@
 
             <button name="save_refresh" type="object"
                 class="btn btn-primary oe_right" icon="fa-floppy-o"
+                attrs="{'invisible': [('readonly_reservation', '=', False)]}"
+                help="When this button appear, Saving is required before going further."
+                on_change="1"
             >
-                <!-- attrs="{'invisible': [('readonly_reservation', '=', False)]}" -->
-                <!-- Save before continuing --> Apply
+                Save
             </button>
 
             <field t-att-name="fields['budget_analytic_ids']"
@@ -107,6 +110,7 @@
                     ('budget_project_ids', '=', project_id),
                     '|', ('budget_type', 'in', {{budget_types}}), ('id', 'in', {{fields['budget_analytic_ids']}})
                 ]"
+                on_change="1"
             />
         </div>
     </template>

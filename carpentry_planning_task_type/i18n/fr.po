@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-21 11:11+0000\n"
-"PO-Revision-Date: 2025-04-21 13:11+0200\n"
+"POT-Creation-Date: 2026-01-22 21:37+0000\n"
+"PO-Revision-Date: 2026-01-22 22:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: carpentry_planning_task_type
 #: model:ir.actions.report,print_report_name:carpentry_planning_task_type.action_task_carpentry_print
@@ -74,11 +74,6 @@ msgstr "Tous les documents à envoyer doivent appartenir à la même affaire."
 #: model_terms:ir.ui.view,arch_db:carpentry_planning_task_type.task_report_single
 msgid "Assignee(s):"
 msgstr "Assigné(s) :"
-
-#. module: carpentry_planning_task_type
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task_type.view_task_tree_instruction
-msgid "Author"
-msgstr "Auteur"
 
 #. module: carpentry_planning_task_type
 #: model_terms:ir.ui.view,arch_db:carpentry_planning_task_type.task_report_single
@@ -234,35 +229,15 @@ msgid "Name Required"
 msgstr "Nom requis"
 
 #. module: carpentry_planning_task_type
-#: model_terms:ir.ui.view,arch_db:carpentry_planning_task_type.task_report_single
-msgid "Open in web browser"
-msgstr "Ouvrir dans le navigateur web"
-
-#. module: carpentry_planning_task_type
 #: model:ir.model.fields,field_description:carpentry_planning_task_type.field_project_task__parent_type_id
 #: model_terms:ir.ui.view,arch_db:carpentry_planning_task_type.view_task_search_form
 msgid "Parent Category"
 msgstr "Catégorie du parent"
 
 #. module: carpentry_planning_task_type
-#: model:ir.model,name:carpentry_planning_task_type.model_project_project
-msgid "Project"
-msgstr "Projet"
-
-#. module: carpentry_planning_task_type
 #: model:ir.model.fields,field_description:carpentry_planning_task_type.field_project_role__assignment_ids
 msgid "Project Assignments"
 msgstr "Assignations du projet"
-
-#. module: carpentry_planning_task_type
-#: model:ir.model,name:carpentry_planning_task_type.model_project_role
-msgid "Project Role"
-msgstr "Rôle du projet"
-
-#. module: carpentry_planning_task_type
-#: model:ir.model,name:carpentry_planning_task_type.model_project_type
-msgid "Project Type"
-msgstr "Type de projet"
 
 #. module: carpentry_planning_task_type
 #: model_terms:ir.ui.view,arch_db:carpentry_planning_task_type.task_report
@@ -341,11 +316,6 @@ msgid "Tag(s):"
 msgstr "Tag(s) :"
 
 #. module: carpentry_planning_task_type
-#: model:ir.model,name:carpentry_planning_task_type.model_project_task
-msgid "Task"
-msgstr "Tâche"
-
-#. module: carpentry_planning_task_type
 #. odoo-python
 #: code:addons/carpentry_planning_task_type/models/project_task.py:0
 #, python-format
@@ -371,6 +341,11 @@ msgstr "Type de tâche"
 #: model:ir.model.fields,field_description:carpentry_planning_task_type.field_project_task__copy_task_id
 msgid "Task to copy"
 msgstr "Tâche à copier"
+
+#. module: carpentry_planning_task_type
+#: model:ir.model.fields,field_description:carpentry_planning_task_type.field_carpentry_group_launch__task_ids
+msgid "Tasks"
+msgstr "Tâches"
 
 #. module: carpentry_planning_task_type
 #: model_terms:ir.ui.view,arch_db:carpentry_planning_task_type.view_task_search_form

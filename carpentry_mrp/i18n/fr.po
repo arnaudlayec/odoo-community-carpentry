@@ -6,16 +6,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 12:49+0000\n"
-"PO-Revision-Date: 2025-06-30 14:51+0200\n"
+"POT-Creation-Date: 2026-01-22 21:37+0000\n"
+"PO-Revision-Date: 2026-01-22 22:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr_FR\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: carpentry_mrp
+#. odoo-python
+#: code:addons/carpentry_mrp/models/stock_quant.py:0
+#, python-format
+msgid " lot {}"
+msgstr ""
 
 #. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__active
@@ -82,6 +89,7 @@ msgid "Internal Reference"
 msgstr "Référence interne"
 
 #. module: carpentry_mrp
+#: model_terms:ir.ui.view,arch_db:carpentry_mrp.report_mrporder
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp.report_picking
 msgid "Launch(s) :"
 msgstr "Lancement(s) :"
@@ -138,19 +146,19 @@ msgstr "Transferts"
 #: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__planning_card_color_class
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__planning_card_color_class
 msgid "Planning Card Color (class)"
-msgstr ""
+msgstr "Couleur de la carte de planning (style)"
 
 #. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__planning_card_color_int
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__planning_card_color_int
 msgid "Planning Card Color (number)"
-msgstr ""
+msgstr "Couleur de la carte de planning (numéro)"
 
 #. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__planning_card_color_is_auto
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__planning_card_color_is_auto
 msgid "Planning Card Color Is Auto"
-msgstr ""
+msgstr "Si la couleur de la carte de planning est automatique"
 
 #. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_carpentry_planning_card__product_default_code
@@ -179,14 +187,15 @@ msgid "Project"
 msgstr "Projet"
 
 #. module: carpentry_mrp
+#: model_terms:ir.ui.view,arch_db:carpentry_mrp.report_mrporder
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp.report_picking
 msgid "Project :"
 msgstr "Projet :"
 
 #. module: carpentry_mrp
-#: model:ir.model.fields,field_description:carpentry_mrp.field_stock_quant__quantity_without_outgoing_raw_material
+#: model:ir.model.fields,field_description:carpentry_mrp.field_stock_quant__quantity_minus_outgoing_raw_material
 msgid "Quantity (with real-time production)"
-msgstr "Quantité (fabrication immédiate)"
+msgstr "Quantité (décompté de la fabrication en temps réel)"
 
 #. module: carpentry_mrp
 #: model:ir.model,name:carpentry_mrp.model_stock_quant
@@ -197,6 +206,11 @@ msgstr "Quantités"
 #: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__purchase_ids
 msgid "Related Purchase Orders"
 msgstr "Commandes liées"
+
+#. module: carpentry_mrp
+#: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__sequence
+msgid "Sequence"
+msgstr "Séquence"
 
 #. module: carpentry_mrp
 #: model:ir.model.fields,help:carpentry_mrp.field_mrp_production__delivery_picking_id
@@ -245,6 +259,21 @@ msgstr "Mouvements indisponibles"
 #: model:ir.model,name:carpentry_mrp.model_mrp_workcenter_productivity
 msgid "Workcenter Productivity Log"
 msgstr "Journal de productivité du poste de travail"
+
+#. module: carpentry_mrp
+#. odoo-python
+#: code:addons/carpentry_mrp/models/stock_quant.py:0
+#, python-format
+msgid ""
+"You cannot validate this stock operation because the stock level of the "
+"product '{name}'{name_lot} would become negative ({q_quantity}) on the "
+"stock location '{complete_name}' and negative stock is not allowed for this "
+"product and/or location."
+msgstr ""
+"Vous ne pouvez pas valider cette opération de stock car le niveau de stock "
+"du produit '{name}'{name_lot} deviendrait négatif ({q_quantity}) à "
+"l'emplacement '{complete_name}' et le stock négatif n'est pas autorisé pour "
+"ce produit et/ou cet emplacement."
 
 #. module: carpentry_mrp
 #. odoo-python

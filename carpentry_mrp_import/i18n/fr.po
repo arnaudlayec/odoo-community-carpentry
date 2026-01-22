@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 12:49+0000\n"
-"PO-Revision-Date: 2025-06-30 14:53+0200\n"
+"POT-Creation-Date: 2026-01-22 21:37+0000\n"
+"PO-Revision-Date: 2026-01-22 21:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: carpentry_mrp_import
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp_import.product_template_form_view
@@ -31,19 +29,20 @@ msgstr ""
 #: code:addons/carpentry_mrp_import/wizard/carpentry_mrp_import_wizard.py:0
 #, python-format
 msgid ""
-"<ul><li><strong>%(byproducts)s</strong> final products</"
-"li><li><strong>%(components)s</strong> components added</"
-"li><li><strong>%(consu)s</strong> consumable (to order separatly)</"
-"li><li><strong>%(substituted)s</strong> substituted references</"
-"li><li><strong>%(ignored)s</strong> explicitely ignored</"
-"li><li><strong>%(unknown)s</strong> unknown products</li></ul>"
+"<ul><li><strong>%(byproducts)s</strong> final "
+"products</li><li><strong>%(components)s</strong> components "
+"added</li><li><strong>%(consu)s</strong> consumable (to order "
+"separatly)</li><li><strong>%(substituted)s</strong> substituted "
+"references</li><li><strong>%(ignored)s</strong> explicitely "
+"ignored</li><li><strong>%(unknown)s</strong> unknown products</li></ul>"
 msgstr ""
-"<ul><li><strong>%(byproducts)s</strong> produits finis</"
-"li><li><strong>%(components)s</strong> composants ajoutés à l'Ordre de "
-"Fabrication</li><li><strong>%(consu)s</strong> consommables (à commander "
-"séparément)</li><li><strong>%(substituted)s</strong> références remplacées</"
-"li><li><strong>%(ignored)s</strong> ignorés explicitement</"
-"li><li><strong>%(unknown)s</strong> produits inconnus en base</li></ul>"
+"<ul><li><strong>%(byproducts)s</strong> produits "
+"finis</li><li><strong>%(components)s</strong> composants ajoutés à l'Ordre "
+"de Fabrication</li><li><strong>%(consu)s</strong> consommables (à commander "
+"séparément)</li><li><strong>%(substituted)s</strong> références "
+"remplacées</li><li><strong>%(ignored)s</strong> ignorés "
+"explicitement</li><li><strong>%(unknown)s</strong> produits inconnus en "
+"base</li></ul>"
 
 #. module: carpentry_mrp_import
 #. odoo-python
@@ -274,6 +273,7 @@ msgstr "Projet"
 
 #. module: carpentry_mrp_import
 #. odoo-python
+#: code:addons/carpentry_mrp_import/wizard/carpentry_mrp_import_wizard.py:0
 #: code:addons/carpentry_mrp_import/wizard/carpentry_mrp_import_wizard.py:0
 #, python-format
 msgid "Quantity"

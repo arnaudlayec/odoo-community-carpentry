@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 16:09+0000\n"
-"PO-Revision-Date: 2025-03-27 17:14+0100\n"
+"POT-Creation-Date: 2026-01-22 21:37+0000\n"
+"PO-Revision-Date: 2026-01-22 21:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.5\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: carpentry_project
 #. odoo-python
@@ -77,11 +75,6 @@ msgid "If activated, will be folded by default on Assignation kanban view."
 msgstr "Si activé, sera replié par défaut dans la vue Kanban."
 
 #. module: carpentry_project
-#: model:ir.model,name:carpentry_project.model_project_project
-msgid "Project"
-msgstr "Projet"
-
-#. module: carpentry_project
 #: model:ir.model,name:carpentry_project.model_project_assignment
 msgid "Project Assignment"
 msgstr "Affectation du projet"
@@ -124,11 +117,6 @@ msgstr "Séquence"
 #: model:ir.model.fields,field_description:carpentry_project.field_project_task__kanban_state
 msgid "Status"
 msgstr "Statut"
-
-#. module: carpentry_project
-#: model:ir.model,name:carpentry_project.model_project_task
-msgid "Task"
-msgstr "Tâche"
 
 #. module: carpentry_project
 #: model_terms:ir.ui.view,arch_db:carpentry_project.view_task_tree2

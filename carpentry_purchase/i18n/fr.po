@@ -6,16 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 12:49+0000\n"
-"PO-Revision-Date: 2025-06-30 15:00+0200\n"
+"POT-Creation-Date: 2026-01-22 21:37+0000\n"
+"PO-Revision-Date: 2026-01-22 21:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: carpentry_purchase
 #: model_terms:ir.ui.view,arch_db:carpentry_purchase.project_project_view_form
@@ -31,11 +29,6 @@ msgstr "<span class=\"o_stat_text\">Achats</span>"
 #: model_terms:ir.ui.view,arch_db:carpentry_purchase.carpentry_project_form
 msgid "Address"
 msgstr "Adresse"
-
-#. module: carpentry_purchase
-#: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_order_line__analytic_ids
-msgid "Analytic Accounts"
-msgstr "Comptes analytiques"
 
 #. module: carpentry_purchase
 #: model_terms:ir.ui.view,arch_db:carpentry_purchase.project_project_view_form
@@ -85,16 +78,6 @@ msgid "Internal Project"
 msgstr "Projet interne"
 
 #. module: carpentry_purchase
-#: model:ir.model,name:carpentry_purchase.model_account_move
-msgid "Journal Entry"
-msgstr "Pièce comptable"
-
-#. module: carpentry_purchase
-#: model:ir.model,name:carpentry_purchase.model_account_move_line
-msgid "Journal Item"
-msgstr "Écriture comptable"
-
-#. module: carpentry_purchase
 #: model:ir.model,name:carpentry_purchase.model_carpentry_group_launch
 msgid "Launch"
 msgstr "Lancement"
@@ -127,11 +110,8 @@ msgstr "Types de produits"
 #. module: carpentry_purchase
 #: model:ir.model.fields,field_description:carpentry_purchase.field_account_bank_statement_line__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_account_move__project_id
-#: model:ir.model.fields,field_description:carpentry_purchase.field_account_move_line__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_account_payment__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_arrival_date__project_id
-#: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_order__project_id
-#: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_order_line__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_requisition__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_stock_picking__project_id
 msgid "Project"
@@ -149,11 +129,6 @@ msgstr "Domaine du projet"
 #: model:ir.model,name:carpentry_purchase.model_purchase_arrival_date
 msgid "Purchase Arrival Date"
 msgstr "Date de réception"
-
-#. module: carpentry_purchase
-#: model:ir.model,name:carpentry_purchase.model_purchase_order_line
-msgid "Purchase Order Line"
-msgstr "Ligne de commande d'achat"
 
 #. module: carpentry_purchase
 #: model:ir.model.fields.selection,name:carpentry_purchase.selection__purchase_order__products_type__non_storable
@@ -185,18 +160,6 @@ msgstr "Référence"
 #: model:ir.model.fields.selection,name:carpentry_purchase.selection__purchase_order__products_type__storable
 msgid "Stock purchase order (only)"
 msgstr "Commande de stock (uniquement)"
-
-#. module: carpentry_purchase
-#. odoo-python
-#: code:addons/carpentry_purchase/models/purchase_order_line.py:0
-#, python-format
-msgid ""
-"The only allowed project in Analytic Distribution is the purchase order's "
-"one (or the internal project for storable products)."
-msgstr ""
-"Le seul projet autorisé dans les distributions analytiques des lignes de la "
-"commande est le projet de la commande (ou le projet \"interne\" pour les "
-"lignes de produits stockés)."
 
 #. module: carpentry_purchase
 #: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_requisition__title
@@ -232,11 +195,8 @@ msgstr "Hors-taxes"
 #. module: carpentry_purchase
 #: model:ir.model.fields,help:carpentry_purchase.field_account_bank_statement_line__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_account_move__project_id
-#: model:ir.model.fields,help:carpentry_purchase.field_account_move_line__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_account_payment__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_purchase_arrival_date__project_id
-#: model:ir.model.fields,help:carpentry_purchase.field_purchase_order__project_id
-#: model:ir.model.fields,help:carpentry_purchase.field_purchase_order_line__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_purchase_requisition__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_stock_picking__project_id
 msgid "Within your favorite projects"

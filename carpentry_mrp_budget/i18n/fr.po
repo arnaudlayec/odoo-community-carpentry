@@ -6,172 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 12:49+0000\n"
-"PO-Revision-Date: 2025-06-30 14:52+0200\n"
+"POT-Creation-Date: 2026-01-22 22:19+0000\n"
+"PO-Revision-Date: 2026-01-22 23:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr_FR\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-")\n"
-"                    differs from the components cost affected to the project\n"
-"                    ("
-msgstr ""
-")\n"
-"                    est différent du coût des composants affecté au projet\n"
-"                    ("
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid ""
-")\n"
-"                    differs from the cost affected to the project\n"
-"                    ("
-msgstr ""
-")\n"
-"                    diffère du coût affecté au projet\n"
-"                    ("
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-")\n"
-"                    differs from the total expected duration for the production\n"
-"                    ("
-msgstr ""
-")\n"
-"                    diffère du la durée totale prévue pour la fabrication\n"
-"                    ("
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-").\n"
-"                    If this is not on purpose, review the \"Budget (components)\" tab."
-msgstr ""
-").\n"
-"                    Si cela n'est pas intentionel, réviser l'onglet \"Budget (composants)\"."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-").\n"
-"                    If this is not on purpose, review the \"Budget (workorders)\" and/or \"Operations\" tabs."
-msgstr ""
-").\n"
-"                    Si cela n'est pas intentionel, réviser le(s) onglet(s) \"Budget (opérations)\" et/ou \"Opérations\"."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid ""
-").\n"
-"                    If this is not on purpose, review the \"Budget reservation\" tab."
-msgstr ""
-").\n"
-"                    Si cela n'est pas intentionel, réviser l'onglet \"Réservation de budget\"."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-".\n"
-"                                Real duration (yet):"
-msgstr ""
-".\n"
-"                                Durée réelle (à date) :"
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid ""
-"<span class=\"fa fa-floppy-o\"/>\n"
-"                        Please save before continuing."
-msgstr "Veuillez sauvegarder avant de continuer."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-"<span class=\"fa fa-floppy-o\"/>\n"
-"                    Please save before continuing."
-msgstr "Veuillez sauvegarder avant de continuer."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                        Expense, gain and loss amounts are temporarly estimated and may vary when\n"
-"                        closing the Manufacturing Order, because of the variations in the valuation\n"
-"                        of components costs."
-msgstr ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                        Les montants tels que la dépense, le gain et la perte sont temporairement estimés et peuvent varier jusqu'à\n"
-"                        la fermeture de l'Ordre de Fabrication, en lien avec les changements possibles dans la valorisation des composants."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                        Expense, gain and loss amounts are temporarly estimated and may vary when\n"
-"                        closing the Picking, related to any variations in the valuation\n"
-"                        of components costs."
-msgstr ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                        Les montants tels que la dépense, le gain et la perte sont temporairement estimés et peuvent varier jusqu'à\n"
-"                        la fermeture du transfert, en lien avec les changements possibles dans la valorisation des composants."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    The budget reservation\n"
-"                    ("
-msgstr ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    La réservation de budget\n"
-"                    ("
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    The budget reservation of components\n"
-"                    ("
-msgstr ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    La réservation de budget des composants\n"
-"                    ("
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    The budget reservation of workorders\n"
-"                    ("
-msgstr ""
-"<span class=\"fa fa-info-circle\"/>\n"
-"                    La réservation de budget des opérations\n"
-"                    ("
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__affectation_ids_components
-msgid "Affectation Ids Components"
-msgstr ""
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__affectation_ids_workorders
-msgid "Affectation Ids Workorders"
-msgstr ""
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__affectation_ids
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__affectation_ids
-msgid "Affectations"
-msgstr ""
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__amount_gain
@@ -190,61 +34,37 @@ msgid "Amount Loss"
 msgstr "Montant de la perte"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__sum_quantity_affected
-msgid "Amount of reserved budget"
-msgstr "Montant budget réservé"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__amount_loss_workorders
+msgid "Amount Loss Workorders"
+msgstr "Montant de la perte (ordres de travail)"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_move__analytic_distribution
-msgid "Analytic"
-msgstr "Analytique"
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_workorder__costs_hour_account_id
-msgid "Analytic Account"
-msgstr "Compte analytique"
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_move__analytic_ids
-msgid "Analytic Accounts"
-msgstr "Comptes analytiques"
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_move__analytic_distribution_search
-msgid "Analytic Distribution Search"
-msgstr "Recherche de distribution analytique"
-
-#. module: carpentry_mrp_budget
-#: model:ir.model,name:carpentry_mrp_budget.model_account_analytic_applicability
-msgid "Analytic Plan's Applicabilities"
-msgstr "Applicabilités du plan analytique"
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_move__analytic_precision
-msgid "Analytic Precision"
-msgstr "Précision analytique"
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__sum_quantity_affected
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__total_budget_reserved
 msgid "Budget (components)"
-msgstr "Montant budget réservé"
+msgstr "Budget (composants)"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_analytic_ids_workorder
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
+#. odoo-python
+#: code:addons/carpentry_mrp_budget/models/mrp_production.py:0
+#, python-format
 msgid "Budget (work orders)"
 msgstr "Budget (ordres de travail)"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__sum_quantity_affected_workorders
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__total_budget_reserved_workorders
 msgid "Budget (workorders)"
-msgstr "Budget (oéprations)"
+msgstr "Budget (ordres de travail)"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Budget reservation"
-msgstr "Réservation de budget"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_unit_workorders
+msgid "Budget Unit Workorders"
+msgstr "Unité (ordres de travail)"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__date_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__date_budget
+msgid "Budget date"
+msgstr "Date de budget"
 
 #. module: carpentry_mrp_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
@@ -252,31 +72,56 @@ msgid "Budget reservation total:"
 msgstr "Budget total réservé :"
 
 #. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__reservation_ids
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__reservation_ids
+msgid "Budget reservations"
+msgstr "Réservations de budget"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_unit
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__budget_unit
+msgid "Budget unit"
+msgstr "Unité"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_verified
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__budget_verified
+msgid "Budget verified?"
+msgstr "Budget vérifié?"
+
+#. module: carpentry_mrp_budget
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_analytic_ids
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__budget_analytic_ids
 msgid "Budgets"
-msgstr ""
+msgstr "Budgets"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Choose budgets"
-msgstr "Choisir les budgets"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_analytic_ids_components
+msgid "Budgets (components)"
+msgstr "Budgets (composants)"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid "Choose components budgets"
-msgstr "Choisir les budgets (des composants)"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_analytic_ids_workorders
+msgid "Budgets (work orders)"
+msgstr "Budgets (ordres de travail)"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid "Choose work order budgets"
-msgstr "Choisir les budgets (des opérations)"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__can_reserve_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__can_reserve_budget
+msgid "Can Reserve Budget"
+msgstr "Dépense sur affaire"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__amount_budgetable
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_picking__amount_budgetable
-msgid "Cost amount imputed on the project. Gain = 'Amount of reserved budget' - this amount"
-msgstr "Montant du coût imputé au projet. Gain = \"Montant budget réservé\" - ce montant"
+#. odoo-python
+#: code:addons/carpentry_mrp_budget/models/mrp_production.py:0
+#, python-format
+msgid "Components"
+msgstr "Composants"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__count_budget_resa_workorders
+msgid "Count Budget Resa Workorders"
+msgstr "Nombre de réservations (ordres de travail)"
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__currency_id
@@ -296,9 +141,10 @@ msgid "Difference:"
 msgstr "Différence :"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_account_analytic_applicability__business_domain
-msgid "Domain"
-msgstr "Domaine"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__expense_ids
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__expense_ids
+msgid "Expense"
+msgstr "Dépense"
 
 #. module: carpentry_mrp_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_inventory_valuation_search
@@ -309,7 +155,9 @@ msgstr "Dépense sur affaire"
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_move__price_unit
 msgid "For permanent valuation. Product cost at move's confirmation."
-msgstr "Relatif à la valorisation permanente. Coût du produit à la confirmation du mouvement de produit."
+msgstr ""
+"Pour la valorisation permanente. Coût de l'article à la validation du "
+"mouvement de stock."
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_move__standard_price
@@ -322,21 +170,29 @@ msgid "Gain (components)"
 msgstr "Montant du gain"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Initially available budgets"
-msgstr "Budgets disponibles initialement"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__is_temporary_gain
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__is_temporary_gain
+msgid "Is Temporary Gain"
+msgstr "Est un gain temporaire"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Launch budgets"
-msgstr "Lancements (budgets)"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__is_temporary_gain_workorders
+msgid "Is Temporary Gain Workorders"
+msgstr "Est un gain temporaire (ordres de travail)"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields.selection,name:carpentry_mrp_budget.selection__account_analytic_applicability__business_domain__manufacturing_order
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__date_budget_workorders
+msgid "Last date time"
+msgstr "Dernière date"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_expense__production_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_expense_detail__production_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_project__production_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_remaining__production_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_reservation__production_id
 msgid "Manufacturing Order"
-msgstr "Ordre de fabrication"
+msgstr "Ordre de Fabrication"
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_valuation_layer__stock_picking_type_id
@@ -345,25 +201,29 @@ msgid "Operation Type"
 msgstr "Type d'opération"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields.selection,name:carpentry_mrp_budget.selection__account_analytic_applicability__business_domain__picking
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__other_expense_ids
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__other_expense_ids
+msgid "Other expenses"
+msgstr "Autres dépenses"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__other_expense_ids_components
+msgid "Other expenses (components)"
+msgstr "Autres dépenses (composants)"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__other_expense_ids_workorders
+msgid "Other expenses (workorders)"
+msgstr "Autres dépenses  (ordres de travail)"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_expense__picking_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_expense_detail__picking_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_project__picking_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_remaining__picking_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_carpentry_budget_reservation__picking_id
 msgid "Picking"
 msgstr "Transfert"
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid "Please select budget(s) and launch(es) for placing a reservation."
-msgstr "Veuillez sélectionner un(des) budget(s) et un(des) lancement(s) pour effectuer une réservation de budget."
-
-#. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Please select launch(es) for placing a reservation."
-msgstr "Veuillez sélectionner un(des) lancement(s) pour effectuer une réservation de budget."
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_workorder__costs_hour_account_id
-msgid "Posts analytical accounting entries in real time for both component and operational costs."
-msgstr "Publiez des écritures comptables analytiques en temps réel pour les coûts des composants et les coûts opérationnels."
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_move__standard_price
@@ -381,66 +241,74 @@ msgid "Production Order for components"
 msgstr "Ordre de Fabrication des composants"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__can_reserve_budget
-msgid "Project-related expense"
-msgstr "Dépense sur affaire"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__project_id
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__project_id
+msgid "Project"
+msgstr "Projet"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__readonly_affectation
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__readonly_affectation
-msgid "Readonly Affectation"
-msgstr "Affectation en lecture seule"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__readonly_budget_analytic_ids
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__readonly_budget_analytic_ids
+msgid "Readonly Budget Analytic"
+msgstr "Choix des budgets en lecture seule"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Recorded gain:"
-msgstr "Gain enregistré :"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__readonly_reservation
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__readonly_reservation
+msgid "Readonly Reservation"
+msgstr "Réservations en lecture seule"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Recorded loss:"
-msgstr "Perte enregistrée :"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__production_real_duration
+msgid "Real Duration"
+msgstr "Durée réelle"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Remaining"
-msgstr "Restant"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__production_real_duration_hours
+msgid "Real Duration (h)"
+msgstr "Durée réelle (h)"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Remaining budgets"
-msgstr "Budget restant"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__total_expense_valued
+msgid "Real expense"
+msgstr "Dépense réelle"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Reserve budget"
-msgstr "Réserver du budget"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__reservation_ids_components
+msgid "Reservation Ids Components"
+msgstr "Réservations des composants"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid "Reserve components budget"
-msgstr "Réserver du budget (pour les composants)"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__reservation_ids_workorders
+msgid "Reservation Ids Workorders"
+msgstr "Réservations des ordres de travail"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid "Reserve work order budget"
-msgstr "Réserver du budget (pour les opérations)"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__total_budget_reserved
+msgid "Reserved budget"
+msgstr "Budget réservé"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__section_ids
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__section_ids
-msgid "Sections"
-msgstr ""
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__show_budget_banner
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__show_budget_banner
+msgid "Show Budget Banner"
+msgstr "Afficher la bannière de budget"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__sequence
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__sequence
-msgid "Sequence"
-msgstr "Séquence"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__show_budget_banner_workorders
+msgid "Show Budget Banner Workorders"
+msgstr "Afficher la bannière de budget (ordres de travail)"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__show_gain
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__show_gain
+msgid "Show Gain"
+msgstr "Afficher le gain"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__show_gain_workorders
+msgid "Show Gain Workorders"
+msgstr "Afficher le gain (ordres de travail)"
 
 #. module: carpentry_mrp_budget
 #: model:ir.model,name:carpentry_mrp_budget.model_stock_move
@@ -453,42 +321,60 @@ msgid "Stock Valuation Layer"
 msgstr "Couche de valorisation d'inventaire"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_picking__sum_quantity_affected
-msgid "Sum of budget reservation"
-msgstr "Somme des quantités affectées"
-
-#. module: carpentry_mrp_budget
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__sum_quantity_affected
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__total_budget_reserved
 msgid "Sum of budget reservation for components only"
-msgstr "Somme des quantités affectées"
+msgstr "Somme des réservations de budget (composants)"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__sum_quantity_affected_workorders
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__total_budget_reserved_workorders
 msgid "Sum of budget reservation in hours for workorders only"
-msgstr "Total du budget réservé, en heures (opérations uniquement)"
+msgstr "Somme des réservations de budget en heures (ordres de travail)"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__amount_budgetable
-msgid "Total Cost"
-msgstr "Coût total"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__text_no_reservation
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__text_no_reservation
+msgid "Text No Reservation"
+msgstr "Texte sans réservation"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__amount_budgetable
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__text_no_reservation_workorders
+msgid "Text No Reservation Workorders"
+msgstr "Texte sans réservation (ordres de travail)"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__total_budgetable
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__total_budgetable
+msgid "Total Budgetable"
+msgstr "Total budgétisable"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__total_budgetable_workorders
+msgid "Total Budgetable Workorders"
+msgstr "Total budgétisable (ordres de travail)"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__total_expense_valued
 msgid "Total cost (components)"
-msgstr "Coût total"
+msgstr "Coût total (composants)"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-msgid "Total expected:"
-msgstr "Durée prévue :"
+#: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__total_expense_valued_workorders
+msgid "Total cost (work orders)"
+msgstr "Coût total (ordres de travail)"
 
 #. module: carpentry_mrp_budget
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
-#: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_picking_form
-msgid "Total expense amount affected to the project:"
-msgstr "Montant total de la dépense affectée au projet :"
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__total_expense_valued
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_picking__total_expense_valued
+msgid "Total cost imputed to the budgets"
+msgstr "Total des coûts imputés aux budgets"
 
 #. module: carpentry_mrp_budget
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__production_real_duration
+msgid "Total real duration (in minutes)"
+msgstr "Durée réelle totale (en minutes)"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model,name:carpentry_mrp_budget.model_stock_picking
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_valuation_layer__stock_picking_id
 msgid "Transfer"
 msgstr "Transfert"
@@ -499,10 +385,16 @@ msgid "Unit Price"
 msgstr "Prix unitaire"
 
 #. module: carpentry_mrp_budget
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__section_ids
-#: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_picking__section_ids
-msgid "With at least 1 position in commun"
-msgstr "Avec au moins 1 repère en commun"
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__budget_verified
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_picking__budget_verified
+msgid "Whether the budget reservation has been verified by a tier."
+msgstr "Si les réservations de budgets ont été vérifiées par un tiers."
+
+#. module: carpentry_mrp_budget
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_mrp_production__project_id
+#: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_picking__project_id
+msgid "Within your favorite projects"
+msgstr "Parmis vos projets favoris"
 
 #. module: carpentry_mrp_budget
 #: model:ir.model,name:carpentry_mrp_budget.model_mrp_workorder
@@ -510,6 +402,21 @@ msgid "Work Order"
 msgstr "Ordre de travail"
 
 #. module: carpentry_mrp_budget
+#. odoo-python
+#: code:addons/carpentry_mrp_budget/models/mrp_production.py:0
+#, python-format
+msgid "Work Orders"
+msgstr "Ordres de travail"
+
+#. module: carpentry_mrp_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
 msgid "h:min"
-msgstr ""
+msgstr "h:min"
+
+#. module: carpentry_mrp_budget
+#. odoo-python
+#: code:addons/carpentry_mrp_budget/models/mrp_production.py:0
+#: code:addons/carpentry_mrp_budget/models/stock_picking.py:0
+#, python-format
+msgid "products revaluation"
+msgstr "revalorisation des produits"
