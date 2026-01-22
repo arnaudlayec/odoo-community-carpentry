@@ -645,7 +645,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
             'date': self.date_budget,
             # sequence
             'sequence_launch': launch.sequence,
-            'sequence_aac': aac.sequence,
+            'seq_analytic': aac.sequence,
             'sequence_record': self.sequence if hasattr(self, 'sequence') else self._get_default_sequence(),
             # values
             'amount_reserved': amount_reserved,

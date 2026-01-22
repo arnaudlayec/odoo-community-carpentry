@@ -12,7 +12,7 @@ class CarpentryBudgetReservation(models.Model):
     """
     _name = "carpentry.budget.reservation"
     _description = "Budget reservation"
-    _order = "project_budget DESC, sequence_aac, sequence_launch, sequence_record"
+    _order = "project_budget DESC, seq_analytic, sequence_launch, sequence_record"
     _log_access = False
 
     #===== Fields =====#
@@ -53,7 +53,7 @@ class CarpentryBudgetReservation(models.Model):
         related='launch_id.sequence',
         store=True,
     )
-    sequence_aac = fields.Integer(
+    seq_analytic = fields.Integer(
         string='Analytic account sequence',
         related='analytic_account_id.sequence',
         store=True,

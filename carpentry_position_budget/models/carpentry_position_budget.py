@@ -6,6 +6,7 @@ from collections import defaultdict
 class CarpentryPositionBudget(models.Model):
     _name = 'carpentry.position.budget'
     _description = 'Position Budget'
+    _order = "seq_analytic ASC"
 
     # primary keys
     project_id = fields.Many2one(
@@ -35,6 +36,11 @@ class CarpentryPositionBudget(models.Model):
             ('is_project_budget', '=', True),
             '|', ('company_id', '=', company_id), ('company_id', '=', False)
         ]"""
+    )
+    seq_analytic = fields.Integer(
+        string='Analytic account sequence',
+        related="analytic_account_id.sequence",
+        store=True,
     )
     # for search view
     lot_id = fields.Many2one(

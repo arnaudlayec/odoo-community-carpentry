@@ -109,6 +109,7 @@ class CarpentryBudgetRemaining(models.Model):
                     available.analytic_account_id,
                     available.amount_subtotal AS amount_subtotal,
                     available.budget_type,
+                    available.seq_analytic,
 
                     available.record_model_id, -- launch or project
                     {sql_record_fields} -- balance_id, purchase_id, ...
@@ -129,6 +130,7 @@ class CarpentryBudgetRemaining(models.Model):
                     reservation.analytic_account_id,
                     -1 * reservation.amount_reserved AS amount_subtotal,
                     reservation.budget_type,
+                    reservation.seq_analytic,
 
                     -- record
                     CASE

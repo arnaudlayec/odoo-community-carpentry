@@ -49,6 +49,7 @@ class CarpentryExpense(models.Model):
                     {models[model]} AS record_model_id,
                     analytic.id AS analytic_account_id,
                     analytic.budget_type,
+                    analytic.sequence AS seq_analytic,
 
                     0.0 AS amount_reserved,
                     
@@ -82,6 +83,7 @@ class CarpentryExpense(models.Model):
                     {models['mrp.production']} AS record_model_id,
                     reservation.analytic_account_id,
                     reservation.budget_type,
+                    reservation.seq_analytic,
                     
                     -- amount_reserved:
                     -- if: MO's sum of effective_hours < sum of amount_reserved
@@ -220,7 +222,14 @@ class CarpentryExpense(models.Model):
         res = super()._groupby(model, models)
         
         if model == 'mrp.workorder':
-            res = 'GROUP BY reservation.budget_type, reservation.analytic_account_id, record.id, record.project_id'
+            res = """
+                GROUP BY
+                    reservation.budget_type,
+                    reservation.analytic_account_id,
+                    reservation.seq_analytic,
+                    record.id,
+                    record.project_id
+            """
         elif model == 'stock.picking':
             res += ', picking_type.code'
         

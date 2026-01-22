@@ -15,6 +15,7 @@ class CarpentryBudgetAvailable(models.Model):
     """
     _name = 'carpentry.budget.available'
     _description = 'Project & launches budgets'
+    _order = "seq_analytic"
     _auto = False
     
     #===== Fields methods =====#
@@ -52,6 +53,10 @@ class CarpentryBudgetAvailable(models.Model):
     analytic_account_id = fields.Many2one(
         comodel_name='account.analytic.account',
         string='Budget type',
+        readonly=True,
+    )
+    seq_analytic = fields.Integer(
+        string='Analytic account sequence',
         readonly=True,
     )
     active = fields.Boolean(
@@ -123,6 +128,7 @@ class CarpentryBudgetAvailable(models.Model):
                         result.position_id,
                         result.record_model_id,
                         result.analytic_account_id,
+                        result.seq_analytic,
                         result.budget_type,
                         result.active,
                         SUM(result.quantity_affected) AS quantity_affected,
@@ -151,8 +157,12 @@ class CarpentryBudgetAvailable(models.Model):
                         result.record_model_id,
                         result.analytic_account_id,
                         result.budget_type,
+                        result.seq_analytic,
                         result.active,
                         hourly_cost.coef
+                    
+                    ORDER BY seq_analytic
+                
                 )""", {
                     'table_name': AsIs(self._table),
                     'sql_union': AsIs(') UNION ALL (' . join(queries)),
@@ -208,6 +218,7 @@ class CarpentryBudgetAvailable(models.Model):
                     -- budget
                     budget_project.analytic_account_id,
                     budget_project.budget_type,
+                    budget_project.seq_analytic,
 
                     -- amounts
                     CASE
@@ -248,6 +259,7 @@ class CarpentryBudgetAvailable(models.Model):
                     -- budget
                     budget.analytic_account_id,
                     budget.budget_type,
+                    budget.seq_analytic,
 
                     -- amounts
                     SUM(budget.amount_unitary) AS amount_unitary,

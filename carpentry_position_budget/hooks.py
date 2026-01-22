@@ -7,7 +7,7 @@ def pre_init_hook(cr):
     _prebuild_budget_analytic_project_rel(cr, env)
 
 def _prebuild_budget_analytic_project_rel(cr, _):
-    """ needed because `report` sql is committed before `models` """
+    """ Needed at install because `report` sql is committed before `models` """
     cr.execute("""
         CREATE TABLE IF NOT EXISTS public.carpentry_budget_analytic_line_project_rel (
             line_id integer NOT NULL,

@@ -25,6 +25,7 @@ class CarpentryExpense(models.Model):
                     -- even for employees' timesheets of other departments
                     record.analytic_account_id,
                     analytic.budget_type,
+                    analytic.sequence AS seq_analytic,
 
                     -- amount_reserved:
                     -- 1. if effective_hours < amount_reserved:

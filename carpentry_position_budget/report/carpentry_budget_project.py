@@ -9,7 +9,7 @@ class CarpentryBudgetProject(models.Model):
     _inherit = ['carpentry.budget.expense']
     _description = 'Budget project balance'
     _auto = False
-    _order = 'project_id'
+    _order = 'seq_analytic, project_id'
 
     #===== Fields =====#
     available_valued = fields.Monetary(
@@ -34,7 +34,6 @@ class CarpentryBudgetProject(models.Model):
 
     #===== View build =====#
     def _get_queries_models(self):
-        """ Inherited in sub-modules (purchase, mrp, timesheet) """
         return ('account.move.budget.line', 'carpentry.budget.expense',)
     
     def init(self):
@@ -52,10 +51,12 @@ class CarpentryBudgetProject(models.Model):
                     ) AS result
 
                     %(groupby)s
+                    %(orderby)s
                 
                 )""", {
                     'select':    AsIs(self._view_select()),
                     'groupby':   AsIs(self._view_groupby()),
+                    'orderby':   AsIs(self._view_orderby()),
                     'view_name': AsIs(self._table),
                     'union':     AsIs(') UNION ALL (' . join(queries)),
             })
@@ -76,6 +77,7 @@ class CarpentryBudgetProject(models.Model):
                 project_id,
                 result.budget_type,
                 analytic_account_id,
+                seq_analytic,
                 result.active,
                 
                 record_id AS record_id,
@@ -97,10 +99,16 @@ class CarpentryBudgetProject(models.Model):
                 project_id,
                 result.budget_type,
                 analytic_account_id,
+                seq_analytic,
                 record_id,
                 record_model_id,
                 {', ' . join(self._get_record_fields())},
                 result.active
+        """
+    
+    def _view_orderby(self):
+        return f"""
+            ORDER BY seq_analytic
         """
     
     #===== Union sub-queries definition =====#
@@ -117,6 +125,7 @@ class CarpentryBudgetProject(models.Model):
                     project_id,
                     budget_type,
                     analytic_account_id,
+                    seq_analytic,
                     id AS record_id,
                     {models['account.move.budget.line']} AS record_model_id,
                     {sql_record_fields},
@@ -137,6 +146,7 @@ class CarpentryBudgetProject(models.Model):
                     project_id,
                     budget_type,
                     analytic_account_id,
+                    seq_analytic,
                     record_id,
                     record_model_id,
                     {sql_record_fields},

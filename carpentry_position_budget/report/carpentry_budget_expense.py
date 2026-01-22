@@ -11,6 +11,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
     _name = 'carpentry.budget.expense.detail'
     _inherit = ['carpentry.budget.remaining']
     _description = 'Expenses Detail'
+    _order = "seq_analytic"
     _auto = False
     
     #===== Fields =====#
@@ -83,7 +84,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
         if queries:
             budget_types = self.env['account.analytic.account']._get_budget_type_workforce()
             self._cr.execute("""
-                CREATE or REPLACE VIEW %(view_name)s AS (
+                CREATE VIEW %(view_name)s AS (
                     SELECT
                         row_number() OVER (ORDER BY
                             expense.record_id,
@@ -100,6 +101,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
                         %(sql_record_fields)s
                         expense.analytic_account_id,
                         expense.budget_type,
+                        expense.seq_analytic,
                         hourly_cost.coef AS hourly_cost_coef, -- for `carpentry.budget.expense.distributed`
                         
                         -- reserved budget
@@ -194,8 +196,11 @@ class CarpentryBudgetExpenseDetail(models.Model):
                         expense.record_model_id,
                         expense.analytic_account_id,
                         expense.budget_type,
+                        expense.seq_analytic,
                         hourly_cost.coef
+                    
                     ORDER BY
+                        expense.seq_analytic,
                         expense.record_id
                 )""", {
                     'view_name': AsIs(self._table),
@@ -240,6 +245,8 @@ class CarpentryBudgetExpenseDetail(models.Model):
         return sql_record_model_id + ' NULL ' + ('END ' * len(relational_fields))
 
     def _select(self, model, models):
+        sql = ''
+
         if model == 'carpentry.budget.reservation':
             record_fields = self.env[model]._get_record_fields()
             sql_record_model_id = self._sql_record_model_id(
@@ -257,6 +264,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
                     {sql_record_model_id} AS record_model_id,
                     analytic_account_id,
                     budget_type,
+                    seq_analytic,
 
                     amount_reserved,
 
@@ -282,6 +290,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
                     {sql_record_model_id} AS record_model_id,
                     analytic.account_id AS analytic_account_id,
                     analytic.budget_type,
+                    account.sequence AS seq_analytic,
 
                     0.0 AS amount_reserved,
 
@@ -305,6 +314,8 @@ class CarpentryBudgetExpenseDetail(models.Model):
             return """
                 INNER JOIN carpentry_budget_analytic_line_project_rel AS analytic_projects
                     ON analytic_projects.line_id = analytic.id
+                INNER JOIN account_analytic_account AS account
+                    ON account.id = analytic.account_id
             """
         else:
             return ''
@@ -342,6 +353,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
                 GROUP BY
                     analytic.budget_type,
                     analytic.account_id,
+                    account.sequence,
                     analytic_projects.project_id,
                     analytic.date,
                     analytic.purchase_id,
@@ -350,7 +362,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
                     analytic.id
             """
         else:
-            return 'GROUP BY analytic.budget_type, analytic.id, record.id, record.project_id'
+            return 'GROUP BY analytic.budget_type, analytic.id, analytic.sequence, record.id, record.project_id'
     
     def _orderby(self, model, models):
         return ''
@@ -372,6 +384,7 @@ class CarpentryBudgetExpense(models.Model):
     _name = 'carpentry.budget.expense'
     _inherit = ['carpentry.budget.expense.detail']
     _description = 'Expenses'
+    _order = "seq_analytic"
     _auto = False
 
     state = fields.Selection(store=False)
@@ -394,6 +407,7 @@ class CarpentryBudgetExpense(models.Model):
                     record_model_id,
                     %(sql_record_fields)s
                     analytic_account_id,
+                    seq_analytic,
                     budget_type,
                     -- AVG(hourly_cost_coef) AS hourly_cost_coef, -- for `carpentry.budget.expense.distributed`
                     
@@ -410,8 +424,11 @@ class CarpentryBudgetExpense(models.Model):
                     record_id,
                     record_model_id,
                     analytic_account_id,
+                    seq_analytic,
                     budget_type,
                     active
+                
+                ORDER BY seq_analytic
             )""", {
                 'view_name': AsIs(self._table),
                 'sql_record_fields': AsIs(self._sql_record_fields())

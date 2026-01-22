@@ -35,6 +35,7 @@ class CarpentryExpense(models.Model):
                     {models['purchase.order']} AS record_model_id,
                     analytic.id AS analytic_account_id,
                     analytic.budget_type,
+                    analytic.sequence AS seq_analytic,
 
                     0.0 AS amount_reserved,
 
