@@ -74,6 +74,7 @@ class CarpentryBudgetRemaining(models.Model):
                         analytic_account_id,
                         amount_subtotal,
                         budget_type,
+                        seq_analytic,
                         
                         record_model_id,
                         %(sql_record_fields)s
