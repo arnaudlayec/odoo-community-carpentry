@@ -100,10 +100,14 @@ class CarpentryPositionBudget(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
+        # after 'write'
         if 'amount_unitary' in vals:
             affectations = self.position_id.affectation_ids
             launchs = affectations._get_launchs_and_children_launchs()
             affectations._clean_reservation_and_constrain_budget(launchs.ids)
+        # update project's budgets
+        if 'analytic_account_id' in vals:
+            self.position_id.project_id._refresh_account_move_budget_line()
         return res
     
     def unlink(self):
@@ -111,39 +115,14 @@ class CarpentryPositionBudget(models.Model):
             2. Ensure no negative budget in reservation
         """
         # before `unlink`
-        self._remove_project_budget_lines()
+        projects = self.position_id.project_id
         launchs = self.position_id.affectation_ids._get_launchs_and_children_launchs()
         res = super().unlink()
         
         # after `unlink`
+        projects._refresh_account_move_budget_line()
         self.env['carpentry.affectation']._clean_reservation_and_constrain_budget(launchs.ids)
         return res
-
-    def _remove_project_budget_lines(self):
-        """ Remove project budget lines when removing the
-            **LAST** aac in the project's positions budgets
-        """
-        # Get position's budgets that exists in other positions's budgets in the project
-        rg_result = self._read_group(
-            domain=[
-                ('project_id', 'in', self.project_id.ids),
-                ('analytic_account_id', 'in', self.analytic_account_id.ids),
-                ('id', 'not in', self.ids),
-            ],
-            groupby=['project_id'],
-            fields=['analytic_account_id:array_agg']
-        )
-        mapped_to_keep = {x['project_id'][0]: set(x['analytic_account_id']) for x in rg_result}
-
-        for project in self.project_id:
-            ids_to_keep = mapped_to_keep.get(project.id, set())
-            deleted = self.filtered(lambda x: x.project_id == project).analytic_account_id
-            to_flush = set(deleted.ids) - ids_to_keep
-
-            if to_flush:
-                project._populate_account_move_budget_line(
-                    'remove', deleted.browse(list(to_flush))
-                )
 
     #===== Compute =====#
     @api.depends(

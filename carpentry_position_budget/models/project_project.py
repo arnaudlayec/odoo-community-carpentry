@@ -100,7 +100,8 @@ class Project(models.Model):
             ).sudo().with_context(unlink_line_no_raise=True).unlink()
         
         elif method == 'add':
-            analytics = analytics.filtered(lambda x: x not in self.budget_line_ids.analytic_account_id)
+            aac_positions = self.budget_line_ids.filtered('is_computed_carpentry').analytic_account_id
+            analytics = analytics.filtered(lambda x: x not in aac_positions)
             if not analytics:
                 return
             
@@ -117,3 +118,19 @@ class Project(models.Model):
         
         else:
             raise exceptions.UserError(_('Operation not supported'))
+
+    def _refresh_account_move_budget_line(self):
+        """ Identify which analytics are to be added/removed and 
+            trigger `_populate_account_move_budget_line`
+        """
+        for project in self:
+            aac_positions = project.position_budget_ids.analytic_account_id
+            aac_lines = project.budget_line_ids.filtered('is_computed_carpentry').analytic_account_id
+            
+            to_add = aac_positions - aac_lines
+            if to_add:
+                project._populate_account_move_budget_line('add', to_add)
+            
+            to_remove = aac_lines - aac_positions
+            if to_remove:
+                project._populate_account_move_budget_line('remove', to_remove)
