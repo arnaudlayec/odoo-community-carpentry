@@ -2,7 +2,7 @@
 
 from odoo import exceptions, fields, _, Command
 
-from .test_05_analytic_project import TestCarpentryPositionBudget_AnalyticBase
+from ...carpentry_position_budget.tests.test_05_analytic_project import TestCarpentryPositionBudget_AnalyticBase
 
 class TestCarpentryPositionBudget_AccountMove(TestCarpentryPositionBudget_AnalyticBase):
 

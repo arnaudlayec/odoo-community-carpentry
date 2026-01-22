@@ -7,4 +7,3 @@ from . import test_03_budget
 from . import test_04_balance
 from . import test_05_analytic_project
 from . import test_06_reservation
-from . import test_07_account_move

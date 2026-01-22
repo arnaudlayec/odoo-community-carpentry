@@ -56,6 +56,12 @@ class CarpentryExpense(models.Model):
         
         return super()._select(model, models)
 
+    def _select_analytic_comodel_fields(self):
+        """ Inherited in module 'carpentry_purchase_budget' """
+        return ['purchase_id', 'move_id', 'move_line_id'] + (
+            super()._select_analytic_comodel_fields()
+        ) 
+
     def _from(self, model, models):
         if model in ('purchase.order', 'account.move'):
             return f"FROM {model.replace('.', '_')}_line AS line"
@@ -105,7 +111,13 @@ class CarpentryExpense(models.Model):
     def _groupby(self, model, models):
         sql = super()._groupby(model, models)
 
-        if model == 'account.move':
+        if model == 'account.analytic.line':
+            sql += """
+                , analytic.purchase_id,
+                analytic.move_id,
+                analytic.move_line_id
+            """
+        elif model == 'account.move':
             sql += ', purchase_order_line.order_id'
         
         return sql

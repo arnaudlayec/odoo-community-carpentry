@@ -19,14 +19,3 @@ class AccountAnalyticLine(models.Model):
         column1='line_id',
         column2='project_id',
     )
-    # for SQL view
-    move_id = fields.Many2one(
-        string='Account Move',
-        related='move_line_id.move_id',
-        store=True,
-    )
-    purchase_id = fields.Many2one(
-        string='Purchase Order',
-        related='move_line_id.purchase_line_id.order_id',
-        store=True,
-    )

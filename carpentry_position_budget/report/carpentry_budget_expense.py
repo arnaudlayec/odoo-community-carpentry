@@ -274,7 +274,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
             """
         
         elif model == 'account.analytic.line':
-            comodel_fields = ['purchase_id', 'move_id', 'move_line_id', 'id']
+            comodel_fields = self._select_analytic_comodel_fields()
             sql_record_id = ', ' . join(['analytic.' + field for field in comodel_fields])
             sql_record_model_id = self._sql_record_model_id(
                 model, models, comodel_fields, default_model_id=models[model], prefix='analytic.'
@@ -300,6 +300,10 @@ class CarpentryBudgetExpenseDetail(models.Model):
             """
         
         return sql
+    
+    def _select_analytic_comodel_fields(self):
+        """ Inherited in module 'carpentry_purchase_budget' """
+        return ['id']
 
     def _from(self, model, models):
         if model == 'carpentry.budget.reservation':
@@ -356,9 +360,6 @@ class CarpentryBudgetExpenseDetail(models.Model):
                     account.sequence,
                     analytic_projects.project_id,
                     analytic.date,
-                    analytic.purchase_id,
-                    analytic.move_id,
-                    analytic.move_line_id,
                     analytic.id
             """
         else:
