@@ -10,10 +10,6 @@
             <pivot position="attributes">
                 <attribute name="js_class">project_budget_report_pivot</attribute>
             </pivot>
-
-            <pivot position="inside">
-                <field name="margin_contributive" invisible="1" />
-            </pivot>
         </field>
     </record>
 </odoo>
