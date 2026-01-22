@@ -90,4 +90,3 @@ export const carpentryPlanningKanbanView = {
 };
 
 registry.category("views").add("carpentry_planning_kanban", carpentryPlanningKanbanView);
-

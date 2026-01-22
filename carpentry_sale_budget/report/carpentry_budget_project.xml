@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Pivot -->
+    <record id="carpentry_budget_report_project_pivot" model="ir.ui.view">
+        <field name="name">carpentry.budget.project.pivot.sale</field>
+        <field name="model">carpentry.budget.project</field>
+        <field name="inherit_id" ref="carpentry_position_budget.carpentry_budget_report_project_pivot" />
+
+        <field name="arch" type="xml">
+            <pivot position="attributes">
+                <attribute name="js_class">project_budget_report_pivot</attribute>
+            </pivot>
+
+            <pivot position="inside">
+                <field name="margin_contributive" invisible="1" />
+            </pivot>
+        </field>
+    </record>
+</odoo>

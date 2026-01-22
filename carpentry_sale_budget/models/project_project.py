@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, exceptions, _
-from collections import defaultdict
+from odoo import models, fields, api
+from odoo.tools import formatLang
 
 class Project(models.Model):
     _inherit = ['project.project']
@@ -138,12 +138,33 @@ class Project(models.Model):
 
     #===== Carpentry Planning =====#
     def get_planning_dashboard_data(self):
-        return super().get_planning_dashboard_data() | self._get_planning_dashboard_cost_data()
+        return super().get_planning_dashboard_data() # | self.get_budget_margins_data()
 
-    def _get_planning_dashboard_cost_data(self):
-        return {}
-        # {
-        #     'market_reviewed': self.market_reviewed,
-        #     'budget_line_sum': self.budget_line_sum,
-        #     'budget_progress': round(self.budget_progress),
-        # }
+    def get_budget_margins_data(self):
+        """ Format data for project budget report & planning views """
+        keys = [
+            "market_reviewed",
+            "budget_reservation_progress",
+            # fixed
+            "margin_costs", "margin_contributive",
+            # reviewed
+            "margin_costs_actual", "margin_contributive_actual",
+            # rate
+            "margin_costs_actual_rate", "margin_contributive_actual_rate",
+        ]
+        data = {}
+        currency = self.company_id.currency_id # can be empty
+        for key in keys:
+            if not self[key]:
+                data[key] = False
+            elif self._fields[key].type == 'monetary' and currency:
+                data[key] = formatLang(self.env, self[key], currency_obj=currency)
+            else:
+                data[key] = self[key]
+            
+            compare = bool(currency) and currency.compare_amounts(self[key], 0)
+            data[f'{key}_class'] = (
+                'text-success' if compare == 1 else
+                'text-danger'  if compare == -1 else ''
+            )
+        return data

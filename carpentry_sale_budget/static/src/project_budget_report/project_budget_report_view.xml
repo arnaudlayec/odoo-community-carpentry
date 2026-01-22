@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="carpentry_project_budget_report.PivotAmounts" t-inherit="web.PivotView.Buttons">
+        <xpath expr="(//div[@role='toolbar'])[last()]" position="inside">
+
+            <t t-set="m" t-value="model.data.margins" />
+
+            <div class="btn-group ms-3" aria-label="Project margins"
+                t-if="m['margin_contributive_actual'] or m['margin_costs_actual']"
+            >
+                <div class="btn btn-secondary">
+                    📈 Margins
+                    <t t-log="model" />
+                </div>
+
+                <div t-attf-class="btn btn-secondary {{m['margin_contributive_actual_class']}}">
+                    Contributive:
+                    <t t-esc="m['margin_contributive_actual']" />
+                </div>
+                <div t-attf-class="btn btn-secondary {{m['margin_costs_actual_class']}}">
+                    Costs:
+                    <t t-esc="m['margin_costs_actual']" />
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

@@ -13,7 +13,7 @@
     'version': '16.0.1.0.1',
 
     'depends': [
-        'carpentry_base', 'carpentry_sale', 'carpentry_position_budget'
+        'carpentry_base', 'carpentry_sale', 'carpentry_position_budget',
     ],
     'data': [
         # security
@@ -21,5 +21,12 @@
         # views
         'views/project_project.xml',
         'views/sale_order.xml',
+        # report
+        'report/carpentry_budget_project.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'carpentry_sale_budget/static/src/**/*',
+        ],
+    },
 }
