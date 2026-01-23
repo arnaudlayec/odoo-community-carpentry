@@ -198,7 +198,10 @@ class CarpentryBudgetMixin(models.AbstractModel):
             )
     
     #--- Readonly fields ---#
-    @api.depends('project_id', 'launch_ids', 'budget_analytic_ids')
+    @api.depends(lambda self: (
+        self._depends_reservation_refresh() + 
+        ['project_id', 'launch_ids', 'budget_analytic_ids']
+    ))
     def _compute_readonly_reservation(self):
         """ Way to inform users the budget matrix must be re-computed
             1. At page load, self == self._origin
@@ -206,7 +209,10 @@ class CarpentryBudgetMixin(models.AbstractModel):
         """
         self.readonly_reservation = not bool(self == self._origin)
 
-    @api.depends('project_id', 'launch_ids')
+    @api.depends(lambda self: (
+        self._depends_reservation_refresh() + 
+        ['project_id', 'launch_ids'] # (!) without 'budget_analytic_ids'
+    ))
     def _compute_readonly_budget_analytic_ids(self):
         """ Same than `readonly_reservation`, but
              leave `budget_analytic_ids` writable when
@@ -1066,6 +1072,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
                     'reservation_ids', 'total_budget_reserved', 'other_expense_ids',
                     'budget_analytic_ids',
                     'amount_gain', 'amount_loss', 'total_expense_valued', 'total_budgetable',
+                    'readonly_reservation', 'readonly_budget_analytic_ids',
                     'is_temporary_gain', 'show_gain', 'show_budget_banner', 'budget_unit',
                     'text_no_reservation',
                 ]
