@@ -549,6 +549,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
         if self._context.get('carpentry_reservation_no_compute'):
             if debug: print('kill _compute_reservation_ids')
             return
+        self = self.with_context(carpentry_reservation_no_compute=True) # avoid looping
 
         # ctx is to not update yet:
         # - record.total_budget_reserved
@@ -560,6 +561,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
         if debug:
             print(' ===== _compute_reservation_ids (start) ===== ')
             print('self', self)
+            print('vals', vals)
             print('self._context', self._context)
             print('update_budget_centers', update_budget_centers)
             print('self.budget_analytic_ids', self.budget_analytic_ids.read(['name']), bool(self.budget_analytic_ids))
@@ -583,7 +585,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
             or not self.budget_analytic_ids
         ):
             if debug: print('shortcut, self.budget_analytic_ids', self.budget_analytic_ids)
-            self = self.with_context(carpentry_budget_no_compute=False)
+            self = self.with_context(carpentry_budget_no_compute=False) # allow compute
             self.reservation_ids = [Command.clear()]
             return
         
