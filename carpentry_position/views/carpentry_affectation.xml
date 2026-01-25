@@ -17,12 +17,12 @@
                 <field name="quantity_remaining_to_affect"
                     decoration-success="quantity_remaining_to_affect &gt; 0"
                     decoration-bf     ="quantity_remaining_to_affect &gt; 0"
-                />
+                    />
                 <field name="quantity_affected"
                     attrs="{
                         'required': [('mode', '=', 'phase')],
                         'readonly': ['|', ('mode', '=', 'launch'), ('is_affectable', '=', False)],
-                    }"
+                        }"
                     sum="1" 
                     decoration-primary="quantity_affected &gt; 0"
                     decoration-bf     ="quantity_affected &gt; 0"
@@ -85,7 +85,7 @@
             </form>
         </field>
     </record>
-
+    
     
     <!-- Search -->
     <record model="ir.ui.view" id="carpentry_affectation_search">

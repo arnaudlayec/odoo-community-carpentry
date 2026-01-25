@@ -22,18 +22,14 @@ class CarpentryAffectationMixin(models.AbstractModel):
             for phase: 'lot_id'
             for launch: 'phase_id'
         """
-        if not self._carpentry_field_parent_group:
-            self._raise_not_supported()
-        return self._carpentry_field_parent_group
+        return self._carpentry_field_parent_group or self._raise_not_supported()
     
     def _record_field(self):
         """ :return:
             for phase: 'position_id'
             for launch: 'parent_id'
         """
-        if not self._carpentry_field_record:
-            self._raise_not_supported()
-        return self._carpentry_field_record
+        return self._carpentry_field_record or self._raise_not_supported()
 
     def _affectations_field(self):
         """ :return:
@@ -192,7 +188,7 @@ class CarpentryAffectationMixin(models.AbstractModel):
             return
         
         field = self._affectations_field() # 'position_ids' or 'affectation_ids'
-        _lambda = self._get_filter_remaining_affectations()
+        _lambda = self._get_filter_remaining_affectations(optimized=True)
         for group in self:
             group.quantity_remaining_to_affect = len(group[field].filtered(_lambda))
 
@@ -233,8 +229,8 @@ class CarpentryAffectationMixin(models.AbstractModel):
             :arg records: positions (for phases), phase_affectations (for launch)
         """
         parent_groups = self._parent_group_field() + 's' # lot_ids, phase_ids
-        _lambda = self[parent_groups]._get_filter_remaining_affectations(provisioning=True)
-        self._create_affectations(records.filtered(_lambda))
+        _lambda = self[parent_groups]._get_filter_remaining_affectations()
+        return self._create_affectations(records.filtered(_lambda))
 
     def _create_affectations(self, records):
         """ Transform:
@@ -308,7 +304,7 @@ class CarpentryAffectationMixin(models.AbstractModel):
                 'parent_id': record.id,
                 'quantity_affected': record.quantity_affected,
             }
-        
+
         return vals
     
     def _inverse_parent_group_ids(self):
@@ -348,7 +344,7 @@ class CarpentryAffectationMixin(models.AbstractModel):
             # 2. Add **affectable** affectations of **added** parent group (only)
             if new_parent_groups:
                 affectation_field = new_parent_groups._affectations_field()
-                _lambda = new_parent_groups._get_filter_remaining_affectations(provisioning=True)
+                _lambda = new_parent_groups._get_filter_remaining_affectations()
                 remaining_affectations = new_parent_groups[affectation_field].filtered(_lambda) # positions or phase affectations
 
                 if remaining_affectations:
@@ -358,28 +354,29 @@ class CarpentryAffectationMixin(models.AbstractModel):
         # so they don't stick to user inputs (which may not be the database reality)
         self.invalidate_recordset([parent_groups])
 
-    def _get_filter_remaining_affectations(self, provisioning=False):
+    def _get_filter_remaining_affectations(self, optimized=False):
         """ :arg self: lot or phase
-            :option provisioning: if True, filtering is less harsh
-                                  if False, this is for name_search of (lots|phases)
+            :option `optimized`: if True: filtering is harsh,
+                                  for name_search of (lots|phases)
+                                 if False: for provisioning
             :return: a lambda function for filtering:
                 - For lots: positions with not fully affected
                 - For phases: phase affectations affectable (qty > 0 or qty_remaining > 0)
                                and not already taken by another launch
         """
         if self._name == 'carpentry.group.lot':
-            if provisioning:
-                _lambda = lambda x: x.quantity != 0
-            else:
+            if optimized:
                 _lambda = lambda x: x.quantity_remaining_to_affect != 0
-        elif self._name == 'carpentry.group.phase':
-            if provisioning:
-                # only add to launch the phase affectation with qty > 0
-                _lambda = lambda x: x.quantity_affected != 0
             else:
+                _lambda = lambda x: x.quantity != 0
+        elif self._name == 'carpentry.group.phase':
+            if optimized:
                 _lambda = lambda x: (
                     x.quantity_affected != 0 and not any(x.children_ids.mapped('affected'))
                 )
+            else:
+                # only add to launch the phase affectation with qty > 0
+                _lambda = lambda x: x.quantity_affected != 0
         else:
             self._raise_not_supported()
         return _lambda

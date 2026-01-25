@@ -38,7 +38,10 @@ class Position(models.Model):
         string='Description'
     )
     # affectations
-    affectation_ids = fields.One2many(inverse_name='position_id', domain=[('mode', '=', 'phase')])
+    affectation_ids = fields.One2many(
+        inverse_name='position_id',
+        domain=[('mode', '=', 'phase')]
+    )
     quantity_remaining_to_affect = fields.Integer(
         string='Remaining', 
         compute='_compute_quantities_and_state', 
@@ -84,11 +87,12 @@ class Position(models.Model):
         res = super().write(vals)
         
         # after `write`
-        if 'quantity' in vals:
-            if vals['quantity'] == 0:
-                self.affectation_ids.unlink()
-            else:
-                self.lot_id.phase_ids._provision_affectations(self)
+        if 'quantity' in vals and vals['quantity'] == 0:
+            # unlink unnecessary 'empty' affectation
+            self.affectation_ids.unlink()
+        if any([x in vals for x in ['quantity', 'lot_id']]):
+            # pre-create empty affectations
+            self.lot_id.phase_ids._provision_affectations(self)
         
         return res
 

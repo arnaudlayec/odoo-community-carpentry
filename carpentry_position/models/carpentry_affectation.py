@@ -232,7 +232,7 @@ class CarpentryAffectation(models.Model):
             if phase_affectations:
                 phase_affectations._update_launch_affectations(vals['quantity_affected'])
         return res
-
+    
     def _update_launch_affectations(self, qty):
         """ :arg `self`: `phase_affectations`
             :arg `qty`: Wether to create or remove launchs affectations
@@ -325,11 +325,12 @@ class CarpentryAffectation(models.Model):
         for affectation in self:
             affectation.sequence_parent_group = affectation[parent].sequence
             affectation.sequence_group = affectation[group].sequence
-    
+
     @api.depends('parent_id.position_id', 'parent_id.sequence_position',)
     def _compute_child_fields(self):
-        """ For launch affectations, compute fields for phase's affectations """
-        for child in self.filtered('parent_id'):
+        """ For launch affectations, compute fields of parent phase's affectation """
+        _, launch_affectations = self._split()
+        for child in launch_affectations:
             parent = child.parent_id
             child.phase_id = parent.phase_id
             child.position_id = parent.position_id
@@ -340,7 +341,9 @@ class CarpentryAffectation(models.Model):
         """ In a different _compute method than previous fields,
             because of different `precompute` field
         """
-        for child in self:
+        self = self.with_context(no_constrain_qty_affected=True)
+        _, launch_affectations = self._split()
+        for child in launch_affectations:
             child.quantity_affected = child.parent_id.quantity_affected
 
     #===== Quantities: compute & constrain =====#
@@ -350,7 +353,13 @@ class CarpentryAffectation(models.Model):
         """ Ensure `quantity_remaining_to_affect > 0`
             Only for phases
         """
+        if self._context.get("no_constrain_qty_affected"):
+            return
+        
         phase_affectations, _ = self._split()
+        if not phase_affectations: # optim
+            return
+        
         affectation = fields.first(
             phase_affectations.filtered(lambda x: x.quantity_remaining_to_affect < 0)
         )
