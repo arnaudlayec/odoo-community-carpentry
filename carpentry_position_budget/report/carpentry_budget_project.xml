@@ -22,7 +22,7 @@
         <field name="model">carpentry.budget.project</field>
 
         <field name="arch" type="xml">
-            <pivot disable_linking="0" js_class="project_budget_report_pivot">
+            <pivot disable_linking="0">
                 <field name="record_model_id" invisible="1" />
                 <field name="currency_id" invisible="1" />
                 

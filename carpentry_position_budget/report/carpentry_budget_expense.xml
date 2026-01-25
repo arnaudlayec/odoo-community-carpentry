@@ -161,6 +161,7 @@
         <field name="context">{
             'display_model_shortname': 1,
         }</field>
+        <field name="domain">[('state', 'not in', ['budget', 'reservation'])]</field>
     </record>
 
     <!-- Pivot -->

@@ -89,7 +89,9 @@ class CarpentryBudgetExpenseDetail(models.Model):
                         row_number() OVER (ORDER BY
                             expense.record_id,
                             expense.record_model_id,
-                            expense.analytic_account_id
+                            expense.analytic_account_id,
+                            expense.state,
+                            expense.date
                         ) AS id,
                         expense.project_id,
                         expense.state,
