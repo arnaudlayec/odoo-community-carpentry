@@ -16,6 +16,10 @@ class CarpentryBudgetReservation(models.Model):
     _log_access = False
 
     #===== Fields =====#
+    company_id = fields.Many2one(
+        related='project_id.company_id',
+        store=True,
+    )
     project_id = fields.Many2one(
         comodel_name='project.project',
         string='Project',

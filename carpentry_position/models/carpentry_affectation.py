@@ -33,6 +33,9 @@ class CarpentryAffectation(models.Model):
         selection=[('phase', 'Phase'), ('launch', 'Launch')],
         required=True,
     )
+    company_id = fields.Many2one(
+        related='project_id.company_id',
+    )
     project_id = fields.Many2one(
         related='position_id.project_id',
         store=True,

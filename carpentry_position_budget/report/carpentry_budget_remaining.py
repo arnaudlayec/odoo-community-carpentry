@@ -66,6 +66,7 @@ class CarpentryBudgetRemaining(models.Model):
                         row_number() OVER (ORDER BY unique_key) AS id,
                         state,
                         
+                        company_id,
                         project_id,
                         launch_id,
                         position_id,
@@ -101,6 +102,7 @@ class CarpentryBudgetRemaining(models.Model):
                     'budget' AS state,
                     
                     -- project & launch
+                    available.company_id,
                     available.project_id,
                     available.launch_id,
                     available.position_id,
@@ -122,6 +124,7 @@ class CarpentryBudgetRemaining(models.Model):
                     'reservation' AS state,
 
                     -- project & launch
+                    reservation.company_id,
                     reservation.project_id,
                     reservation.launch_id,
                     NULL AS position_id,

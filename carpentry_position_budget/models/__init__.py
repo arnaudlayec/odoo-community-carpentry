@@ -24,4 +24,5 @@ from . import carpentry_position_budget
 
 from . import carpentry_planning_column
 
+from . import res_company
 from . import ir_model

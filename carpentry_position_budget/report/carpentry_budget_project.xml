@@ -113,8 +113,8 @@
         sequence="30"
         name="Details"
     >
-        <menuitem id="menu_project_budget_report_expense_history"  action="action_open_budget_report_expense_history_srv"  sequence="10" />
-        <menuitem id="menu_project_budget_report_expense_unposted" action="action_open_budget_report_expense_unposted_srv" sequence="20" />
+        <menuitem id="menu_project_budget_report_expense_history"  action="action_open_budget_report_expense_history_srv" sequence="10" />
+        <menuitem id="menu_project_budget_report_expense_unposted" action="action_open_budget_report_expense_unposted_wizard" sequence="20" />
     </menuitem>
 
 </odoo>

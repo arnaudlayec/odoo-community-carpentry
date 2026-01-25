@@ -28,6 +28,7 @@ class CarpentryExpense(models.Model):
             return f"""
                 SELECT
                     'expense_unposted' AS state,
+                    record.company_id,
                     record.project_id,
                     record.date_budget AS date,
                     record.state NOT IN ('draft', 'sent', 'to approve', 'cancel') as active,

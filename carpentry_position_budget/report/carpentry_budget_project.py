@@ -74,6 +74,7 @@ class CarpentryBudgetProject(models.Model):
                 ) AS id,
                 
                 state,
+                company_id,
                 project_id,
                 result.budget_type,
                 analytic_account_id,
@@ -96,6 +97,7 @@ class CarpentryBudgetProject(models.Model):
         return f"""
             GROUP BY
                 state,
+                company_id,
                 project_id,
                 result.budget_type,
                 analytic_account_id,
@@ -122,6 +124,7 @@ class CarpentryBudgetProject(models.Model):
                 SELECT 
                     'budget' AS state,
 
+                    company_id,
                     project_id,
                     budget_type,
                     analytic_account_id,
@@ -143,6 +146,7 @@ class CarpentryBudgetProject(models.Model):
                 SELECT
                     'expense' AS state,
 
+                    company_id,
                     project_id,
                     budget_type,
                     analytic_account_id,

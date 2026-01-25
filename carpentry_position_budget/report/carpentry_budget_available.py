@@ -26,6 +26,11 @@ class CarpentryBudgetAvailable(models.Model):
         ]
     
     #===== Fields =====#
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        string='Company',
+        readonly=True,
+    )
     project_id = fields.Many2one(
         comodel_name='project.project',
         string='Project',
@@ -122,6 +127,7 @@ class CarpentryBudgetAvailable(models.Model):
                     
                     SELECT
                         row_number() OVER (ORDER BY result.unique_key) AS id,
+                        result.company_id,
                         result.project_id,
                         result.launch_id,
                         result.phase_id,
@@ -150,6 +156,7 @@ class CarpentryBudgetAvailable(models.Model):
 
                     GROUP BY
                         result.unique_key,
+                        result.company_id,
                         result.project_id,
                         result.launch_id,
                         result.phase_id,
@@ -205,6 +212,7 @@ class CarpentryBudgetAvailable(models.Model):
                     'project-' || budget_project.id AS unique_key,
 
                     -- project & carpentry group
+                    project.company_id,
                     project.id AS project_id,
                     NULL AS launch_id,
                     NULL AS phase_id,
@@ -242,6 +250,7 @@ class CarpentryBudgetAvailable(models.Model):
                     '{shortname}-' || carpentry_group.id || '-' || budget.id AS unique_key,
 
                     -- project_id, phase_id, launch_id
+                    carpentry_group.company_id,
                     carpentry_group.project_id,
                     {'carpentry_group.id' if model == 'carpentry.group.launch' else 'NULL::integer'} AS launch_id,
                     {'carpentry_group.id' if model == 'carpentry.group.phase'  else 'NULL::integer'} AS phase_id,
@@ -327,6 +336,7 @@ class CarpentryBudgetAvailable(models.Model):
         else:
             return """
                 GROUP BY 
+                    carpentry_group.company_id,
                     carpentry_group.project_id,
                     carpentry_group.id,
                     budget.id,

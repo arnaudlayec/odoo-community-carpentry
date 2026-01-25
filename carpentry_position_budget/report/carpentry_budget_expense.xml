@@ -144,26 +144,6 @@
         }</field>
     </record>
 
-    <!-- Unposted -->
-    <record id="action_open_budget_report_expense_unposted_srv" model="ir.actions.server">
-        <field name="name">Unposted expenses</field>
-        <field name="model_id" ref="project_favorite_switch.model_project_choice_wizard" />
-        <field name="state">code</field>
-        <field name="code">
-            action = model.action_choose_project_and_redirect('carpentry_position_budget.action_open_budget_report_expense_unposted')
-        </field>
-    </record>
-    <!-- Unposted (real action) -->
-    <record id="action_open_budget_report_expense_unposted" model="ir.actions.act_window">
-        <field name="name">Unposted expenses</field>
-        <field name="res_model">carpentry.budget.expense.detail</field>
-        <field name="view_mode">pivot,tree</field>
-        <field name="context">{
-            'display_model_shortname': 1,
-        }</field>
-        <field name="domain">[('state', 'not in', ['budget', 'reservation'])]</field>
-    </record>
-
     <!-- Pivot -->
     <record id="carpentry_budget_report_expense_pivot_history" model="ir.ui.view">
         <field name="name">carpentry.budget.expense.detail.pivot</field>

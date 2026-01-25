@@ -13,6 +13,10 @@ class Phase(models.Model):
     _carpentry_field_affectations = 'affectation_ids'
     
     #===== Fields ======#
+    company_id = fields.Many2one(
+        related='project_id.company_id',
+        store=True,
+    )
     name = fields.Char(
         string='Name',
         required=True,
@@ -26,9 +30,6 @@ class Phase(models.Model):
     active = fields.Boolean(
         string="Active?",
         default=True
-    )
-    company_id = fields.Many2one(
-        related='project_id.company_id'
     )
     # from `affectation.mixin`
     affectation_ids = fields.One2many(

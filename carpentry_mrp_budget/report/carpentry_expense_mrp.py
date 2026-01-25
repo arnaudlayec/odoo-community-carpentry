@@ -42,6 +42,7 @@ class CarpentryExpense(models.Model):
                         ELSE 'expense_unposted'
                     END AS state,
 
+                    record.company_id,
                     record.project_id,
                     record.date_budget AS date,
                     {sql_active} AS active,
@@ -74,9 +75,10 @@ class CarpentryExpense(models.Model):
         elif model == 'mrp.workorder':
             return f"""
                 SELECT
-                    'expense_unposted' AS state,
+                    NULL AS state,
 
-                    record.project_id AS project_id,
+                    record.company_id,
+                    record.project_id,
                     record.date_budget_workorders AS date,
                     {sql_active} AS active,
                     record.id AS record_id,

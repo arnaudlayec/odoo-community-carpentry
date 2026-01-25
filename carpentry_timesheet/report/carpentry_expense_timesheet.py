@@ -13,8 +13,9 @@ class CarpentryExpense(models.Model):
         if model == 'project.task':
             return f"""
                 SELECT
-                    'expense_unposted' AS state,
+                    NULL AS state,
                     
+                    record.company_id,
                     record.project_id,
                     record.date_budget AS date,
                     record.active,

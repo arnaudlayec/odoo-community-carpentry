@@ -93,8 +93,17 @@ class CarpentryBudgetExpenseDetail(models.Model):
                             expense.state,
                             expense.date
                         ) AS id,
+                        expense.company_id,
                         expense.project_id,
-                        expense.state,
+                        CASE
+                            WHEN expense.state IS NULL -- times
+                            THEN CASE
+                                WHEN expense.date <= COALESCE(company.budget_date_times_posted, CURRENT_DATE)
+                                THEN 'expense_posted'
+                                ELSE 'expense_unposted'
+                            END
+                            ELSE expense.state
+                        END AS state,
                         expense.date,
                         expense.active,
                         
@@ -189,7 +198,11 @@ class CarpentryBudgetExpenseDetail(models.Model):
                         AND hourly_cost.analytic_account_id = expense.analytic_account_id
                         AND expense.budget_type IN %(budget_types)s
                     
+                    LEFT JOIN res_company AS company
+                        ON company.id = expense.company_id
+                    
                     GROUP BY
+                        expense.company_id,
                         expense.project_id,
                         expense.state,
                         expense.date,
@@ -199,7 +212,8 @@ class CarpentryBudgetExpenseDetail(models.Model):
                         expense.analytic_account_id,
                         expense.budget_type,
                         expense.seq_analytic,
-                        hourly_cost.coef
+                        hourly_cost.coef,
+                        company.budget_date_times_posted
                     
                     ORDER BY
                         expense.seq_analytic,
@@ -259,6 +273,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
             sql = f"""
                 SELECT
                     'reservation' AS state,
+                    company_id,
                     project_id,
                     date,
                     active AS active,
@@ -285,6 +300,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
             sql = f"""
                 SELECT
                     'expense_posted' AS state,
+                    analytic.company_id,
                     analytic_projects.project_id,
                     analytic.date,
                     TRUE AS active,
@@ -360,12 +376,21 @@ class CarpentryBudgetExpenseDetail(models.Model):
                     analytic.budget_type,
                     analytic.account_id,
                     account.sequence,
+                    analytic.company_id,
                     analytic_projects.project_id,
                     analytic.date,
                     analytic.id
             """
         else:
-            return 'GROUP BY analytic.budget_type, analytic.id, analytic.sequence, record.id, record.project_id'
+            return """
+                GROUP BY
+                    analytic.budget_type,
+                    analytic.id,
+                    analytic.sequence,
+                    record.id,
+                    record.company_id,
+                    record.project_id
+            """
     
     def _orderby(self, model, models):
         return ''
@@ -403,6 +428,7 @@ class CarpentryBudgetExpense(models.Model):
                         record_model_id,
                         analytic_account_id
                     ) AS id,
+                    company_id,
                     project_id,
                     active,
                     
@@ -423,6 +449,7 @@ class CarpentryBudgetExpense(models.Model):
                 FROM carpentry_budget_expense_detail
                 
                 GROUP BY
+                    company_id,
                     project_id,
                     record_id,
                     record_model_id,
