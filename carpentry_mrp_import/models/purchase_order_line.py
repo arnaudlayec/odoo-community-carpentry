@@ -9,4 +9,7 @@ class PurchaseOrderLine(models.Model):
     @api.depends('product_id')
     def _compute_display_name(self):
         for line in self:
-            line.display_name = line.product_id.name + ' (%s)' % line.product_qty
+            line.display_name = (
+                (line.product_id.name or '') +
+                ' (%s)' % line.product_qty if line.product_qty else ''
+            )
