@@ -47,6 +47,9 @@ export class PlanningDashboard extends Component {
     get data () {
         return this.props.model.data.dashboard;
     }
+    get projectId() {
+        return this.props.model.projectId;
+    }
 
     statusColor(value) {
         return this.colors[value] ? this.colorPrefix + this.colors[value] : "";
@@ -65,12 +68,13 @@ export class PlanningDashboard extends Component {
         }
     }
 
-    openDashboardRecord(res_model, res_id) {
+    openDashboardRecord(res_model, res_id, context={}) {
         this.actionService.doActionButton({
             type: 'object',
             name: 'action_open_planning_dashboard_card',
+            resModel: res_model,
             resId: res_id,
-            resModel: res_model
+            buttonContext: context
         });
     }
     
@@ -78,7 +82,7 @@ export class PlanningDashboard extends Component {
         this.actionService.doActionButton({
             type: 'object',
             name: 'action_open_planning_next_user',
-            resId: this.props.model.projectId,
+            resId: this.projectId,
             resModel: 'project.project',
             args: JSON.stringify([user_id])
         });

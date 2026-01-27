@@ -162,9 +162,22 @@ class Project(models.Model):
             else:
                 data[key] = self[key]
             
-            compare = bool(currency) and currency.compare_amounts(self[key], 0)
+            compared_to = self[key.replace("_actual", "")] if key.endswith("_actual") else 0.0
+            result = bool(currency) and currency.compare_amounts(self[key], compared_to)
             data[f'{key}_class'] = (
-                'text-success' if compare == 1 else
-                'text-danger'  if compare == -1 else ''
+                'text-success' if result == 1 else
+                'text-danger'  if result == -1 else ''
             )
         return data
+
+    def action_open_planning_dashboard_card(self):
+        """ Called from planning card """
+        if self._context.get("budget_report"):
+            action = self.env.ref("carpentry_position_budget.action_open_budget_report_project").read()[0]
+            action.update({
+                "domain": [("project_id", "=", self.id)],
+                "context": self._context | {"default_project_id": self.id}
+            })
+            return action
+        elif hasattr(super, "action_open_planning_dashboard_card"):
+            return super().action_open_planning_dashboard_card()

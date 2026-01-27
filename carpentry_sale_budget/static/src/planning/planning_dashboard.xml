@@ -7,16 +7,24 @@
 
 
         <h6>Contributive margin</h6>
-        <span t-att-class="m['margin_contributive_actual_class']">
+        <div t-att-class="m['margin_contributive_actual_class']">
             <t t-esc="m['margin_contributive_actual']" />
             (<t t-esc="m['margin_contributive_actual_rate']" /> %)
-        </span>
+        </div>
 
         <h6 class="mt-4">Costs margin</h6>
-        <span t-att-class="m['margin_costs_actual_class']">
+        <div t-att-class="m['margin_costs_actual_class']">
             <t t-esc="m['margin_costs_actual']" />
             (<t t-esc="m['margin_costs_actual_rate']" /> %)
-        </span>
+        </div>
+
+        <button class="mt-4 btn btn-primary"
+            t-on-click="() => this.openDashboardRecord(
+                'project.project', this.projectId, {budget_report: 1}
+            )"
+        >
+            <span class="fa fa-external-link" /> Open
+        </button>
     </t>
 
 </templates>
