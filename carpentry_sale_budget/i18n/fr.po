@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 22:42+0000\n"
-"PO-Revision-Date: 2026-01-22 23:43+0100\n"
+"POT-Creation-Date: 2026-01-27 07:58+0000\n"
+"PO-Revision-Date: 2026-01-27 08:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -27,7 +27,7 @@ msgstr "Revue"
 #: code:addons/carpentry_sale_budget/static/src/planning/planning_dashboard.js:0
 #, python-format
 msgid "Budget"
-msgstr "Budget"
+msgstr ""
 
 #. module: carpentry_sale_budget
 #: model:ir.model.fields,field_description:carpentry_sale_budget.field_project_project__budget_up_to_date
@@ -154,6 +154,13 @@ msgstr "Aucun"
 #: model:ir.model.fields.selection,name:carpentry_sale_budget.selection__sale_order__lines_budget_updated__all_updated
 msgid "OK"
 msgstr ""
+
+#. module: carpentry_sale_budget
+#. odoo-javascript
+#: code:addons/carpentry_sale_budget/static/src/planning/planning_dashboard.xml:0
+#, python-format
+msgid "Open"
+msgstr "Ouvrir"
 
 #. module: carpentry_sale_budget
 #: model:ir.model.fields.selection,name:carpentry_sale_budget.selection__sale_order__lines_budget_updated__partial_updated

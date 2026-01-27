@@ -27,7 +27,7 @@ class BudgetExpenseUnpostedWizard(models.TransientModel):
     )
     date_times_posted = fields.Date(
         string='Threshold date for posted times',
-        help="Date until which the expensed times will be considred as "
+        help="Date until which the expensed times will be considered as "
              "posted. Times after this date will appear with 'Unposted' "
              "state.",
         default=_default_date_times_posted,
