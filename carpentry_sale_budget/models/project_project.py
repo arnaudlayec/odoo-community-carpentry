@@ -173,7 +173,7 @@ class Project(models.Model):
     def action_open_planning_dashboard_card(self):
         """ Called from planning card """
         if self._context.get("budget_report"):
-            action = self.env.ref("carpentry_position_budget.action_open_budget_report_project").read()[0]
+            action = self.sudo().env.ref("carpentry_position_budget.action_open_budget_report_project").read()[0]
             action.update({
                 "domain": [("project_id", "=", self.id)],
                 "context": self._context | {"default_project_id": self.id}
