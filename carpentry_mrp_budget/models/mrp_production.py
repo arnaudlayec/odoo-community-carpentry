@@ -144,7 +144,7 @@ class ManufacturingOrder(models.Model):
 
     def _inverse_budget_analytic_ids_mrp(self):
         """ Populate workorders budget center in main field budget_analytic_ids,
-            without refreshing component's `amount_reserved` 
+            without refreshing component's `amount_reserved`
         """
         for mo in self:
             existing = mo.budget_analytic_ids
@@ -168,10 +168,14 @@ class ManufacturingOrder(models.Model):
         return super()._compute_reservation_ids(vals)
     
     def _auto_update_budget_reservation(self, rg_result):
-        """ Don't update components amounts while updating workorders budgets """
+        """ 1. Don't update *components* amounts while updating workorders budgets
+            2. Never update *workorder* amounts automatically
+        """
+        # 1.
         if self._context.get('budget_analytic_ids_workorders_inverse'):
             return
-        
+        # 2.
+        self = self.with_context(filter_budget_types=self._get_component_budget_types())
         super()._auto_update_budget_reservation(rg_result)
 
     #===== Budgets configuration =====#
@@ -345,4 +349,4 @@ class ManufacturingOrder(models.Model):
                     'button_reservation_refresh': False,
                 }
             }
-        ,]
+        ]
