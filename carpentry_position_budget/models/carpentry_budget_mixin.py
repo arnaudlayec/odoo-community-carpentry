@@ -4,14 +4,13 @@ from odoo import models, fields, api, exceptions, _, Command
 from odoo.tools import float_round, float_is_zero
 from odoo.tools.safe_eval import safe_eval
 from odoo.osv import expression
-from psycopg2.extensions import AsIs
 
 from lxml import etree
 from odoo.tools.misc import frozendict
 
-from datetime import datetime
 import calendar
 from collections import defaultdict
+from datetime import datetime
 
 class CarpentryBudgetMixin(models.AbstractModel):
     """ Budget reservation fields & methods for inheriting models (records*)
@@ -1003,7 +1002,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
                 },
                 'params': {
                     'model_name': self._name,
-                    'model_description': self._description,
+                    'model_description': self.env["ir.model"]._get(self._name).name,
                     'fields_suffix': '', # for MRP
                     'budget_types': self._get_budget_types(),
                     'budget_choice': self._carpentry_budget_choice,
