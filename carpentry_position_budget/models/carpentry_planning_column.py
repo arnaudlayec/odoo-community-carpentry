@@ -34,7 +34,7 @@ class CarpentryPlanningColumn(models.Model):
         # 1. Available (brut)
         project = self.env['carpentry.group.launch'].browse(launch_id_).project_id
         domain_budget = [('budget_type', 'in', budget_types)]
-        domain_project = domain_budget + [('project_id', '=', project.id), ('launch_id', '!=', False)]
+        domain_project = domain_budget + [('project_id', '=', project.id)]
         domain_launch = domain_budget + [('launch_id', '=', launch_id_)]
         rg_available = self.env['carpentry.budget.available']._read_group(
             domain=domain_launch, groupby=['budget_type'], fields=['amount_subtotal:sum'],
@@ -48,7 +48,7 @@ class CarpentryPlanningColumn(models.Model):
         fields = ['amount_reserved', 'amount_reserved_valued']
         record_fields = Reservation._get_record_fields()
         rg_reserved = Reservation._read_group(
-            domain=domain_project + [('amount_reserved', '!=', 0.0)],
+            domain=domain_project + [('launch_id', '!=', False), ('amount_reserved', '!=', 0.0)],
             fields=[field + ':sum' for field in fields],
             groupby=['launch_id', 'budget_type'] + record_fields,
             lazy=False,
@@ -84,7 +84,7 @@ class CarpentryPlanningColumn(models.Model):
         mapped_expense = {}
         for x in rg_expense:
             # 1st compute share of launch in the expense, at prorata of
-            # its reserved budget in the record on a given `budget_type`
+            #  its reserved budget in the record on a given `budget_type`
             key_planning = tuple([launch_id_] + list(
                 BudgetMixin._get_key(vals=x, mode='planning', mask=record_fields + ['budget_type'])
             ))
@@ -93,11 +93,12 @@ class CarpentryPlanningColumn(models.Model):
             total_reserved = mapped_reserved_per_record.get(key_record, 0.0)
             prorata_reserved = launch_reserved / total_reserved if total_reserved else 0.0
 
-            budget_type = x['budget_type']
-            if not budget_type in mapped_expense:
-                mapped_expense[budget_type] = {field: 0.0 for field in fields}
-            for field in fields:
-                mapped_expense[budget_type][field] += x[field] * prorata_reserved
+            if prorata_reserved:
+                budget_type = x['budget_type']
+                if not budget_type in mapped_expense:
+                    mapped_expense[budget_type] = {field: 0.0 for field in fields}
+                for field in fields:
+                    mapped_expense[budget_type][field] += x[field] * prorata_reserved
 
         # 4. Format data per column
         budget_types_workforce = self.env['account.analytic.account']._get_budget_type_workforce()
