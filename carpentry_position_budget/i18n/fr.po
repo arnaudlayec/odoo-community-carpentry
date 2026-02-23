@@ -505,12 +505,12 @@ msgstr "Assistant d'import de budget des repères"
 #. module: carpentry_position_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_position_budget.carpentry_budget_template_notebook_page
 msgid "Choose budgets ({{model_description}})"
-msgstr "Choisir des budgets ({{model_description}})"
+msgstr "Choix des budgets ({{model_description}})"
 
 #. module: carpentry_position_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_position_budget.view_carpentry_budget_balance_form
 msgid "Choose launches"
-msgstr "Choisir le(s) lancement(s)"
+msgstr "Choix du/des lancement(s)"
 
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_hourly_cost__coef
