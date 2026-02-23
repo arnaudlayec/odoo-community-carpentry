@@ -240,7 +240,6 @@ class CarpentryBudgetAvailable(models.Model):
                         THEN budget_project.balance
                         ELSE budget_project.qty_balance
                     END AS amount_subtotal
-                
             """
 
         else:

@@ -22,16 +22,6 @@ class AccountMoveBudgetLine(models.Model):
         store=True,
         readonly=False,
     )
-    debit = fields.Monetary(
-        compute='_compute_debit_carpentry',
-        store=True,
-        readonly=False,
-    )
-    qty_debit = fields.Float(
-        compute='_compute_debit_carpentry',
-        store=True,
-        readonly=False,
-    )
 
     #===== Constrain =====#
     @api.ondelete(at_uninstall=False)
@@ -85,8 +75,8 @@ class AccountMoveBudgetLine(models.Model):
     @api.depends('budget_id.date_from')
     def _compute_date(self):
         """ Update computed line's `date` on budget's date """
-        line_ids_computed = self.filtered('is_computed_carpentry')
-        for line in line_ids_computed:
+        lines_carpentry = self.filtered('is_computed_carpentry')
+        for line in lines_carpentry:
             line.date = line.budget_id.date_from
     
     @api.depends(
@@ -106,18 +96,18 @@ class AccountMoveBudgetLine(models.Model):
         'timesheet_cost_history_ids.hourly_cost',
         'timesheet_cost_history_ids.starting_date',
     )
-    def _compute_debit_carpentry(self):
+    def _compute_debit_credit_balance(self):
         """ When position's budgets are updated (import or manually),
             update amount(*) in `account.move.budget.line` accordingly
             (*) is `qty_debit` or `debit` depending on product's type (service or goods)
         """
-        line_ids_computed = self.filtered('is_computed_carpentry')
+        lines_carpentry = self.filtered('is_computed_carpentry')
 
-        # compute `debit` standardly, since we override the field's `compute` arg
-        super(AccountMoveBudgetLine, self - line_ids_computed)._compute_debit_credit()
+        # compute `debit` standardly
+        super(AccountMoveBudgetLine, self - lines_carpentry)._compute_debit_credit_balance()
 
         # perf early quit
-        if not line_ids_computed:
+        if not lines_carpentry:
             return
         
         # Ensure correct values in database
@@ -143,11 +133,12 @@ class AccountMoveBudgetLine(models.Model):
         }
 
         # Write in budget lines
-        for line in line_ids_computed:
+        for line in lines_carpentry:
             key = (line.project_id._origin.id, line.analytic_account_id._origin.id)
-            field = 'debit' if line.type == 'amount' else 'qty_debit'
-            line[field] = budget_brut.get(key, 0.0)
-
-            # force re-computation of `debit`, else it's not triggered
-            if line.type == 'workforce':
-                line._compute_debit_credit()
+            amount_brut = budget_brut.get(key, 0.0)
+            if line.type == "amount":
+                line.debit = amount_brut
+            else: # workforce
+                line.qty_debit = amount_brut
+                line._compute_debit_credit_balance_one() # re-valuate 'debit' (only 'qty_debit' was set)
+            line.balance = line.debit - line.credit

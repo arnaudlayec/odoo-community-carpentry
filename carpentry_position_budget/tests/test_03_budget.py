@@ -4,8 +4,6 @@ from odoo import exceptions, fields, _, Command
 
 from .test_00_position_budget_base import TestCarpentryPositionBudget_Base
 
-from dateutil.relativedelta import relativedelta
-
 class TestCarpentryPositionBudget_Budget(TestCarpentryPositionBudget_Base):
 
     @classmethod
@@ -31,7 +29,6 @@ class TestCarpentryPositionBudget_Budget(TestCarpentryPositionBudget_Base):
         """
         # 3 per budget center: 'production', 'installation', 'other'
         lines = self.project.budget_line_ids
-        self.project._compute_budgets()
         self.assertEqual(len(lines), 3)
         self.assertEqual(len(lines.filtered('is_computed_carpentry')), 2)
 

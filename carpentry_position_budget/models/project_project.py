@@ -111,10 +111,10 @@ class Project(models.Model):
                 'budget_id': self._origin.budget_id.id,
                 'analytic_account_id': analytic.id,
                 'is_computed_carpentry': True,
-                # value with `_compute_debit_carpentry`
+                # value with `_compute_debit_credit_balance`
                 'debit': 0,
                 'qty_debit': 0,
-            } for analytic in analytics])._compute_debit_carpentry()
+            } for analytic in analytics])._compute_debit_credit_balance()
         
         else:
             raise exceptions.UserError(_('Operation not supported'))
