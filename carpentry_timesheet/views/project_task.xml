@@ -78,11 +78,10 @@
                     <div t-if="record.performance.raw_value"
                         t-attf-class="oe_kanban_align badge {{ badge }}" title="Performance">
                         <t t-esc="'+'" t-if="record.performance.raw_value &gt; 0" />
-                        <field
-                            name="performance" digits="[2,0]" />%
+                        <field name="performance" digits="[2,0]" />%
                     </div>
                     <!-- Add *done* card status -->
-                    <em class="fa fa-check text-success" t-if="record.progress_reviewed.raw_value == 100"
+                    <em class="fa fa-check text-success" t-if="record.is_closed.raw_value"
                         title="Task done"
                     />
                 </t>

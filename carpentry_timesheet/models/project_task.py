@@ -34,7 +34,10 @@ class Task(models.Model):
         domain="[('project_id', '=', project_id)]",
         help='For budget & times distribution and follow-up per launch on the planning',
     )
-    budget_analytic_ids = fields.Many2many(store=False,)
+    budget_analytic_ids = fields.Many2many(
+        compute='_compute_budget_analytic_ids',
+        store=False,
+    )
     budget_unit = fields.Char(default='h')
     # -- Planning --
     progress_reviewed = fields.Float(
@@ -119,6 +122,10 @@ class Task(models.Model):
     def _get_budget_types(self):
         return ['service', 'installation']
     
+    def _compute_budget_analytic_ids(self):
+        for task in self:
+            task.budget_analytic_ids = self.analytic_account_id
+    
     def _depends_reservation_refresh(self):
         return super()._depends_reservation_refresh() + [
             'analytic_account_id', 'planned_hours', 'allow_timesheets',
@@ -149,7 +156,7 @@ class Task(models.Model):
             Auto-budget reservation of tasks is based on `planned_hours`
         """
         return {
-            (task._origin.id, task.analytic_account_id.id):
+            (task._origin.id, task.analytic_account_id._origin.id):
             task.planned_hours
             for task in self.filtered('analytic_account_id')
         }
