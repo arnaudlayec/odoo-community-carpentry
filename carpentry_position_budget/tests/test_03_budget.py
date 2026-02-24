@@ -4,6 +4,8 @@ from odoo import exceptions, fields, _, Command
 
 from .test_00_position_budget_base import TestCarpentryPositionBudget_Base
 
+from dateutil.relativedelta import relativedelta
+
 class TestCarpentryPositionBudget_Budget(TestCarpentryPositionBudget_Base):
 
     @classmethod
@@ -22,7 +24,7 @@ class TestCarpentryPositionBudget_Budget(TestCarpentryPositionBudget_Base):
         """
         self.assertEqual(self.position.budget_installation, self.amount_installation)
         self.assertEqual(self.position.budget_production, self.amount_production)
-
+    
     def test_03_project_budget_line(self):
         """ Test that creating the positions & budgets has
             updated the project's budget lines

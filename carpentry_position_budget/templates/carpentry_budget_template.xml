@@ -102,7 +102,7 @@
                     'readonly': [('readonly_budget_analytic_ids', '=', True)],
                 }"
                 t-attf-context="{
-                    'analytic_display_budget': 1,
+                    'display_analytic_budget': 1,
                     'record_id': id,
                     'record_res_model': '{{model_name}}',
                 }"
@@ -162,7 +162,10 @@
                 'invisible': [('{{fields['reservation_ids']}}', '=', [])],
                 'readonly': [('readonly_reservation', '=', True)],
             }"
-            context="{'active_test': False,}"
+            context="{
+                'active_test': False,
+                'display_analytic_budget': False,
+            }"
         />
 
         <group colspan="2">
@@ -206,7 +209,10 @@
             <field
                 t-att-name="fields['other_expense_ids']" readonly="1"
                 nolabel="1" colspan="2" widget="one2many"
-                context="{'tree_view_ref' : 'carpentry_position_budget.carpentry_budget_other_expense_tree'}"
+                context="{
+                    'display_analytic_budget': False,
+                    'tree_view_ref' : 'carpentry_position_budget.carpentry_budget_other_expense_tree',
+                }"
             />
 
             Possible explanations:

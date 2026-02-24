@@ -16,12 +16,6 @@ class CarpentryBudgetProject(models.Model):
         string='Available budget',
         readonly=True,
     )
-    # percent_gain = fields.Float(
-    #     string='Gain (%)',
-    #     digits=[10,1],
-    #     readonly=True,
-    #     group_operator='avg',
-    # )
     # re-activated fields
     state = fields.Selection(
         selection_add=[('expense', 'Expense'),],
