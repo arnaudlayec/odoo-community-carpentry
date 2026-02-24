@@ -17,6 +17,9 @@ export class PlanningRendered extends KanbanRenderer {
         this.actionService = useService('action');
     }
     openMilestone(milestone) {
+        const actionReload = async () => await this.props.list.model.load(this.props.list);
+        console.log("openMilestone", actionReload, this.props.list.model, this.props.list);
+
         this.actionService.doAction({
             'type': 'ir.actions.act_window',
             'res_model': 'carpentry.planning.milestone.wizard',
@@ -25,7 +28,7 @@ export class PlanningRendered extends KanbanRenderer {
             'views': [[false, 'form']],
             'target': 'new',
         }, {
-            onClose: async () => await this.props.list.model.load(this.props.list)
+            onClose: actionReload
         });
     }
 }
@@ -63,14 +66,14 @@ export class PlanningController extends KanbanController {
     // Kanban (planning) - overwrites card opening
     async openRecord (record) {
         const actionReload = async () => await this.model.load(this.model.root);
-
         this.actionService.doActionButton({
             type: 'object',
             name: 'action_open_planning_card',
             resModel: record._values.res_model,
             resId: record._values.res_id,
             context: record.model.root.context,
-        }, {onClose: actionReload});
+            onClose: actionReload,
+        });
     }
 }
 PlanningController.template = "carpentry_planning.CarpentryPlanningKanbanView"
