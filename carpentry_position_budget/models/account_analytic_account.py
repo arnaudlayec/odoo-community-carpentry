@@ -14,7 +14,7 @@ class AnalyticAccount(models.Model):
             - suffix: ... remaining budget 0,00€
         """
         res = super().name_get()
-        if not self._context.get('analytic_display_budget'):
+        if not self._context.get('display_analytic_budget'):
             return res
         
         record_id = self._context.get('record_id')
@@ -39,7 +39,7 @@ class AnalyticAccount(models.Model):
             name = f'[{budget_type}] {name}'
 
             # suffix budget & clock
-            amount_subtotal = remaining_budget.get(id_, None)
+            amount_subtotal = remaining_budget.get(id_)
             if amount_subtotal != None:
                 amount_str = format_amount(self.env, amount_subtotal, analytic.currency_id)
                 if analytic.budget_unit == 'h':
@@ -113,12 +113,6 @@ class AnalyticAccount(models.Model):
         """ Return the last `hourly_cost` per analytic account """
         pass
     
-    #===== Native ORM methods =====#
-    def _search(self, domain, offset=0, limit=None, order=None, count=False, access_rights_uid=None):
-        if self._context.get('analytic_display_budget'):
-            order = 'budget_type, name'
-        return super()._search(domain, offset, limit, order, count, access_rights_uid)
-
     #==== Budget sums computation =====#
     @api.model
     def _get_remaining_budget_by_analytic(self, project_id, launch_ids, record_id, record_field):
