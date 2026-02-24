@@ -102,7 +102,7 @@ class Project(models.Model):
             name=_('Meetings'),
             type_code='meeting',
             custom=['tree', 'form'],
-            switch=['tree', 'form', 'kanban', 'calendar', 'timeline', 'activity']
+            switch=['tree', 'form', 'kanban', 'calendar', 'activity']
         )
     
     # Milestone
@@ -111,5 +111,5 @@ class Project(models.Model):
             name=_('Milestones'),
             type_code='milestone',
             custom=['tree'],
-            switch=['tree', 'form', 'kanban', 'calendar', 'timeline', 'activity']
+            switch=['tree', 'form', 'kanban', 'calendar', 'activity']
         )

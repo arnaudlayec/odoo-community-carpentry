@@ -247,7 +247,6 @@ class Task(models.Model):
             'form': self.env.ref('project.view_task_form2').id,
             'kanban': self.env.ref('project.view_task_kanban').id,
             'calendar': self.env.ref('project.view_task_calendar').id,
-            'timeline': self.env.ref('project_timeline.project_task_timeline').id,
             'activity': self.env.ref('project.project_task_view_activity').id,
         }
         

@@ -10,7 +10,7 @@ class Project(models.Model):
             name=_('View and adapt needs'),
             type_code='need',
             custom=['tree', 'form'],
-            switch=['tree', 'form', 'kanban', 'calendar', 'timeline', 'activity'],
+            switch=['tree', 'form', 'kanban', 'calendar', 'activity'],
             module='carpentry_planning_task_need',
             context={
                 'search_default_filter_my_role': 1,
