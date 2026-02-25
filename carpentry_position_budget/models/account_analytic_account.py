@@ -13,13 +13,15 @@ class AnalyticAccount(models.Model):
             - prefix: [Budget Type] ...
             - suffix: ... remaining budget 0,00€
         """
-        res = super().name_get()
+        res = super(
+            # optim: don't play 'name_get' searches in 'project_budget_timesheet'
+            AnalyticAccount, self.with_context(display_analytic_budget=False)
+        ).name_get()
         if not self._context.get('display_analytic_budget'):
             return res
         
         record_id = self._context.get('record_id')
         record_res_model = self._context.get('record_res_model')
-
         if not record_id or not record_res_model or not record_res_model in self.env:
             return res
         
@@ -36,7 +38,7 @@ class AnalyticAccount(models.Model):
 
             # prefix [Budget Type]
             budget_type = _(budget_type_selection.get(analytic.budget_type))
-            name = f'[{budget_type}] {name}'
+            name = f'[{budget_type}] {analytic.name}'
 
             # suffix budget & clock
             amount_subtotal = remaining_budget.get(id_)
