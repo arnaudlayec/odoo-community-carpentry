@@ -169,17 +169,18 @@ class AnalyticMixin(models.AbstractModel):
     def _enforce_internal_analytic(self):
         """ Forces analytic (e.g. to *internal* project for all *storable* lines) """
         # perf early-quits
-        if self._context.get("has_enforced_aac_distrib"): return
-        records = (
-            self.filtered(lambda self: self._filter_can_analytic())
-            .filtered(lambda x: x._should_enforce_internal_analytic())
+        if self._context.get("has_enforced_aac_distrib"):
+            return
+        
+        records = self.filtered(lambda self:
+            self._filter_can_analytic() and self._should_enforce_internal_analytic()
         )
         if not records:
             return
-        self = self.with_context(has_enforced_aac_distrib=True)
+        records = records.with_context(has_enforced_aac_distrib=True)
         
         replace_dict_enforce = self._get_enforce_dict_analytic_internal()
-        for record in self:
+        for record in records:
             record.analytic_distribution = record._get_replaced_analytic_distribution(
                 replace_dict_enforce
             )
@@ -201,7 +202,7 @@ class AnalyticMixin(models.AbstractModel):
             # if OCA module installed & `account_id` field available
             not hasattr(self.env['account.account'], "analytic_policy")
             or not hasattr(self, "account_id")
-            or self.account_id and self.account_id.analytic_policy != "never"
+            # or self.account_id and self.account_id.analytic_policy != "never"
         )
     
     def _get_enforce_dict_analytic_internal(self):

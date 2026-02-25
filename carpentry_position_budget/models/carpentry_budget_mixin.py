@@ -153,7 +153,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
         """ To inherite. Fields that only trigger `_compute_total_expense_gain` (*permanent* expenses)
             
             (!) MUST NOT includes field of `_depends_reservation_refresh`,
-             because `rg_result` optim. Indeed, `_compute_total_expense_gain` is called
+             for `rg_result` optim. Indeed, `_compute_total_expense_gain` is already called
              from `reservation_ids._compute_amount_reserved` with the `rg_result` cursor
         """
         return []
@@ -371,9 +371,6 @@ class CarpentryBudgetMixin(models.AbstractModel):
         total_fields = ['amount_expense_valued', 'amount_gain']
         rg_result = rg_result or self._get_rg_result_expense()
 
-        if debug:
-            print(' === _compute_total_expense_gain (rg_result) ===')
-        
         for x in rg_result:
             record_id = x[self._record_field][0]
             totals = [x[field] for field in total_fields]
@@ -398,6 +395,10 @@ class CarpentryBudgetMixin(models.AbstractModel):
                     fields=['amount_reserved', 'amount_expense', 'amount_gain'],
                 ))
                 print('mapped_totals', mapped_totals.get(record.id, []))
+                # print("analytics", self.env["account.analytic.line"].search_read(
+                #     domain=[(record._record_field, '=', record._origin.id)],
+                #     fields=['amount', 'budget_project_ids', 'account_id'],
+                # ))
             
             record._compute_total_expense_gain_one(
                 mapped_totals.get(record.id, {} if groupby_analytic else [0.0, 0.0]),
@@ -493,6 +494,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
         # Reservations
         self.reservation_ids.flush_recordset(['amount_reserved'])
         # Expenses
+        self.env["account.analytic.line"].flush_model() # can't guess all fields (added in other modules)
         for field in self._record_fields_expense:
             self[field].flush_recordset()
         # Valuation

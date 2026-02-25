@@ -61,8 +61,7 @@ class PurchaseOrder(models.Model):
         ]
     def _depends_expense_totals(self):
         return super()._depends_expense_totals() + [
-            'invoice_ids.amount_untaxed',
-            'invoice_ids.line_ids.analytic_distribution',
+            'invoice_ids.invoice_line_ids.analytic_line_ids',
         ]
     def _depends_can_reserve_budget(self):
         return super()._depends_can_reserve_budget() + ['order_line']
@@ -81,6 +80,10 @@ class PurchaseOrder(models.Model):
         return super()._get_default_active() and (
             self.state not in ('draft', 'sent', 'to approve', 'cancel')
         )
+
+    def _flush_budget(self):
+        super()._flush_budget()
+        self.invoice_ids.line_ids.flush_recordset()
 
     # def _get_auto_budget_analytic_ids(self, _):
     #     """ Used in `_populate_budget_analytics`,
