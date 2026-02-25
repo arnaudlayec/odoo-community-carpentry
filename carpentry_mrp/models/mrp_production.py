@@ -30,6 +30,11 @@ class ManufacturingOrder(models.Model):
              'to the On-Site Delivery picking. Note: this one must be open to be able '
              'to move components to it.'
     )
+    move_raw_unsatified_product_ids = fields.One2many(
+        string="Unsatisfied components",
+        comodel_name="product.product",
+        compute="_compute_move_raw_unsatified_product_ids",
+    )
     # -- related POs --
     purchase_ids = fields.Many2many(
         string='Related Purchase Orders',
@@ -61,7 +66,7 @@ class ManufacturingOrder(models.Model):
             'domain': [('id', 'in', self._get_purchase_ids().ids)]
         }
     
-    #===== Delivery picking =====#
+    #===== Picking =====#
     def _set_delivery_picking_id(self, pickings):
         """ Automatically set `delivery_picking_id` if defining
             from the picking the `mrp_production_ids`
@@ -78,6 +83,20 @@ class ManufacturingOrder(models.Model):
             picking_ids_ = mapped_mo_to_pickings.get(mo.id, [])
             if len(picking_ids_) == 1:
                 mo.delivery_picking_id = picking_ids_[0]
+    
+    @api.depends_context("unsatisfied_mrp_product_ids")
+    @api.depends("move_raw_ids.product_id")
+    def _compute_move_raw_unsatified_product_ids(self):
+        product_ids = self._context.get("unsatisfied_mrp_product_ids")
+        if not product_ids:
+            self.move_raw_unsatified_product_ids = False
+            return
+        
+        for mo in self:
+            mo.move_raw_unsatified_product_ids = list(
+                set(mo.move_raw_ids.product_id.ids) &
+                set(product_ids)
+            )
 
     #===== Logics =====#
     def _action_cancel(self):

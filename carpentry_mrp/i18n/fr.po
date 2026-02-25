@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 21:37+0000\n"
-"PO-Revision-Date: 2026-01-22 22:40+0100\n"
+"POT-Creation-Date: 2026-02-25 15:30+0000\n"
+"PO-Revision-Date: 2026-02-25 16:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -68,6 +68,7 @@ msgid "Count of linked PO"
 msgstr "Nombre de bons de commande générés"
 
 #. module: carpentry_mrp
+#: model:ir.model.fields,field_description:carpentry_mrp.field_carpentry_planning_card__description
 #: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__description
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_picking__description
 msgid "Description"
@@ -87,6 +88,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__product_default_code
 msgid "Internal Reference"
 msgstr "Référence interne"
+
+#. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_carpentry_group_launch
+msgid "Launch"
+msgstr "Lancement"
 
 #. module: carpentry_mrp
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp.report_mrporder
@@ -143,6 +149,11 @@ msgid "Pickings"
 msgstr "Transferts"
 
 #. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_carpentry_planning_card
+msgid "Planning Card"
+msgstr "Cartes du planning"
+
+#. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__planning_card_color_class
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__planning_card_color_class
 msgid "Planning Card Color (class)"
@@ -159,6 +170,11 @@ msgstr "Couleur de la carte de planning (numéro)"
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__planning_card_color_is_auto
 msgid "Planning Card Color Is Auto"
 msgstr "Si la couleur de la carte de planning est automatique"
+
+#. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_product_template
+msgid "Product"
+msgstr "Produit"
 
 #. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_carpentry_planning_card__product_default_code
@@ -179,6 +195,16 @@ msgstr "Nom du produit"
 #: model:ir.model.fields,field_description:carpentry_mrp.field_carpentry_planning_card__product_uom_qty
 msgid "Product Uom Qty"
 msgstr "Quantité demandée"
+
+#. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_product_product
+msgid "Product Variant"
+msgstr "Variante de produit"
+
+#. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_mrp_production
+msgid "Production Order"
+msgstr "Ordre de fabrication"
 
 #. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_stock_move__project_id
@@ -224,6 +250,16 @@ msgstr ""
 "transfert doit être ouvert pour pouvoir y déplacer des composants."
 
 #. module: carpentry_mrp
+#: model:ir.model.fields,field_description:carpentry_mrp.field_carpentry_planning_card__state
+msgid "State"
+msgstr "État"
+
+#. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_stock_move
+msgid "Stock Move"
+msgstr "Mouvement de stock"
+
+#. module: carpentry_mrp
 #: model:ir.model.fields,field_description:carpentry_mrp.field_carpentry_group_launch__move_ids
 msgid "Stock Moves"
 msgstr "Mouvements de stock"
@@ -251,9 +287,37 @@ msgid "Title of Picking"
 msgstr "Nom du transfert"
 
 #. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_stock_picking
+msgid "Transfer"
+msgstr "Transfert"
+
+#. module: carpentry_mrp
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp.carpentry_group_launch_form
 msgid "Unavailable moves"
 msgstr "Mouvements indisponibles"
+
+#. module: carpentry_mrp
+#: model:ir.model.fields,field_description:carpentry_mrp.field_stock_picking__unsatisfied_mrp_product_ids
+msgid "Unsatisfied Components"
+msgstr "Composants non-satisfaits"
+
+#. module: carpentry_mrp
+#. odoo-python
+#: code:addons/carpentry_mrp/models/stock_picking.py:0
+#: model:ir.model.fields,field_description:carpentry_mrp.field_stock_picking__unsatisfied_mrp_production_ids
+#, python-format
+msgid "Unsatisfied Manufacturing Orders"
+msgstr "Ordres de Fabrication non-satisfaits"
+
+#. module: carpentry_mrp
+#: model:ir.model.fields,field_description:carpentry_mrp.field_mrp_production__move_raw_unsatified_product_ids
+msgid "Unsatisfied components"
+msgstr "Composants non-satisfaits"
+
+#. module: carpentry_mrp
+#: model:ir.model,name:carpentry_mrp.model_mrp_workorder
+msgid "Work Order"
+msgstr "Ordre de travail"
 
 #. module: carpentry_mrp
 #: model:ir.model,name:carpentry_mrp.model_mrp_workcenter_productivity

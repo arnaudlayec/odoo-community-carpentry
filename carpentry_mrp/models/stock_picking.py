@@ -31,6 +31,16 @@ class StockPicking(models.Model):
         inverse='_inverse_mrp_production_ids',
         domain="[('project_id', '=', project_id), ('state', 'not in', ['done', 'cancel'])]"
     )
+    unsatisfied_mrp_production_ids = fields.One2many(
+        string="Unsatisfied Manufacturing Orders",
+        comodel_name="mrp.production",
+        compute="_compute_unsatisfied_mrp",
+    )
+    unsatisfied_mrp_product_ids = fields.One2many(
+        string="Unsatisfied Components",
+        comodel_name="product.product",
+        compute="_compute_unsatisfied_mrp",
+    )
 
     #===== Compute =====#
     @api.depends(
@@ -53,6 +63,42 @@ class StockPicking(models.Model):
             ('purchase_id.launch_ids', operator, value),
         ]
 
+    def _compute_unsatisfied_mrp(self):
+        """ Look for all opened MOs having (only for incoming/purchase reception):
+            - at least 1 common component with the picking's product
+            - this component not fully done/out
+        """
+        pickings = self.filtered(lambda x: x.picking_type_code == 'incoming')
+        (self - pickings).update({
+            "unsatisfied_mrp_production_ids": False,
+            "unsatisfied_mrp_product_ids": False,
+        })
+        if not pickings:
+            return
+        
+        rg_result = self.env["stock.move"]._read_group(
+            domain=[
+                ("is_done", "=", False),
+                ("product_id", "in", self.product_id.ids),
+                ("raw_material_production_id.state", "in", ["confirmed", "progress", "to_close"]),
+            ],
+            groupby=["product_id"],
+            fields=["raw_material_production_id:array_agg"],
+        )
+        mapped_data = {
+            x["product_id"][0]: x["raw_material_production_id"]
+            for x in rg_result
+        }
+        for picking in pickings:
+            mo_ids, product_ids = [], []
+            for product_id in picking.product_id.ids:
+                unsatisfied_mos = mapped_data.get(product_id, [])
+                if unsatisfied_mos:
+                    mo_ids += unsatisfied_mos
+                    product_ids.append(product_id)
+            picking.unsatisfied_mrp_production_ids = mo_ids or False
+            picking.unsatisfied_mrp_product_ids = product_ids or False
+
     def _inverse_mrp_production_ids(self):
         """ 1. Allow update of `mrp_production_ids` from the picking
             2. and update Manufacturing Orders' `delivery_picking_id` when relevant
@@ -65,3 +111,21 @@ class StockPicking(models.Model):
 
         # 2.
         self.mrp_production_ids._set_delivery_picking_id(self)
+
+    #===== Action =====#
+    def action_open_unsatisfied_mrp_production(self):
+        print("action_open_unsatisfied_mrp_production")
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "mrp.production",
+            "name": _("Unsatisfied Manufacturing Orders"),
+            "domain": [("id", "in", self.unsatisfied_mrp_production_ids.ids)],
+            "context": self._context | {
+                "unsatisfied_mrp_product_ids": self.unsatisfied_mrp_product_ids.ids
+            },
+            "views": [
+                (self.env.ref("carpentry_mrp.mrp_production_tree_view_unsatisfied").id, "tree"),
+                (self.env.ref("mrp.mrp_production_form_view").id, "form"),
+            ],
+        }

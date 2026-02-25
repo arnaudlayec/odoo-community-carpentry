@@ -17,6 +17,21 @@
             </field>
         </field>
     </record>
+    <!-- MO tree: minimal for 'unsatisfied MOs' from incoming Picking -->
+    <record id="mrp_production_tree_view_unsatisfied" model="ir.ui.view">
+        <field name="name">mrp.production.tree.carpentry.unsatisfied</field>
+        <field name="model">mrp.production</field>
+        <field name="priority">99999</field>
+
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="project_id" />
+                <field name="description" />
+                <field name="move_raw_unsatified_product_ids" widget="many2many_tags" />
+            </tree>
+        </field>
+    </record>
 
     <!-- MO Form -->
     <record id="mrp_production_form_view" model="ir.ui.view">

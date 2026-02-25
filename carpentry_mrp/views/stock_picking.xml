@@ -34,7 +34,7 @@
                 <attribute name="class">flex-grow-1 me-3</attribute>
             </field>
 
-            <!-- Add `Launches` & `MOs` -->
+            <!-- Add `Launches`, `MOs` and `unsatisfied MOs` -->
             <field name="project_id" position="after">
                 <field name="purchase_id" invisible="1" />
                 <field name="launch_ids" widget="many2many_tags"
@@ -45,6 +45,20 @@
 
             <field name="origin" position="after">
                 <field name="mrp_production_ids" widget="many2many_tags" />
+
+                <field name="unsatisfied_mrp_production_ids" invisible="1" />
+                <label for="unsatisfied_mrp_production_ids"
+                    attrs="{'invisible': [('unsatisfied_mrp_production_ids', '=', [])]}"
+                />
+                <div name="unsatisfied_mrp_production_ids"
+                    attrs="{'invisible': [('unsatisfied_mrp_production_ids', '=', [])]}"
+                >
+                    <a name="action_open_unsatisfied_mrp_production" type="object"
+                        class="btn btn-danger" role="button"
+                    >
+                        <field name="unsatisfied_mrp_production_ids" widget="many2many_tags" />
+                    </a>
+                </div>
             </field>
         </field>
     </record>
