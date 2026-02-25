@@ -3,20 +3,16 @@
 
     <!-- Planning Dashboard KPI Card: margins -->
     <t t-name="carpentry_planning.PlanningDashboard.margins" owl="1">
-        <t t-set="m" t-value="data['margins']" />
-
-
-        <h6>Contributive margin</h6>
-        <div t-att-class="m['margin_contributive_actual_class']">
-            <t t-esc="m['margin_contributive_actual']" />
-            (<t t-esc="m['margin_contributive_actual_rate']" /> %)
-        </div>
-
-        <h6 class="mt-4">Costs margin</h6>
-        <div t-att-class="m['margin_costs_actual_class']">
-            <t t-esc="m['margin_costs_actual']" />
-            (<t t-esc="m['margin_costs_actual_rate']" /> %)
-        </div>
+        <t t-log="data" />
+        <t t-foreach="data['margins']" t-as="margin" t-key="margin_index">
+            <h6 t-esc="margin.label" class="mt-2 mb-0" />
+            <div t-att-class="margin.class">
+                <t t-esc="margin.amount" />
+                <t t-if="margin.rate">
+                    (<t t-esc="margin.rate" /> %)
+                </t>
+            </div>
+        </t>
 
         <button class="mt-4 btn btn-primary"
             t-on-click="() => this.openDashboardRecord(

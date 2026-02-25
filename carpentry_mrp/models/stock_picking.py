@@ -114,7 +114,6 @@ class StockPicking(models.Model):
 
     #===== Action =====#
     def action_open_unsatisfied_mrp_production(self):
-        print("action_open_unsatisfied_mrp_production")
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",

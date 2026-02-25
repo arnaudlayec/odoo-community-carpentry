@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.tools import formatLang
 
 class Project(models.Model):
@@ -144,31 +144,39 @@ class Project(models.Model):
         """ Format data for project budget report & planning views """
         keys = [
             "market_reviewed",
-            "budget_reservation_progress",
-            # fixed
-            "margin_costs", "margin_contributive",
-            # reviewed
             "margin_costs_actual", "margin_contributive_actual",
-            # rate
-            "margin_costs_actual_rate", "margin_contributive_actual_rate",
         ]
-        data = {}
+        data_list = []
         currency = self.company_id.currency_id # can be empty
-        for key in keys:
-            if not self[key]:
-                data[key] = 0.0
-            elif self._fields[key].type == 'monetary' and currency:
-                data[key] = formatLang(self.env, self[key], currency_obj=currency)
-            else:
-                data[key] = self[key]
+        for key, attrs in self.fields_get(keys, attributes=['string']).items():
+            data = {
+                "amount": formatLang(self.env, round(self[key]), currency_obj=currency),
+                "label": attrs["string"],
+            }
+            # compare actual to budget (for class color)
+            budget_field = key.replace('_actual', '')
+            if hasattr(self, budget_field):
+                compare_to = self[budget_field]
+                result = bool(currency) and currency.compare_amounts(self[key], compare_to)
+                data['class'] = (
+                    'text-success' if result == 1 else
+                    'text-danger'  if result == -1 else ''
+                )
+            # rate
+            if hasattr(self, key + '_rate'):
+                data["rate"] = self[key + '_rate']
             
-            compared_to = self[key.replace("_actual", "")] if key.endswith("_actual") else 0.0
-            result = bool(currency) and currency.compare_amounts(self[key], compared_to)
-            data[f'{key}_class'] = (
-                'text-success' if result == 1 else
-                'text-danger'  if result == -1 else ''
-            )
-        return data
+            data_list.append(data)
+        
+        # gain/loss
+        gain = round(self.margin_costs_actual - self.margin_costs)
+        data_list.append({
+            "amount": formatLang(self.env, round(gain), currency_obj=currency),
+            "label": _("Gain") if gain >= 0 else _("Loss"),
+            "class": "text-success" if gain > 0 else "text-danger" if gain < 0 else "",
+        })
+
+        return data_list
 
     def action_open_planning_dashboard_card(self):
         """ Called from planning card """
