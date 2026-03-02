@@ -33,4 +33,12 @@ class StockMove(models.Model):
         
         self._compute_analytic_distribution_carpentry()
     
+    def _prepare_analytic_lines(self):
+        """Conflict between:
+        - stock_account: update analytic
+        - hr_timesheet: AccessError in write() if user_id != context.user_id
+        """
+        return super(
+            StockMove, self.sudo()
+        )._prepare_analytic_lines()
     
