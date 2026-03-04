@@ -26,13 +26,17 @@
 
     <!-- Planning Dashboard Card: next projects -->
     <t t-name="carpentry_planning.PlanningDashboard.next_projects" owl="1">
-        <t t-foreach="data.next_projects" t-as="assigment" t-key="assigment.id">
-            <a class="cursor-pointer" t-on-click="() => this.openNextProjectUser(assigment.user_id[0])">
+        <div t-foreach="data.next_projects" t-as="assigment" t-key="assigment.id" class="mt-2">
+            <a class="cursor-pointer" t-on-click="() => this.openNextProject(assigment.project_id[0])">
                 <t t-esc="assigment.user_id[1]" />
             </a>
             (<t t-esc="assigment.role_id[1]" />)
+            
             <br />
-        </t>
+            <a class="cursor-pointer" t-on-click="() => this.openNextProject(assigment.project_id[0])">
+                <t t-esc="assigment.project_id[1]" />
+            </a>
+        </div>
     </t>
 
 </templates>

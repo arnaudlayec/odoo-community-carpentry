@@ -184,7 +184,8 @@ class Project(models.Model):
             action = self.sudo().env.ref("carpentry_position_budget.action_open_budget_report_project").read()[0]
             action.update({
                 "domain": [("project_id", "=", self.id)],
-                "context": self._context | {"default_project_id": self.id}
+                "context": self._context | {"default_project_id": self.id},
+                "target": "new",
             })
             return action
         elif hasattr(super, "action_open_planning_dashboard_card"):

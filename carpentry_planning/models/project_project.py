@@ -28,47 +28,42 @@ class Project(models.Model):
         return self._get_planning_dashboard_next_projects()
     
     def _get_planning_dashboard_next_projects(self):
-        """ Buttons to quickly open the project's planning
-            of next Project Manager or Field manager
+        """ Buttons to quickly open the project's planning of next project,
+            per user role (only for *primary* assignments)
         """
-        assignments = self.assignment_ids.filtered(
-            lambda x: x.config_planning_next_project and x.primary
-        )
-        return {'next_projects': assignments.read(['user_id', 'role_id'])}
-    
-    def action_open_planning_next_user(self, user_id):
-        """
-            1. Find all projects where user is assigned with a primary role to show on plannings
-            2. and return an action to open only the next one
-        """
-        # 1.
+        # 1. Find all projects where user is assigned with a primary role to show on plannings
         domain = [
-            ('user_id', '=', user_id),
-            ('config_planning_next_project', '=', True),
-            ('primary', '=', 'True'),
+            ('user_id', 'in', self.assignment_ids.filtered(
+                lambda x:
+                    x.config_planning_next_project and x.primary
+                ).user_id.ids),
+            ('primary', '=', True),
             ('project_fold', '=', False),
             ('role_id', '!=', False),
             ('project_id', '!=', False),
         ]
-        projects = self.env['project.assignment'].search_read(
-            domain, ['project_id'], order='project_id DESC'
-        )
+        Assignment = self.env['project.assignment']
+        all_assignments = Assignment.search(domain, order='project_id DESC')
+        all_users = all_assignments.user_id
+        res_assignments = Assignment
 
-        # 2.
-        next_project_id, start = None, False
-        for data in projects:
-            project_id = data['project_id'][0]
-            if project_id == self.id:
+        # 2. Filter `all_assignments` to get only the next-project assignment, per user
+        start = None
+        for assignment in all_assignments:
+            # ignore the previous projects
+            if assignment.project_id == self:
                 start = True
             elif start:
-                next_project_id = project_id
-                break
+                # if all users found
+                if res_assignments.user_id == all_users:
+                    break
+                # user already found
+                elif assignment.user_id in res_assignments.user_id:
+                    continue
+                else:
+                    res_assignments |= assignment
         
-        if next_project_id:
-            Wizard = self.env['project.choice.wizard'].with_context(project_id=next_project_id)
-            return Wizard.action_choose_project_and_redirect('carpentry_planning.action_open_planning')
-        else:
-            raise exceptions.UserError(_("No next project for this user."))
+        return {'next_projects': res_assignments.read(['user_id', 'project_id', 'role_id'])}
     
     #===== Milestones =====#
     def open_planning_milestone_table(self):

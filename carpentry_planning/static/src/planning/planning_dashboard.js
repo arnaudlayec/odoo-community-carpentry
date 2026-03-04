@@ -2,6 +2,7 @@
 
 import { Component, onWillStart } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { makeContext } from "@web/core/context";
 
 import { registry } from '@web/core/registry';
 import { loadJS } from "@web/core/assets";
@@ -78,13 +79,13 @@ export class PlanningDashboard extends Component {
         });
     }
     
-    openNextProjectUser(user_id) {
+    openNextProject(project_id) {
         this.actionService.doActionButton({
             type: 'object',
-            name: 'action_open_planning_next_user',
-            resId: this.projectId,
-            resModel: 'project.project',
-            args: JSON.stringify([user_id])
+            name: 'action_choose_project_and_redirect',
+            resModel: 'project.choice.wizard',
+            args: JSON.stringify(["carpentry_planning.action_open_planning"]),
+            context: makeContext([{"default_project_id": project_id}], this.props.model.rootParams.context)
         });
     }
 }
