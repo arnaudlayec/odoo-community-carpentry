@@ -714,11 +714,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
             return [tuple()]
 
         Available = self.env['carpentry.budget.available']
-        domain = [
-            ('record_res_model', 'in', ['project.project', 'carpentry.group.launch']),
-            ('launch_id', 'in', self._get_launch_ids()),
-            ('analytic_account_id', 'in', self.budget_analytic_ids._origin.ids),
-        ]
+        domain = self._domain_mapped_possible_reservations()
         rg_result = Available._read_group(
             domain=domain,
             groupby=['project_id', 'launch_id', 'analytic_account_id'],
@@ -744,6 +740,13 @@ class CarpentryBudgetMixin(models.AbstractModel):
             ))
 
         return mapped_available
+    
+    def _domain_mapped_possible_reservations(self):
+        return [
+            ('record_res_model', 'in', ['project.project', 'carpentry.group.launch']),
+            ('launch_id', 'in', self._get_launch_ids()),
+            ('analytic_account_id', 'in', self.budget_analytic_ids._origin.ids),
+        ]
 
     @api.model
     def _get_key(self, rec=None, vals={}, mode='budget', mask=[]):

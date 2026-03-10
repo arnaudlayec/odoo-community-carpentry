@@ -207,8 +207,8 @@ class TestCarpentryPositionBudget_Balance(TestCarpentryPositionBudget_Base):
         IrConfig.search([('key', '=', param)]).unlink()
         self.budget_installation.amount_unitary = prev
     
-    def test_10_affectation_change_ok(self):
-        """ Test it's OK to change affectation if it doesn't lower the budget too much """
+    def test_10_lower_reservation_ok(self):
+        """ Test it's OK to lower the reservation if there are remaining budget """
         # unreserve known amount of budget
         _lambda = lambda x: x.analytic_account_id == self.budget_production
         for reservation in self.balance.reservation_ids.filtered(_lambda):

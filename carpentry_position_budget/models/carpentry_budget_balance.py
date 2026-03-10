@@ -2,6 +2,7 @@
 
 from re import A
 from odoo import models, fields, api, Command, exceptions, _
+from odoo.tools import float_compare
 
 class CarpentryBudgetBalance(models.Model):
     """ This model acts like PO, MO, ...
@@ -10,6 +11,7 @@ class CarpentryBudgetBalance(models.Model):
     _name = "carpentry.budget.balance"
     _inherit = ['project.default.mixin', 'carpentry.budget.mixin']
     _description = "Budget Balance"
+    _order = "write_date DESC"
     _record_field = 'balance_id'
     _carpentry_budget_alert_banner_xpath = False # don't use budget view templates
     _carpentry_budget_notebook_page_xpath = False
@@ -108,3 +110,24 @@ class CarpentryBudgetBalance(models.Model):
             print('res', res)
         
         return res
+
+    def _get_mapped_possible_reservations(self):
+        """ [OVERRIDE] Don't provision reservation line where
+            *Remaining budget == 0.0*, since we don't need them on balances
+            => use `carpentry.budget.remaining` instead of `carpentry.budget.available`
+        """
+        # optim
+        if not self.budget_analytic_ids._origin:
+            return [tuple()]
+
+        rg_result = self.env['carpentry.budget.remaining']._read_group(
+            domain=self._domain_mapped_possible_reservations(),
+            groupby=['project_id', 'launch_id', 'analytic_account_id'],
+            fields=['amount_subtotal:sum'],
+            lazy=False,
+        )
+        return [
+            self._get_key(vals=x, mode='budget')
+            for x in rg_result
+            if float_compare(x["amount_subtotal"], 0.0, precision_rounding=self.currency_id.rounding) != 0
+        ]
