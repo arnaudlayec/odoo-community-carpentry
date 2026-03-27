@@ -8,7 +8,7 @@ class CarpentryPosition(models.Model):
     _rec_names_search = ['name']
 
     # import
-    external_db_guid = fields.Char(string='Last External DB ID')
+    external_id = fields.Char(string='Last External DB ID')
     warning_name = fields.Boolean(
         string='Warning Name',
         compute='_compute_warning_name',

@@ -9,7 +9,7 @@
     'application': False,
     'installable': True,
     'category': 'Carpentry/Carpentry',
-    'version': '16.0.1.2.2',
+    'version': '16.0.1.2.3',
 
     'depends': [
         # odoo
