@@ -23,6 +23,7 @@
         <field name="name">Unitary (positions)</field>
         <field name="res_model">carpentry.position.budget</field>
         <field name="view_mode">pivot,tree,form</field>
+        <field name="domain">[("quantity", "!=", 0)]</field>
     </record>
 
     <!-- Called from Position tree -->

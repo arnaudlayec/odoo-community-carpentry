@@ -28,8 +28,8 @@
 
                 <field name="name" />
                 <field name="lot_id" options="{'create': True}" context="{'default_project_id': project_id}" optional="show" />
-                <field name="quantity" />
-                <field name="quantity_remaining_to_affect" readonly="1" optional="show" />
+                <field name="quantity" sum="1" />
+                <field name="quantity_remaining_to_affect" readonly="1" optional="show" sum="1" />
                 <field name="state" string="Affectation" widget="badge" optional="show"
                     decoration-muted="state == 'na'"
                     decoration-danger="state == 'none'"

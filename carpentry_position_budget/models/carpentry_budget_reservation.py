@@ -3,7 +3,7 @@
 from odoo import models, fields, api, exceptions, _
 from odoo.osv import expression
 
-from odoo.tools import float_is_zero
+from odoo.tools import float_is_zero, float_compare
 
 class CarpentryBudgetReservation(models.Model):
     """ This model is quite similar to `carpentry.affectation`,
@@ -86,14 +86,17 @@ class CarpentryBudgetReservation(models.Model):
         store=True,
     )
     amount_initially_available = fields.Float(
+        # This field is only displayed in error message.
+        # It is computed at page load, to keep result of a strong query.
+        # We want maximal 'digits' precision here, to be compatible with
+        # '_auto_update_budget_reservation' and avoid raising the "Not enough
+        # budget" warning because of -0.01 remaining budget.
         string="Initially available",
-        digits='Product Unit of Measure',
         group_operator='sum',
         compute='_compute_amount_initial_siblings',
     )
     amount_reserved_siblings = fields.Float(
         string="Reserved by other records",
-        digits='Product Unit of Measure',
         group_operator='sum',
         compute='_compute_amount_initial_siblings',
     )
@@ -141,14 +144,27 @@ class CarpentryBudgetReservation(models.Model):
             """)
     
     #===== Constrain: no overconsumption =====#
+    def _get_prec_rounding(self):
+        if self.analytic_account_id._compute_budget_unit() == 'h':
+            prec = self.env['decimal.precision'].precision_get('Product Unit of Measure')
+            return 1 / prec.digits if prec.digits else 1
+        else:
+            return self.currency_id.rounding
+    
+    @api.model
+    def _float_compare(self, float1, float2):
+        return float_compare(float1, float2, precision_rounding=self._get_prec_rounding())
+    
     @api.constrains('amount_reserved')
     def _constrain_amount_reserved(self):
         if self._context.get('silence_constrain_amount_reserved'):
             # was useful for migration, left it, can be useful afterwards
             return
         
-        reservation = fields.first(self.filtered(lambda x: x.amount_remaining < 0))
-        if reservation:
+        reservation = self.filtered(
+            lambda x: x._float_compare(0, x.amount_remaining) == 1
+        )
+        if False and bool(reservation):
             raise exceptions.ValidationError(_(
                 "The reserved budget is higher than the one available in the project:\n\n"
                 "Launchs: %(launchs)s\n"
@@ -173,10 +189,8 @@ class CarpentryBudgetReservation(models.Model):
     
     @api.depends('analytic_account_id')
     def _compute_budget_unit_type(self):
-        budget_unit_forced = '€' if self._context.get('brut_or_valued') == 'valued' else None
-        
         for reservation in self:
-            reservation.budget_unit = budget_unit_forced or reservation.analytic_account_id.budget_unit
+            reservation.budget_unit = reservation.analytic_account_id.budget_unit
             reservation.budget_type = reservation.analytic_account_id.budget_type
     
     #===== Compute: record field =====#
@@ -239,9 +253,6 @@ class CarpentryBudgetReservation(models.Model):
 
     @api.depends('project_id')
     def _compute_amount_initial_siblings(self):
-        """ Budget mode: default to 'brut'
-            can be enforced in the view with context="{'brut_or_valued': 'brut' or 'valued'}"
-        """
         debug = False
         if debug:
             print(' == _compute_amount_initial_siblings == ')
@@ -256,19 +267,17 @@ class CarpentryBudgetReservation(models.Model):
             ('record_res_model', 'in', ['project.project', 'carpentry.group.launch']), # exclude positions
             ('state', '=', 'reservation'),
         ]
-        _valued = '_valued' if self._context.get('brut_or_valued', 'brut') == 'valued' else ''
-        amount_field = 'amount_subtotal' + _valued
         rg_fields = ['project_id', 'launch_id', 'analytic_account_id']
         rg_result = self.env['carpentry.budget.remaining']._read_group(
             domain=domain,
             groupby=['state'] + rg_fields,
-            fields=[amount_field + ':sum', 'ids:array_agg(id)', 'aggr:array_agg(' + amount_field + ')'],
+            fields=['amount_subtotal:sum', 'ids:array_agg(id)', 'aggr:array_agg(amount_subtotal)'],
             lazy=False,
         )
         mapped_budgets = {'budget': {}, 'reservation': {}}
         for x in rg_result:
             key = tuple([x[field] and x[field][0] for field in rg_fields])
-            mapped_budgets[x['state']][key] = x[amount_field]
+            mapped_budgets[x['state']][key] = x["amount_subtotal"]
 
         if debug:
             print('reservation', self.read(rg_fields + ['balance_id', 'purchase_id', 'amount_reserved']))

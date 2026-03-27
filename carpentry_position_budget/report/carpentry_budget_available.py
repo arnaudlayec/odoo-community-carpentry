@@ -326,6 +326,9 @@ class CarpentryBudgetAvailable(models.Model):
             
             if mode == 'launch':
                 sql_where += ' AND affectation.affected IS TRUE'
+        
+        elif model == "carpentry.position":
+            sql_where += " AND carpentry_group.quantity != 0"
 
         return sql_where
 

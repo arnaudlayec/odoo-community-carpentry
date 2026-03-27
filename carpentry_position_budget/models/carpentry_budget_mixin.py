@@ -834,7 +834,7 @@ class CarpentryBudgetMixin(models.AbstractModel):
                 # 1. Spread the expense over launch (if needed)
                 expense_spread = total_price * mapped_budget_ratio.get(key_budget, 0.0)
                 
-                # 2. Maximize expense to remaining available budget
+                # 2. Limit the expense to the remaining available budget
                 amount = float_round(
                     min(expense_spread, remaining_budget),
                     precision_digits=prec, rounding_method='HALF-UP',
