@@ -147,8 +147,8 @@ class CarpentryPositionBudget(models.Model):
     #===== Helpers: add or erase budget of a position (at budget import) =====#
     def _add_budget(self, vals_list_budget):
         self._write_budget(vals_list_budget, erase_mode=False)
-    def _erase_budget(self, vals_list_budget, force=False):
-        self._write_budget(vals_list_budget, erase_mode=True, erase_force=force)
+    def _erase_budget(self, vals_list_budget, erase_force=False):
+        self._write_budget(vals_list_budget, erase_mode=True, erase_force=erase_force)
     
     def _to_vals(self, replace_keys={}):
         """ Convert recordset of this model to its vals
@@ -168,7 +168,7 @@ class CarpentryPositionBudget(models.Model):
         """ Write/add in existing budget or create new budgets 
 
             :param vals_list_budget: `vals_dict` of this model
-            :param mode_erase:  if True,  `amount_unitary` is written in place of any existing
+            :param erase_mode:  if True,  `amount_unitary` is written in place of any existing
                                  budget, or created if no budget
                                 if False, `amount_unitary` is added to existing budget
             :param erase_force: if True, the existing non-updated budgets are removed
@@ -184,7 +184,10 @@ class CarpentryPositionBudget(models.Model):
             budget = mapped_existing_ids.get(primary_key)
 
             if budget:
-                budget.amount_unitary = vals.get('amount_unitary') if erase_mode else budget.amount_unitary + vals.get('amount_unitary')
+                if erase_mode:
+                    budget.amount_unitary = vals.get('amount_unitary')
+                else:
+                    budget.amount_unitary += vals.get('amount_unitary', 0.0)
                 to_delete -= budget # for `erase_force` if True
             else:
                 vals_list.append(vals)
