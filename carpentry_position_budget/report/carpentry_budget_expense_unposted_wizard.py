@@ -40,7 +40,7 @@ class BudgetExpenseUnpostedWizard(models.TransientModel):
         self.env.company.budget_date_times_posted = self.date_times_posted
 
         xmlid = "carpentry_position_budget.action_open_budget_report_expense_unposted"
-        action = self.env.ref(xmlid).read()[0]
+        action = self.env.ref(xmlid).sudo().read()[0]
         action['domain'] = [
             ('state', 'in', ['expense_unposted', 'expense_posted']),
             ('date', '<=', self.date)
