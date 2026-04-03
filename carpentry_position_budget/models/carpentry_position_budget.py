@@ -14,6 +14,7 @@ class CarpentryPositionBudget(models.Model):
         store=True,
         index='btree_not_null',
         required=True,
+        precompute=True,
         ondelete='cascade',
     )
     position_id = fields.Many2one(
