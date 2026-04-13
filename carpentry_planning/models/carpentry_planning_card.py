@@ -37,7 +37,7 @@ class CarpentryPlanningCard(models.Model):
         readonly=True,
         group_expand='_group_expand_column_id'
     )
-    
+
     # column related
     res_model = fields.Char(related='column_id.res_model_id.model')
     res_model_shortname = fields.Char(related='column_id.res_model_shortname')
@@ -66,7 +66,7 @@ class CarpentryPlanningCard(models.Model):
         compute='_compute_fields',
         inverse='_inverse_planning_card_color_int'
     )
-    
+
     #===== View build =====#
     def init(self):
         """ Don't create any table. Indeed:
@@ -79,7 +79,7 @@ class CarpentryPlanningCard(models.Model):
             `_rebuild_sql_view()` is trigger which (re)creates the needed view
         """
         return
-    
+
     def _rebuild_sql_view(self):
         self.env['carpentry.planning.column'].flush_model()
         self.env['carpentry.planning.card'].flush_model()
@@ -87,7 +87,7 @@ class CarpentryPlanningCard(models.Model):
         column_ids = self.env['carpentry.planning.column'].search([('fold', '=', False)])
         if not column_ids.ids:
             return
-        
+
         tools.drop_view_if_exists(self._cr, self._table)
 
         # Parts of the UNION request

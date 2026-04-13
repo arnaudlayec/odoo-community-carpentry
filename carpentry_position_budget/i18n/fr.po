@@ -1702,7 +1702,7 @@ msgstr "Seuil de date pour les temps budgétés"
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_expense_unposted_wizard__date_times_posted
 msgid "Threshold date for posted times"
-msgstr "Seuil de date pour le"
+msgstr "Seuil de date pour les temps comptabilisés"
 
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_position_budget_interface__active
