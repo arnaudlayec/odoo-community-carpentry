@@ -17,6 +17,6 @@ class StockValuationLayer(models.Model):
 
     # for searchpanel
     stock_picking_type_id = fields.Many2one(
-        related='stock_move_id.picking_id.picking_type_id',
-        store=True
+        related='stock_move_id.picking_type_id',
+        store=True,
     )
