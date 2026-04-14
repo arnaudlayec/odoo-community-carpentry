@@ -48,6 +48,8 @@
         'report/carpentry_budget_expense.xml',
         'report/carpentry_budget_expense_unposted_wizard.xml',
         'report/carpentry_budget_project.xml',
+        'report/carpentry_budget_project_forecast.xml',
+        'report/carpentry_budget_menus.xml',
     ],
     'assets': {
         'web.assets_backend': [

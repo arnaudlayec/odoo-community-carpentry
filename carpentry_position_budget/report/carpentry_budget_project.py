@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, tools
+from odoo import models, fields, tools
 from psycopg2.extensions import AsIs
 
 class CarpentryBudgetProject(models.Model):
@@ -12,8 +12,17 @@ class CarpentryBudgetProject(models.Model):
     _order = 'seq_analytic, project_id'
 
     #===== Fields =====#
-    available_valued = fields.Monetary(
+    amount_available = fields.Float(
+        string='Available budget (brut)',
+        readonly=True,
+    )
+    amount_available_valued = fields.Monetary(
         string='Available budget',
+        readonly=True,
+    )
+    amount_expense_forecast = fields.Float(
+        string="Expense forecast (brut)",
+        help="Estimated workload (h) or expense (€) remaining to finish",
         readonly=True,
     )
     # re-activated fields
@@ -24,7 +33,6 @@ class CarpentryBudgetProject(models.Model):
     # cancelled fields
     date = fields.Date(store=False)
     amount_reserved = fields.Float(store=False)
-    amount_expense = fields.Monetary(store=False)
 
     #===== View build =====#
     def _get_queries_models(self):
@@ -79,12 +87,14 @@ class CarpentryBudgetProject(models.Model):
                 record_model_id,
                 {sql_record_fields},
                 
-                SUM(available_valued) AS available_valued,
+                SUM(amount_available) AS amount_available,
+                SUM(amount_available_valued) AS amount_available_valued,
                 SUM(amount_reserved) AS amount_reserved,
                 SUM(amount_reserved_valued) AS amount_reserved_valued,
                 SUM(amount_expense) AS amount_expense,
                 SUM(amount_expense_valued) AS amount_expense_valued,
-                SUM(amount_gain) AS amount_gain
+                SUM(amount_gain) AS amount_gain,
+                SUM(amount_available) - SUM(amount_expense) - SUM(amount_gain) AS amount_expense_forecast
         """
     
     def _view_groupby(self):
@@ -128,7 +138,12 @@ class CarpentryBudgetProject(models.Model):
                     {sql_record_fields},
                     TRUE AS active,
 
-                    balance AS available_valued, -- always valued
+                    CASE
+                        WHEN type = 'amount'
+                        THEN SUM(debit)
+                        ELSE SUM(qty_debit) -- workforce
+                    END AS amount_available,
+                    SUM(balance) AS amount_available_valued, -- always valued
                     0.0 AS amount_reserved,
                     0.0 AS amount_reserved_valued,
                     0.0 AS amount_expense,
@@ -150,7 +165,8 @@ class CarpentryBudgetProject(models.Model):
                     {sql_record_fields},
                     active,
 
-                    0.0 AS available_valued,
+                    0.0 AS amount_available,
+                    0.0 AS amount_available_valued,
                     amount_reserved,
                     amount_reserved_valued,
                     amount_expense,
@@ -174,6 +190,16 @@ class CarpentryBudgetProject(models.Model):
         return ''
     
     def _groupby(self, model, models):
+        if model == 'account.move.budget.line':
+            return """
+                GROUP BY
+                    company_id,
+                    project_id,
+                    budget_type,
+                    analytic_account_id,
+                    seq_analytic,
+                    id
+            """
         return ''
     
     def _orderby(self, model, models):

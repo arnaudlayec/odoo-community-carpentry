@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-02 11:07+0000\n"
-"PO-Revision-Date: 2026-02-02 12:08+0100\n"
+"POT-Creation-Date: 2026-04-14 09:28+0000\n"
+"PO-Revision-Date: 2026-04-14 11:31+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -165,11 +165,6 @@ msgid "All columns, but some listed"
 msgstr "Toutes les colonnes, sauf celles listées"
 
 #. module: carpentry_position_budget
-#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_project__amount_expense
-msgid "Amount Expense"
-msgstr "Dépense réelle"
-
-#. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_balance__amount_gain
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_mixin__amount_gain
 msgid "Amount Gain"
@@ -247,10 +242,15 @@ msgstr "Disponible"
 
 #. module: carpentry_position_budget
 #: model:ir.actions.act_window,name:carpentry_position_budget.action_open_budget_report_available
-#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_project__available_valued
+#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_project__amount_available_valued
 #: model_terms:ir.ui.view,arch_db:carpentry_position_budget.carpentry_group_phase_form
 msgid "Available budget"
 msgstr "Disponible"
+
+#. module: carpentry_position_budget
+#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_project__amount_available
+msgid "Available budget (brut)"
+msgstr "Disponible (brut)"
 
 #. module: carpentry_position_budget
 #. odoo-python
@@ -505,12 +505,12 @@ msgstr "Assistant d'import de budget des repères"
 #. module: carpentry_position_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_position_budget.carpentry_budget_template_notebook_page
 msgid "Choose budgets ({{model_description}})"
-msgstr "Choix des budgets ({{model_description}})"
+msgstr "Choisir des budgets ({{model_description}})"
 
 #. module: carpentry_position_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_position_budget.view_carpentry_budget_balance_form
 msgid "Choose launches"
-msgstr "Choix du/des lancement(s)"
+msgstr "Choisir le(s) lancement(s)"
 
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_hourly_cost__coef
@@ -617,16 +617,6 @@ msgstr ""
 "Date à laquelle les dépenses de \"temps\" seront considérées comme \"comptabilisées\". Les temps après cette date apparaîtront comme \"non-comptabilisés\"."
 
 #. module: carpentry_position_budget
-#: model:ir.model.fields,field_description:carpentry_position_budget.field_account_move_budget_line__debit
-msgid "Debit"
-msgstr "Débit"
-
-#. module: carpentry_position_budget
-#: model:ir.model.fields,field_description:carpentry_position_budget.field_account_move_budget_line__qty_debit
-msgid "Debit (qty)"
-msgstr "Débit (qté)"
-
-#. module: carpentry_position_budget
 #: model:ir.model.fields,help:carpentry_position_budget.field_account_analytic_line__budget_type
 msgid "Define one to display this expense in project budget reports."
 msgstr "En définir un pour afficher cette dépense dans le rapport de budget du projet."
@@ -714,12 +704,17 @@ msgstr "Doublons à fusionner"
 #. module: carpentry_position_budget
 #: model:ir.model,name:carpentry_position_budget.model_hr_employee_timesheet_cost_history
 msgid "Employee Timesheet Cost History"
-msgstr "Historique de coût des temps de l'employée"
+msgstr "Historique des coûts horaires des employés"
 
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_position_budget_import_wizard__encoding
 msgid "Encoding"
 msgstr "Encodage"
+
+#. module: carpentry_position_budget
+#: model:ir.model.fields,help:carpentry_position_budget.field_carpentry_budget_project__amount_expense_forecast
+msgid "Estimated workload (h) or expense (€) remaining to finish"
+msgstr "Charge de travail (h) ou dépense (€) restant à faire pour terminer (prévisionnel)"
 
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_balance__expense_ids
@@ -734,6 +729,17 @@ msgstr "Dépense"
 #: model_terms:ir.ui.view,arch_db:carpentry_position_budget.carpentry_budget_template_notebook_group_reservation
 msgid "Expense affected to the project:"
 msgstr "Dépense affecté au projet :"
+
+#. module: carpentry_position_budget
+#: model:ir.actions.act_window,name:carpentry_position_budget.action_open_budget_report_project_forecast
+#: model:ir.ui.menu,name:carpentry_position_budget.menu_project_budget_report_project_forecast
+msgid "Expense forecast"
+msgstr "Reste à faire"
+
+#. module: carpentry_position_budget
+#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_project__amount_expense_forecast
+msgid "Expense forecast (brut)"
+msgstr "Reste à faire (brut)"
 
 #. module: carpentry_position_budget
 #: model:ir.model,name:carpentry_position_budget.model_carpentry_budget_expense
@@ -931,10 +937,10 @@ msgid "Journal Item"
 msgstr "Écriture comptable"
 
 #. module: carpentry_position_budget
-#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_group_lot__external_db_guid
-#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_position__external_db_guid
+#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_group_lot__external_id
+#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_position__external_id
 msgid "Last External DB ID"
-msgstr "Dernier identifiant de la base"
+msgstr "Dernière ID de base de données externe"
 
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_available____last_update
@@ -1407,6 +1413,7 @@ msgstr "Dépense réelle"
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_expense__amount_expense
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_expense_detail__amount_expense
+#: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_project__amount_expense
 msgid "Real expense (brut)"
 msgstr "Dépense réelle"
 
@@ -1702,7 +1709,7 @@ msgstr "Seuil de date pour les temps budgétés"
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_budget_expense_unposted_wizard__date_times_posted
 msgid "Threshold date for posted times"
-msgstr "Seuil de date pour les temps comptabilisés"
+msgstr "Seuil de date pour le"
 
 #. module: carpentry_position_budget
 #: model:ir.model.fields,field_description:carpentry_position_budget.field_carpentry_position_budget_interface__active

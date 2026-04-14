@@ -20,6 +20,7 @@
     <record id="carpentry_budget_report_project_pivot" model="ir.ui.view">
         <field name="name">carpentry.budget.project.pivot</field>
         <field name="model">carpentry.budget.project</field>
+        <field name="priority">10</field>
 
         <field name="arch" type="xml">
             <pivot disable_linking="0">
@@ -29,7 +30,7 @@
                 <field name="budget_type" type="row" />
                 <field name="analytic_account_id" type="row" />
                 
-                <field name="available_valued" type="measure" />
+                <field name="amount_available_valued" type="measure" />
                 <field name="amount_reserved_valued" type="measure" />
                 <field name="amount_expense_valued" type="measure" />
                 <field name="amount_gain" type="measure" />
@@ -40,6 +41,7 @@
     <record id="carpentry_budget_report_project_graph" model="ir.ui.view">
         <field name="name">carpentry.budget.project.graph</field>
         <field name="model">carpentry.budget.project</field>
+        <field name="priority">10</field>
 
         <field name="arch" type="xml">
             <graph type="bar" stacked="1" cumulated="0" disable_linking="0">
@@ -57,6 +59,7 @@
     <record id="carpentry_budget_report_project_tree" model="ir.ui.view">
         <field name="name">carpentry.budget.project.tree</field>
         <field name="model">carpentry.budget.project</field>
+        <field name="priority">10</field>
         <field name="inherit_id" ref="carpentry_position_budget.carpentry_budget_report_expense_tree" />
         <field name="mode">primary</field>
         
@@ -64,7 +67,7 @@
             <field name="amount_reserved" position="before">
                 <!-- Show *available* only for `account.move.budget.line` -->
                 <field name="record_res_model" invisible="1" />
-                <field name="available_valued" sum="1" optional="show"
+                <field name="amount_available_valued" sum="1" optional="show"
                     attrs="{'invisible': [('record_res_model', '!=', 'account.move.budget.line')]}"
                 />
             </field>
@@ -79,12 +82,21 @@
             <field name="amount_gain" position="attributes">
                 <attribute name="attrs">{'invisible': [('record_res_model', '=', 'account.move.budget.line')]}</attribute>
             </field>
+            <field name="amount_gain" position="after">
+                <field
+                    name="amount_expense_forecast"
+                    sum="1"
+                    optional="show"
+                    attrs="{'invisible': [('record_res_model', '=', 'account.move.budget.line')]}"
+                />
+            </field>
         </field>
     </record>
     <!-- Search -->
     <record id="carpentry_budget_report_project_search" model="ir.ui.view">
         <field name="name">carpentry.budget.project.search</field>
         <field name="model">carpentry.budget.project</field>
+        <field name="priority">10</field>
         <field name="inherit_id" ref="carpentry_position_budget.carpentry_budget_report_expense_search" />
         <field name="mode">primary</field>
         
@@ -95,26 +107,4 @@
             <separator name="with_reservation" position="replace" />
         </field>
     </record>
-
-    <!-- Menu-items : `Budget main entry` > `Projects budgets` (lines) & `Positions budgets` -->
-    <menuitem id="menu_project_budget_report"
-        parent="menu_project_main_budget"
-        sequence="20"
-        name="Reports"
-    >
-        <menuitem id="menu_project_budget_report_available" action="action_open_budget_report_available_srv" sequence="10" />
-        <menuitem id="menu_project_budget_report_remaining" action="action_open_budget_report_remaining_srv" sequence="20" />
-        <menuitem id="menu_project_budget_report_expense"   action="action_open_budget_report_expense_srv"   sequence="30" />
-        <menuitem id="menu_project_budget_report_project"   action="action_open_budget_report_project_srv"   sequence="40" />
-    </menuitem>
-    
-    <menuitem id="menu_project_budget_report_history"
-        parent="menu_project_main_budget"
-        sequence="30"
-        name="Details"
-    >
-        <menuitem id="menu_project_budget_report_expense_history"  action="action_open_budget_report_expense_history_srv" sequence="10" />
-        <menuitem id="menu_project_budget_report_expense_unposted" action="action_open_budget_report_expense_unposted_wizard" sequence="20" />
-    </menuitem>
-
 </odoo>

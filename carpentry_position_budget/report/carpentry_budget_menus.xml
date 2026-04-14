@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Menu-items : `Budget main entry` > `Projects budgets` (lines) & `Positions budgets` -->
+    <menuitem id="menu_project_budget_report"
+        parent="menu_project_main_budget"
+        sequence="20"
+        name="Reports"
+    >
+        <menuitem id="menu_project_budget_report_available" action="action_open_budget_report_available_srv" sequence="10" />
+        <menuitem id="menu_project_budget_report_remaining" action="action_open_budget_report_remaining_srv" sequence="20" />
+        <menuitem id="menu_project_budget_report_expense"   action="action_open_budget_report_expense_srv"   sequence="30" />
+        <menuitem id="menu_project_budget_report_project"   action="action_open_budget_report_project_srv"   sequence="40" />
+        <menuitem
+            id="menu_project_budget_report_project_forecast"
+            action="action_open_budget_report_project_forecast"
+            sequence="50"
+        />
+    </menuitem>
+    
+    <menuitem id="menu_project_budget_report_history"
+        parent="menu_project_main_budget"
+        sequence="30"
+        name="Details"
+    >
+        <menuitem id="menu_project_budget_report_expense_history"  action="action_open_budget_report_expense_history_srv" sequence="10" />
+        <menuitem id="menu_project_budget_report_expense_unposted" action="action_open_budget_report_expense_unposted_wizard" sequence="20" />
+    </menuitem>
+
+</odoo>
