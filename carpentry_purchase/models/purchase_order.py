@@ -37,6 +37,17 @@ class PurchaseOrder(models.Model):
     needs_count = fields.Integer(
         compute='_compute_needs_count'
     )
+    delivery_manager_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Delivery contact",
+        compute="_compute_delivery_manager_partner_id",
+        store=True,
+        readonly=False,
+    )
+    domain_delivery_manager_partner_id = fields.One2many(
+        comodel_name="res.partner",
+        compute="_compute_domain_delivery_manager_partner_id",
+    )
     # -- ui --
     products_type = fields.Selection(
         selection=[
@@ -59,7 +70,7 @@ class PurchaseOrder(models.Model):
         to_clean = self.launch_ids.filtered(lambda x: x not in self.project_id.launch_ids)
         if to_clean:
             self.launch_ids -= to_clean
-
+    
     #===== Compute =====#
     def _compute_display_name(self):
         for mo in self:
@@ -67,7 +78,7 @@ class PurchaseOrder(models.Model):
 
     @api.depends('launch_ids')
     def _compute_needs_count(self):
-        """ Count number of needs, for Magic Button """
+        """ Count number of needs, for Smart Button """
         for task in self:
             task.needs_count = len(task.launch_ids.task_ids.filtered(lambda x: not x.is_closed))
 
@@ -81,6 +92,23 @@ class PurchaseOrder(models.Model):
         for po in po_to_customer:
             po.dest_address_id = po.project_id.delivery_address_id
     
+    @api.depends_context("uid")
+    @api.depends("picking_type_id", "partner_id")
+    def _compute_delivery_manager_partner_id(self):
+        for po in self:
+            po.delivery_manager_partner_id = (
+                self.env.user.partner_id.id
+                if po.default_location_dest_id_usage == "customer"
+                else False
+            )
+    
+    @api.depends_context("uid")
+    @api.depends("project_id")
+    def _compute_domain_delivery_manager_partner_id(self):
+        for po in self:
+            users = po.user_id + po.project_id.assignment_ids.user_id
+            po.domain_delivery_manager_partner_id = users.partner_id
+
     #====== Compute ======#
     @api.depends('order_line', 'order_line.product_id', 'order_line.product_id.type')
     def _compute_products_type(self):

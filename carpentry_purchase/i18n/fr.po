@@ -6,14 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 21:37+0000\n"
-"PO-Revision-Date: 2026-01-22 21:37+0000\n"
+"POT-Creation-Date: 2026-05-08 22:50+0000\n"
+"PO-Revision-Date: 2026-05-08 17:51-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: carpentry_purchase
 #: model_terms:ir.ui.view,arch_db:carpentry_purchase.project_project_view_form
@@ -24,6 +26,12 @@ msgstr "<span class=\"o_stat_text\">Factures d'achat</span>"
 #: model_terms:ir.ui.view,arch_db:carpentry_purchase.project_project_view_form
 msgid "<span class=\"o_stat_text\">Purchases</span>"
 msgstr "<span class=\"o_stat_text\">Achats</span>"
+
+#. module: carpentry_purchase
+#: model_terms:ir.ui.view,arch_db:carpentry_purchase.report_purchaseorder_document
+#: model_terms:ir.ui.view,arch_db:carpentry_purchase.report_purchasequotation_document
+msgid "<strong class=\"mt-3\">Delivery contact:</strong>"
+msgstr "<strong class=\"mt-3\">Contact de livraison :</strong>"
 
 #. module: carpentry_purchase
 #: model_terms:ir.ui.view,arch_db:carpentry_purchase.carpentry_project_form
@@ -68,14 +76,29 @@ msgstr ""
 "du client."
 
 #. module: carpentry_purchase
+#: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_order__delivery_manager_partner_id
+msgid "Delivery contact"
+msgstr "Contact de livraison"
+
+#. module: carpentry_purchase
 #: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_order__description
 msgid "Description"
+msgstr ""
+
+#. module: carpentry_purchase
+#: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_order__domain_delivery_manager_partner_id
+msgid "Domain Delivery Manager Partner"
 msgstr ""
 
 #. module: carpentry_purchase
 #: model:ir.model.fields,field_description:carpentry_purchase.field_res_company__internal_project_id
 msgid "Internal Project"
 msgstr "Projet interne"
+
+#. module: carpentry_purchase
+#: model:ir.model,name:carpentry_purchase.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
 
 #. module: carpentry_purchase
 #: model:ir.model,name:carpentry_purchase.model_carpentry_group_launch
@@ -108,10 +131,12 @@ msgid "Products Type"
 msgstr "Types de produits"
 
 #. module: carpentry_purchase
+#: model:ir.model,name:carpentry_purchase.model_project_project
 #: model:ir.model.fields,field_description:carpentry_purchase.field_account_bank_statement_line__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_account_move__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_account_payment__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_arrival_date__project_id
+#: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_order__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_purchase_requisition__project_id
 #: model:ir.model.fields,field_description:carpentry_purchase.field_stock_picking__project_id
 msgid "Project"
@@ -129,6 +154,11 @@ msgstr "Domaine du projet"
 #: model:ir.model,name:carpentry_purchase.model_purchase_arrival_date
 msgid "Purchase Arrival Date"
 msgstr "Date de réception"
+
+#. module: carpentry_purchase
+#: model:ir.model,name:carpentry_purchase.model_purchase_order
+msgid "Purchase Order"
+msgstr "Commande fournisseur"
 
 #. module: carpentry_purchase
 #: model:ir.model.fields.selection,name:carpentry_purchase.selection__purchase_order__products_type__non_storable
@@ -197,6 +227,7 @@ msgstr "Hors-taxes"
 #: model:ir.model.fields,help:carpentry_purchase.field_account_move__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_account_payment__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_purchase_arrival_date__project_id
+#: model:ir.model.fields,help:carpentry_purchase.field_purchase_order__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_purchase_requisition__project_id
 #: model:ir.model.fields,help:carpentry_purchase.field_stock_picking__project_id
 msgid "Within your favorite projects"

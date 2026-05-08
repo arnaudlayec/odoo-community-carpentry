@@ -15,6 +15,7 @@
     'depends': [
         'project', 'purchase', 'purchase_requisition', 'stock', # odoo
         'project_purchase_link', # OCA
+        'purchase_stock_usability', # for 'delivery_partner_id'
         'project_favorite_switch', 'purchase_multiple_arrival_date', # other
         'carpentry_base', 'carpentry_planning_task_need', # carpentry
     ],
@@ -26,6 +27,8 @@
         'views/purchase_order.xml',
         'views/purchase_arrival_date.xml',
         'views/purchase_requisition.xml',
+        # report
+        'report/purchase_template.xml',
         # security
         'security/purchase_order.xml',
     ],
