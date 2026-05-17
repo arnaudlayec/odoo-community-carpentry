@@ -29,13 +29,10 @@
         'views/mrp_workorder.xml',
         'views/product_template.xml',
         'views/stock_picking.xml',
-        'views/stock_quant.xml',
         'views/carpentry_planning.xml',
         'views/carpentry_launch.xml',
         # report
         'report/stock_report_picking_operations.xml',
         'report/mrp_production_templates.xml',
-        # wizard
-        'wizard/stock_inventory_conflict.xml',
     ]
 }

@@ -16,14 +16,6 @@
                     icon="fa-upload"
                     class="btn btn-primary"
                 />
-
-                <button name="%(action_open_mrp_component_import_final_product_wizard)d"
-                    type="action"
-                    string="Final products"
-                    attrs="{'invisible': [('state', '!=', 'draft')]}"
-                    icon="fa-upload"
-                    class="btn btn-primary"
-                />
             </header>
         </field>
     </record>

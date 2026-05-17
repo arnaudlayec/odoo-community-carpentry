@@ -93,10 +93,6 @@
                 <attribute name="decoration-success">is_done</attribute>
                 <attribute name="decoration-warning">not is_done and quantity_done != product_uom_qty</attribute>
             </xpath>
-            <!-- To consume: without widget -->
-            <xpath expr="//field[@name='move_raw_ids']//field[@name='product_uom_qty']" position="attributes">
-                <attribute name="widget" />
-            </xpath>
             <!-- Move to Delivery picking button -->
             <button name="action_show_details" position="after">
                 <button name="button_move_to_onsite_picking" type="object"

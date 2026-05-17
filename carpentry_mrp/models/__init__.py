@@ -9,7 +9,4 @@ from . import carpentry_group_launch
 from . import stock_move
 from . import stock_picking
 
-from . import product_product
-from . import stock_quant
-
 from . import carpentry_planning_card
