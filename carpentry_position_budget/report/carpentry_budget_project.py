@@ -22,7 +22,8 @@ class CarpentryBudgetProject(models.Model):
     )
     amount_expense_forecast = fields.Float(
         string="Expense forecast (brut)",
-        help="Estimated workload (h) or expense (€) remaining to finish",
+        help="Estimated workload (h) or expense (€) remaining to finish."
+             "Formula: [Initial budget] - [Reserved budget]",
         readonly=True,
     )
     # re-activated fields
@@ -32,7 +33,6 @@ class CarpentryBudgetProject(models.Model):
     )
     # cancelled fields
     date = fields.Date(store=False)
-    amount_reserved = fields.Float(store=False)
 
     #===== View build =====#
     def _get_queries_models(self):
@@ -94,7 +94,7 @@ class CarpentryBudgetProject(models.Model):
                 SUM(amount_expense) AS amount_expense,
                 SUM(amount_expense_valued) AS amount_expense_valued,
                 SUM(amount_gain) AS amount_gain,
-                SUM(amount_available) - SUM(amount_expense) - SUM(amount_gain) AS amount_expense_forecast
+                SUM(amount_available) - SUM(amount_reserved) AS amount_expense_forecast
         """
     
     def _view_groupby(self):

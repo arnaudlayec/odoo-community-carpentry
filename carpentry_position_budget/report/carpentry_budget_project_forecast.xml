@@ -16,8 +16,8 @@
                 <field name="budget_type" type="col" />
 
                 <field name="amount_available" type="measure" />
+                <field name="amount_reserved" type="measure" />
                 <field name="amount_expense" type="measure" />
-                <field name="amount_gain" type="measure" />
                 <field name="amount_expense_forecast" type="measure" />
             </pivot>
         </field>
@@ -40,12 +40,25 @@
             </graph>
         </field>
     </record>
+
+    <!-- Search -->
+    <record id="carpentry_budget_report_project_forecast_search" model="ir.ui.view">
+        <field name="name">carpentry.budget.project.forecast.search</field>
+        <field name="model">carpentry.budget.project</field>
+        <field name="priority">1000</field>
+        <field name="inherit_id" ref="carpentry_position_budget.carpentry_budget_report_project_search" />
+        
+        <field name="arch" type="xml">
+            <filter name="filter_gain" position="replace" />
+        </field>
+    </record>
     
     <!-- Project forecast report (real action) -->
     <record id="action_open_budget_report_project_forecast" model="ir.actions.act_window">
         <field name="name">Expense forecast</field>
         <field name="res_model">carpentry.budget.project</field>
         <field name="view_mode">graph,pivot,tree</field>
+        <field name="search_view_id" ref="carpentry_position_budget.carpentry_budget_report_project_forecast_search"/>
         <field name="context">{
             "search_default_my_favorite_projects": 1,
             "search_default_filter_production": 1,
