@@ -100,17 +100,11 @@ class StockPicking(models.Model):
             picking.unsatisfied_mrp_product_ids = product_ids or False
 
     def _inverse_mrp_production_ids(self):
-        """ 1. Allow update of `mrp_production_ids` from the picking
-            2. and update Manufacturing Orders' `delivery_picking_id` when relevant
-        """
-        # 1.
+        """Allow update of `mrp_production_ids` from the picking"""
         for picking in self:
             group = fields.first(picking.mrp_production_ids.procurement_group_id)
             group.mrp_production_ids = [Command.link(x.id) for x in picking.mrp_production_ids]
             picking.group_id = group
-
-        # 2.
-        self.mrp_production_ids._set_delivery_picking_id(self)
 
     #===== Action =====#
     def action_open_unsatisfied_mrp_production(self):

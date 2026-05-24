@@ -75,10 +75,6 @@
             <field name="project_id" position="after">
                 <field name="launch_ids" widget="many2many_tags" options="{'create': False}" />
             </field>
-            <!-- Delivery picking (right side) -->
-            <field name="components_availability" position="after">
-                <field name="delivery_picking_id" options="{'no_create': True}" />
-            </field>
 
             <!-- === Components === -->
             <!-- Delete button -->
@@ -97,14 +93,6 @@
             <xpath expr="//field[@name='move_raw_ids']//field[@name='product_uom_qty']" position="attributes">
                 <attribute name="widget" />
             </xpath>
-            <!-- Move to Delivery picking button -->
-            <button name="action_show_details" position="after">
-                <button name="button_move_to_onsite_picking" type="object"
-                    icon="fa-truck"
-                    title="Move the component to the On-Site Delivery picking"
-                    confirm="Are you sure to move this line to the On-Site Delivery picking?"
-                    attrs="{'invisible': [('parent.delivery_picking_id', '=', False),]}" />
-            </button>
 
             <!-- MAIN PRODUCT -> SEVERAL PRODUCTS -->
             <!-- No main product manufacture: several product at same level -->

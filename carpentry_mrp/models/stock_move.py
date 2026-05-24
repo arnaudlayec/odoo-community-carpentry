@@ -116,6 +116,7 @@ class StockMove(models.Model):
             'view_mode': 'form',
             'target': 'new',
         }
+<<<<<<< HEAD
 
     #===== Move to Delivery picking =====#
     def button_move_to_onsite_picking(self):
@@ -155,3 +156,5 @@ class StockMove(models.Model):
             'cost_share': False,
             'manual_consumption': False,
         }
+=======
+>>>>>>> 88c87e8 ([CLEAN] Remove unused field 'delivery_picking_id')

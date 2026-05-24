@@ -22,14 +22,6 @@ class ManufacturingOrder(models.Model):
         string='Launches',
         domain="[('project_id', '=', project_id)]",
     )
-    delivery_picking_id = fields.Many2one(
-        comodel_name='stock.picking',
-        string='On-Site Delivery',
-        domain="[('project_id', '=', project_id), ('picking_type_code', '=', 'outgoing'), ('state', 'not in', ['done', 'cancel'])]",
-        help='Shortcut to quickly move components from the Manufacturing Order '
-             'to the On-Site Delivery picking. Note: this one must be open to be able '
-             'to move components to it.'
-    )
     move_raw_unsatified_product_ids = fields.One2many(
         string="Unsatisfied components",
         comodel_name="product.product",
@@ -67,23 +59,6 @@ class ManufacturingOrder(models.Model):
         }
     
     #===== Picking =====#
-    def _set_delivery_picking_id(self, pickings):
-        """ Automatically set `delivery_picking_id` if defining
-            from the picking the `mrp_production_ids`
-        """
-        mapped_mo_to_pickings = defaultdict(list)
-        for picking in pickings:
-            for production_id in picking.mrp_production_ids:
-                mapped_mo_to_pickings[production_id.id].append(picking.id)
-
-        for mo in self:
-            if mo.delivery_picking_id:
-                continue
-            
-            picking_ids_ = mapped_mo_to_pickings.get(mo.id, [])
-            if len(picking_ids_) == 1:
-                mo.delivery_picking_id = picking_ids_[0]
-    
     @api.depends_context("unsatisfied_mrp_product_ids")
     @api.depends("move_raw_ids.product_id")
     def _compute_move_raw_unsatified_product_ids(self):
