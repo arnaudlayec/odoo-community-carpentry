@@ -52,7 +52,7 @@ class StockPicking(models.Model):
             po = picking.purchase_id
             mo = picking.mrp_production_ids
 
-            picking.launch_ids = po.launch_ids | mo.launch_ids
+            picking.launch_ids = [Command.set((po.launch_ids | mo.launch_ids)._origin.ids)]
             if po or len(mo) == 1:
                 picking.description = po.description if po else mo.description
 
@@ -75,7 +75,7 @@ class StockPicking(models.Model):
         })
         if not pickings:
             return
-        
+
         rg_result = self.env["stock.move"]._read_group(
             domain=[
                 ("is_done", "=", False),
@@ -105,6 +105,7 @@ class StockPicking(models.Model):
             group = fields.first(picking.mrp_production_ids.procurement_group_id)
             group.mrp_production_ids = [Command.link(x.id) for x in picking.mrp_production_ids]
             picking.group_id = group
+        self._compute_launch_ids_description() # required, else not trigerred at form saving
 
     #===== Action =====#
     def action_open_unsatisfied_mrp_production(self):
