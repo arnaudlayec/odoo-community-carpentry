@@ -69,7 +69,8 @@
         <field name="arch" type="xml">
             <!-- Add `title` in 1st search by name -->
             <field name="name" position="attributes">
-                <attribute name="filter_domain">['|', '|', '|',
+                <attribute name="filter_domain">[
+                    '|', '|',
                     ('name', 'ilike', self),
                     ('title', 'ilike', self),
                     ('origin', 'ilike', self)
