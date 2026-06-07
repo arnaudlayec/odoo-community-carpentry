@@ -129,9 +129,14 @@ class PurchaseOrder(models.Model):
     def _onchange_default_requisition(self):
         """ Auto-select Purchase Requisition by project and vendor """
         rg_result = self.env['purchase.requisition'].read_group(
-            domain=[('project_id', 'in', self.project_id.ids), ('vendor_id', 'in', self.partner_id.commercial_partner_id.ids)],
+            domain=[
+                ('project_id', 'in', self.project_id.ids),
+                ('vendor_id', 'in', self.partner_id.commercial_partner_id.ids),
+                ('state', 'in', ['ongoing', 'in_progress', 'open'])
+            ],
             groupby=['project_id', 'vendor_id'],
             fields=['ids:array_agg(id)'],
+            orderby='date_end DESC',
             lazy=False,
         )
         mapped_data = {
