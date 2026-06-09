@@ -75,12 +75,15 @@
             <!-- Hide other field for `account.move.budget.line` -->
             <field name="amount_reserved_valued" position="attributes">
                 <attribute name="attrs">{'invisible': [('record_res_model', '=', 'account.move.budget.line')]}</attribute>
+                <attribute name="optional">show</attribute>
             </field>
             <field name="amount_expense_valued" position="attributes">
                 <attribute name="attrs">{'invisible': [('record_res_model', '=', 'account.move.budget.line')]}</attribute>
+                <attribute name="optional">show</attribute>
             </field>
             <field name="amount_gain" position="attributes">
                 <attribute name="attrs">{'invisible': [('record_res_model', '=', 'account.move.budget.line')]}</attribute>
+                <attribute name="optional">show</attribute>
             </field>
             <field name="amount_gain" position="after">
                 <field
