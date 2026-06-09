@@ -111,9 +111,11 @@ class StockPicking(models.Model):
         """Link the MOs of `mrp_production_ids` with the picking
         through the Procurement Group (native)"""
         for picking in self:
-            group_mo = fields.first(picking.mrp_production_ids.procurement_group_id)
-            group_mo.mrp_production_ids = [Command.link(x.id) for x in picking.mrp_production_ids]
+            mos = picking.mrp_production_ids
+            group_mo = fields.first(mos.procurement_group_id)
+            group_mo.mrp_production_ids = [Command.link(x.id) for x in mos]
             picking._set_new_procurement_group(group_mo)
+            picking.origin = ", " . join(mos.mapped("name"))
         # required, else not trigerred at form saving
         self._compute_launch_ids_description()
 

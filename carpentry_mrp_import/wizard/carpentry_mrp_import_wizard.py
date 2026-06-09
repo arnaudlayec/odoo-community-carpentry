@@ -16,19 +16,34 @@ class CarpentryMrpImportWizard(models.TransientModel):
 
     REPORT_FILENAME = 'report/report_mrp_component.xlsx'
 
+    #===== Fields methods =====#
+    def default_get(self, fields):
+        """Set `production_id` or `picking_id` from action's context"""
+        vals = super().default_get(fields)
+
+        if any(x in fields for x in ["production_id", "picking_id"]):
+            field_name = {
+                "mrp.production": "production_id",
+                "stock.picking": "picking_id",
+            }
+            res_model = self._context.get("active_model")
+            record = (res_model in field_name) and self.env[res_model].browse(
+                self._context.get("active_id")
+            )
+            if record:
+                vals[field_name[res_model]] = record.id
+
+        return vals
+
     #===== Fields =====#
-    mode = fields.Selection(
-        selection=[
-            ('component', 'Components'),
-            ('byproduct', 'Final products'),
-        ],
-        required=True,
-        string='Import mode'
-    )
     production_id = fields.Many2one(
         comodel_name='mrp.production',
         string='Manufacturing Order',
-        required=True,
+        readonly=True,
+    )
+    picking_id = fields.Many2one(
+        comodel_name='stock.picking',
+        string='Picking',
         readonly=True,
     )
     import_file = fields.Binary(
@@ -62,38 +77,50 @@ class CarpentryMrpImportWizard(models.TransientModel):
 
     # report
     move_raw_ids = fields.One2many(related='production_id.move_raw_ids')
+    move_ids = fields.One2many(related="picking_id.move_ids")
     ignored_product_ids = fields.One2many(comodel_name='product.product', store=False, readonly=True)
+
+
+    #===== Helper methods =====# 
+    def _get_order(self):
+        return self.production_id or self.picking_id
+
+    def _get_moves(self):
+        return self.move_raw_ids or self.move_ids
 
     #===== Buttons =====#
     def button_truncate(self):
-        mo = self.production_id
-        mo.move_raw_ids.unlink()
-        
-        # mo moves to cancel when unlinking its components > make it back to draft
-        mo.move_finished_ids.state = 'draft'
-        mo.workorder_ids.state = 'draft'
-        mo.state = 'draft'
+        self._get_moves().unlink()
+
+        # mo moves to cancel when unlinking its components
+        # => make it back to draft
+        if self.production_id:
+            mo = self.production_id
+            mo.move_finished_ids.state = 'draft'
+            mo.workorder_ids.state = 'draft'
+            mo.state = 'draft'
     
     def button_import(self):
         if not self.import_file:
             raise exceptions.UserError(_('Please upload a file.'))
+        return self._action_import_component()
 
-        if self.mode == 'component':
-            return self._action_import_component()
-        elif self.mode == 'byproduct':
-            return self._action_import_byproduct()
+        # if self.mode == 'component':
+        #     return self._action_import_component()
+        # elif self.mode == 'byproduct':
+        #     return self._action_import_byproduct()
         
-        return {'type': 'ir.actions.act_window_close'}
+        # return {'type': 'ir.actions.act_window_close'}
 
-    def _action_import_byproduct(self):
-        """ Byproduct: file is Excel """
-        cols = {
-            'product_code_or_name',
-            'description_picking',
-            'product_uom_qty'
-        }
-        vals_list = self._excel_to_vals_list(self.import_file, cols, b64decode=True) # from `utilities.file.mixin`
-        self._run_import_byproduct(vals_list)
+    # def _action_import_byproduct(self):
+    #     """ Byproduct: file is Excel """
+    #     cols = {
+    #         'product_code_or_name',
+    #         'description_picking',
+    #         'product_uom_qty'
+    #     }
+    #     vals_list = self._excel_to_vals_list(self.import_file, cols, b64decode=True) # from `utilities.file.mixin`
+    #     self._run_import_byproduct(vals_list)
 
     def _action_import_component(self):
         """ Components: file is Orgadata database """
@@ -105,34 +132,34 @@ class CarpentryMrpImportWizard(models.TransientModel):
 
 
     #===== Import logics (Byproducts) =====#
-    def _run_import_byproduct(self, vals_list):
-        # Search the products from `product_code_or_name`
-        byproducts = self.env['product.product'].search([])
-        not_found = []
-        for row, vals in enumerate(vals_list, start=2):
-            product_data = vals.get('product_code_or_name')
-            product = self._find_product(byproducts, product_data)
-            if not product:
-                not_found.append(f'Row {row}: {product_data}')
-            else:
-                vals['product_id'] = product.id
-                vals.pop('product_code_or_name')
+    # def _run_import_byproduct(self, vals_list):
+    #     # Search the products from `product_code_or_name`
+    #     byproducts = self.env['product.product'].search([])
+    #     not_found = []
+    #     for row, vals in enumerate(vals_list, start=2):
+    #         product_data = vals.get('product_code_or_name')
+    #         product = self._find_product(byproducts, product_data)
+    #         if not product:
+    #             not_found.append(f'Row {row}: {product_data}')
+    #         else:
+    #             vals['product_id'] = product.id
+    #             vals.pop('product_code_or_name')
         
-        if not_found:
-            raise exceptions.UserError(
-                _('Unknown products:\n %s') % not_found.join('\n')
-            )
+    #     if not_found:
+    #         raise exceptions.UserError(
+    #             _('Unknown products:\n %s') % not_found.join('\n')
+    #         )
         
-        # Create mo's byproducts
-        _logger.info(f'[_run_import_byproduct] vals_list: {vals_list}')
-        self.production_id.move_byproduct_ids = [Command.create(vals) for vals in vals_list]
+    #     # Create mo's byproducts
+    #     _logger.info(f'[_run_import_byproduct] vals_list: {vals_list}')
+    #     self.production_id.move_byproduct_ids = [Command.create(vals) for vals in vals_list]
     
-    def _find_product(self, products, product_key):
-        """ Search product `products` by code, and then name if not found by code """
-        return (
-            products.filtered(lambda x: x.default_code == product_key) or
-            products.filtered(lambda x: x.name == product_key)
-        )
+    # def _find_product(self, products, product_key):
+    #     """ Search product `products` by code, and then name if not found by code """
+    #     return (
+    #         products.filtered(lambda x: x.default_code == product_key) or
+    #         products.filtered(lambda x: x.name == product_key)
+    #     )
     
     #===== Import logics (Components/Orgadata) =====#
     def _run_import_component(self, db_resource):
@@ -180,8 +207,8 @@ class CarpentryMrpImportWizard(models.TransientModel):
         report_binary = self._make_report(mapped_components, *args)
 
         # chatter message
-        mail_values = self._get_chatter_message(*args, report_binary)
-        self.production_id.message_post(**mail_values)
+        mail_values = self._prepare_chatter_msg_vals(*args, report_binary)
+        self._get_order().message_post(**mail_values)
 
     def _read_external_db(self, db_resource):
         """ Can be overriden to add import logic for other external database """
@@ -313,17 +340,8 @@ class CarpentryMrpImportWizard(models.TransientModel):
             #     })
 
             # Create need (reservation)
-            component_vals_list.append(Command.create(
-                self.production_id._origin._get_move_raw_values(
-                    product,
-                    data.get('product_uom_qty'),
-                    product.uom_id,
-                ) | {
-                    # (!) very important
-                    # needed so it's not guessed by [Create] operation
-                    # else these moves will be considered both as components *and* finished products
-                    'production_id': False
-                })
+            component_vals_list.append(
+                self._prepare_component_vals(product, data)
             )
         
         # ALY, 2025-05-15 : don't import price from Orgadata
@@ -333,7 +351,34 @@ class CarpentryMrpImportWizard(models.TransientModel):
 
         if component_vals_list:
             _logger.info(f'[_import_components] component_vals_list: {component_vals_list}')
-            self.production_id.move_raw_ids = component_vals_list
+            self.env["stock.move"].create(component_vals_list)
+    
+    def _prepare_component_vals(self, product, data):
+        if self.production_id:
+            return self.production_id._origin._get_move_raw_values(
+                product,
+                data.get('product_uom_qty'),
+                product.uom_id,
+            ) | {
+                # (!) very important
+                # needed so it's not guessed by [Create] operation
+                # else these moves will be considered both as components *and* finished products
+                'production_id': False
+            }
+        elif self.picking_id:
+            picking = self.picking_id
+            return {
+                'picking_id': picking.id,
+                'name': _('New'),
+                'product_id': product.id,
+                'product_uom_qty': data.get('product_uom_qty'),
+                'product_uom': product.uom_id.id,
+                'location_id': picking.location_id.id,
+                'location_dest_id': picking.location_dest_id.id,
+                'company_id': picking.company_id,
+            }
+        else:
+            raise exceptions.UserError(_("Operation not supported."))
 
     def _make_report(self, mapped_components, byproducts, substituted, unknown, consu):
         def __write_section(start_row, title, cols, vals_list):
@@ -372,8 +417,8 @@ class CarpentryMrpImportWizard(models.TransientModel):
             'A2': _('Project'),
             'A3': _('Manufacturing Order'),
             'A4': _('Date'),
-            'B2': self.production_id.project_id.display_name,
-            'B3': self.production_id.display_name,
+            'B2': self._get_order().project_id.display_name,
+            'B3': self._get_order().display_name,
             'B4': fields.Date.context_today(self),
         }
         for cell, text in titles.items():
@@ -414,7 +459,7 @@ class CarpentryMrpImportWizard(models.TransientModel):
         output_stream.seek(0)
         return output_stream.read() # binary, NOT base64 encoded for `message_post`
 
-    def _get_chatter_message(self, byproducts, substituted, unknown, consu, report_binary):
+    def _prepare_chatter_msg_vals(self, byproducts, substituted, unknown, consu, report_binary):
         return {
             'message_type': 'notification',
             'subtype_xmlid': 'mail.mt_note',
@@ -422,21 +467,21 @@ class CarpentryMrpImportWizard(models.TransientModel):
             'partner_ids': [],
             'body': _(
                 "<ul>"
-                    "<li><strong>%(byproducts)s</strong> final products</li>"
                     "<li><strong>%(components)s</strong> components added</li>"
                     "<li><strong>%(consu)s</strong> consumable (to order separatly)</li>"
                     "<li><strong>%(substituted)s</strong> substituted references</li>"
                     "<li><strong>%(ignored)s</strong> explicitely ignored</li>"
                     "<li><strong>%(unknown)s</strong> unknown products</li>"
+                    "<li><strong>%(byproducts)s</strong> final products</li>"
                 "</ul>",
-                byproducts=len(byproducts),
                 components=len(self.product_ids),
                 consu=len(consu),
                 substituted=len(substituted),
                 ignored=len(self.ignored_product_ids),
                 unknown=len(unknown),
+                byproducts=len(byproducts),
             ),
             'attachments': [] if not report_binary else [
-                (_('Component & products report'), report_binary)
+                (_('Components report'), report_binary)
             ]
         }

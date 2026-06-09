@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Component Import Wizard -->
-    <record id="action_open_mrp_component_import_component_wizard" model="ir.actions.act_window">
+    <record id="action_open_component_import_component_wizard" model="ir.actions.act_window">
         <field name="name">Import component</field>
         <field name="res_model">carpentry.mrp.import.wizard</field>
         <field name="view_mode">form</field>
-        <field name="context">{'default_production_id': active_id, 'default_mode': 'component'}</field>
         <field name="target">new</field>
     </record>
 
-    <!-- Final Product import Wizard -->
-    <record id="action_open_mrp_component_import_final_product_wizard" model="ir.actions.act_window">
-        <field name="name">Import final products</field>
-        <field name="res_model">carpentry.mrp.import.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="context">{'default_production_id': active_id, 'default_mode': 'byproduct'}</field>
-        <field name="target">new</field>
-    </record>
-
-    <record id="view_budget_import_wizard" model="ir.ui.view">
-        <field name="name">Manufacturing Order import</field>
+    <record id="view_component_import_wizard" model="ir.ui.view">
+        <field name="name">Components import</field>
         <field name="model">carpentry.mrp.import.wizard</field>
 
         <field name="arch" type="xml">
             <form>
-                <field name="mode" invisible="1" />
-
-                <h1 name="production">
-                    <field name="production_id" nolabel="1" />
+                <h1>
+                    <field name="production_id" nolabel="1" attrs="{'invisible': [('production_id', '=', False)]}" />
+                    <field name="picking_id" nolabel="1" attrs="{'invisible': [('picking_id', '=', False)]}" />
                 </h1>
 
                 <group name="import">
@@ -45,7 +34,6 @@
                             icon="fa-trash"
                             string="Truncate existing components"
                             confirm="Are you sure?"
-                            attrs="{'invisible': [('mode', '!=', 'component')]}"
                         />
                     </group>
                 </group>

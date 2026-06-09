@@ -10,9 +10,10 @@
     'installable': True,
     'auto_install': False,
     'category': 'Carpentry/Carpentry',
-    'version': '16.0.1.0.1',
+    'version': '16.0.1.0.2',
 
     'depends': [
+        "utilities_file_management", # alayec
         'purchase_discount', # OCA
         'carpentry_mrp', # carpentry
     ],
@@ -25,5 +26,6 @@
         'views/mrp_production.xml',
         'views/product_views.xml',
         'views/product_substitution.xml',
+        'views/stock_picking.xml',
     ]
 }

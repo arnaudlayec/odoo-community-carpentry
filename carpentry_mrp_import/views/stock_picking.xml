@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <!-- WO Form -->
-    <record id="mrp_production_form_view" model="ir.ui.view">
-        <field name="name">mrp.production.form.carpentry</field>
-        <field name="model">mrp.production</field>
-        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+    <!-- Form -->
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.carpentry.mrp.import</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
         
         <field name="arch" type="xml">
             <!-- Add `Import Components` button -->
@@ -12,7 +12,11 @@
                 <button name="%(action_open_component_import_component_wizard)d"
                     type="action"
                     string="Components"
-                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    attrs="{'invisible': [
+                        '|',
+                        ('state', '!=', 'draft'),
+                        ('picking_type_code', 'not in', ['outgoing', 'internal']),
+                    ]}"
                     icon="fa-upload"
                     class="btn btn-primary"
                 />
