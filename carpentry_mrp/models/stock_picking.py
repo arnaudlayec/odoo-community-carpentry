@@ -26,10 +26,15 @@ class StockPicking(models.Model):
         readonly=False,
         domain="[('project_id', '=', project_id)]"
     )
+    group_id = fields.Many2one(
+        related=None, # cancel native, managed in compute
+        compute="_compute_group_id",
+        store=True,
+    )
     mrp_production_ids = fields.One2many(
         # field from module `mrp_project_link`
-        inverse='_inverse_mrp_production_ids',
-        domain="[('project_id', '=', project_id), ('state', 'not in', ['done', 'cancel'])]"
+        domain="[('project_id', '=', project_id), ('state', 'not in', ['done', 'cancel'])]",
+        inverse="_inverse_mrp_production_ids",
     )
     unsatisfied_mrp_production_ids = fields.One2many(
         string="Unsatisfied Manufacturing Orders",
@@ -53,8 +58,11 @@ class StockPicking(models.Model):
             mo = picking.mrp_production_ids
 
             picking.launch_ids = [Command.set((po.launch_ids | mo.launch_ids)._origin.ids)]
-            if po or len(mo) == 1:
-                picking.description = po.description if po else mo.description
+            picking.description = (
+                picking.description or
+                po.description or
+                mo.description
+            )
 
     @api.model
     def _search_launch_ids(self, operator, value):
@@ -100,12 +108,36 @@ class StockPicking(models.Model):
             picking.unsatisfied_mrp_product_ids = product_ids or False
 
     def _inverse_mrp_production_ids(self):
-        """Allow update of `mrp_production_ids` from the picking"""
+        """Link the MOs of `mrp_production_ids` with the picking
+        through the Procurement Group (native)"""
         for picking in self:
-            group = fields.first(picking.mrp_production_ids.procurement_group_id)
-            group.mrp_production_ids = [Command.link(x.id) for x in picking.mrp_production_ids]
-            picking.group_id = group
-        self._compute_launch_ids_description() # required, else not trigerred at form saving
+            group_mo = fields.first(picking.mrp_production_ids.procurement_group_id)
+            group_mo.mrp_production_ids = [Command.link(x.id) for x in picking.mrp_production_ids]
+            picking._set_new_procurement_group(group_mo)
+        # required, else not trigerred at form saving
+        self._compute_launch_ids_description()
+
+    def _set_new_procurement_group(self, group):
+        """Force `group_id` on picking, if not already defined by its moves"""
+        existing_group = self.move_ids.group_id
+        if existing_group and existing_group != group:
+            raise exceptions.UserError(_(
+                "A different Procurement Group is already defined by the stock moves."
+            ))
+
+        # `stock_picking.group_id` is a stored related field from `move_ids`
+        if existing_group:
+            self.move_ids.group_id = group
+        else:
+            self.group_id = group
+
+    @api.depends("move_ids.group_id", "mrp_production_ids")
+    def _compute_group_id(self):
+        """Replace native 'related' by this compute, to make `group_id`
+        persistent when already set by `_inverse_mrp_production_ids`.
+        Use-case: when creating a picking without moves."""
+        for picking in self:
+            picking.group_id = picking.move_ids.group_id or picking.group_id
 
     #===== Action =====#
     def action_open_unsatisfied_mrp_production(self):
