@@ -164,7 +164,7 @@ class CarpentryBudgetReservation(models.Model):
         reservation = self.filtered(
             lambda x: x._float_compare(0, x.amount_remaining) == 1
         )
-        if False and bool(reservation):
+        if bool(reservation):
             raise exceptions.ValidationError(_(
                 "The reserved budget is higher than the one available in the project:\n\n"
                 "Launchs: %(launchs)s\n"

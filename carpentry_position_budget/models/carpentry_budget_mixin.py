@@ -491,12 +491,15 @@ class CarpentryBudgetMixin(models.AbstractModel):
         )
         self_one = fields.first(self)
         self.flush_recordset([x for x in record_fields if hasattr(self_one, x)])
+
         # Reservations
         self.reservation_ids.flush_recordset(['amount_reserved'])
+
         # Expenses
         self.env["account.analytic.line"].flush_model() # can't guess all fields (added in other modules)
         for field in self._record_fields_expense:
             self[field].flush_recordset()
+
         # Valuation
         self.project_id.flush_recordset(['date_start', 'date'])
         self.env['hr.employee.timesheet.cost.history'].flush_model(['hourly_cost', 'starting_date', 'date_to'])

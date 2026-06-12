@@ -358,7 +358,7 @@ class CarpentryBudgetExpenseDetail(models.Model):
             INNER JOIN account_analytic_account AS analytic
                 ON analytic.id = analytic_distribution.aac_id::integer
         """
-    
+
     def _where(self, model, models):
         if model == 'carpentry.budget.reservation':
             return 'WHERE TRUE'
