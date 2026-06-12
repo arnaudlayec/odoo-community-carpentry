@@ -32,7 +32,7 @@ class StockMove(models.Model):
             move.analytic_distribution = distribution or move.analytic_distribution
         
         self._compute_analytic_distribution_carpentry()
-    
+
     def _prepare_analytic_lines(self):
         """Conflict between:
         - stock_account: update analytic
@@ -41,4 +41,21 @@ class StockMove(models.Model):
         return super(
             StockMove, self.sudo()
         )._prepare_analytic_lines()
-    
+
+    def _action_confirm(self, merge=True, merge_into=False):
+        """Module `stock_analytic` triggers analytic validation
+        at MO/picking validation, but we need it a MO/picking confirmation"""
+        moves = self.filtered(lambda x: not x.production_id) # for MO: only components
+        for move in moves:
+            move.move_line_ids.analytic_distribution = move.analytic_distribution
+            if not move._need_validate_distribution():
+                continue
+            move._validate_distribution(
+                **{
+                    "product": move.product_id.id,
+                    "picking_type": move.picking_type_id.id,
+                    "business_domain": "stock_move",
+                    "company_id": move.company_id.id,
+                }
+            )
+        return super()._action_confirm(merge=merge, merge_into=merge_into)

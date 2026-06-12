@@ -67,3 +67,9 @@ class StockPicking(models.Model):
             else:
                 picking.date_budget = picking.scheduled_date
         return super()._compute_date_budget()
+
+    #===== Buttons =====#
+    def action_confirm(self):
+        """Module `stock_analytic`: validate analytic right at picking confirm"""
+        self = self.with_context(validate_analytic=True)
+        return super().action_confirm()

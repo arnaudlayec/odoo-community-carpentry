@@ -323,6 +323,12 @@ class ManufacturingOrder(models.Model):
         )
         self['show_budget_banner_workorders'] = bool(compare != 0)
 
+    #===== Buttons =====#
+    def action_confirm(self):
+        """Module `stock_analytic`: also validate MO analytic, right at MO confirm"""
+        self = self.with_context(validate_analytic=True)
+        return super().action_confirm()
+
     #===== Views =====#
     def _get_view_carpentry_config(self):
         """ Add workorders tab """
