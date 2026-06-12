@@ -144,6 +144,10 @@ class Task(models.Model):
     def _get_domain_is_temporary_gain(self):
         return [('stage_id.fold', '=', False)]
     
+    def _flush_budget(self):
+        self.flush_recordset(["is_closed", "effective_hours"])
+        return super()._flush_budget()
+
     def _compute_view_fields_one(self, prec, fields_suffix):
         super()._compute_view_fields_one(prec, fields_suffix)
         self.total_budgetable = self.planned_hours
