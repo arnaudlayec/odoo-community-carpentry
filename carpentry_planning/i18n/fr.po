@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 21:37+0000\n"
-"PO-Revision-Date: 2026-01-22 22:44+0100\n"
+"POT-Creation-Date: 2026-06-18 14:58+0000\n"
+"PO-Revision-Date: 2026-06-18 17:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -47,11 +47,9 @@ msgid "Carpentry Planning"
 msgstr "Planning de menuiserie"
 
 #. module: carpentry_planning
-#. odoo-javascript
-#: code:addons/carpentry_planning/static/src/planning/planning_left_side_panel.xml:0
-#, python-format
-msgid "Click to toggle status"
-msgstr "Cliquez pour basculer l'état"
+#: model:ir.model,name:carpentry_planning.model_carpentry_planning_column
+msgid "Carpentry Planning Column"
+msgstr "Colonne du planning de menuiserie"
 
 #. module: carpentry_planning
 #: model_terms:ir.ui.view,arch_db:carpentry_planning.carpentry_planning_project_milestone_table
@@ -107,11 +105,6 @@ msgstr "Annuler"
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone_wizard__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
-
-#. module: carpentry_planning
-#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_group_launch__is_done
-msgid "Done?"
-msgstr "Terminé ?"
 
 #. module: carpentry_planning
 #: model:ir.model.fields.selection,name:carpentry_planning.selection__carpentry_planning_milestone_type__type__end
@@ -185,15 +178,13 @@ msgstr "Identifiant requis"
 #: model:ir.model.fields,help:carpentry_planning.field_carpentry_planning_column__identifier_ref
 msgid ""
 "Identifier value is needed when 2 columns get their source from same Model. "
-"The identifier model must have a `column_id` field holding the routing "
-"logic. Example: Task Needs to route towards `Needs (Method)` or `Needs "
-"(Field)`"
+"The identifier model must have a `column_id` field holding the routing logic. "
+"Example: Task Needs to route towards `Needs (Method)` or `Needs (Field)`"
 msgstr ""
-"L'identifiant est nécessaire lorsque deux colonnes tirent leur donnée du "
-"même modèle. Le modèle du champ `Identifiant` doit avoir un champ "
-"`column_id` opérant la logique de routage. Exemple : router les tâches "
-"issues de besoin entre les colonnes `Besoin (Méthode)` et `Besoins "
-"(Chantier)`"
+"L'identifiant est nécessaire lorsque deux colonnes tirent leur donnée du même "
+"modèle. Le modèle du champ `Identifiant` doit avoir un champ `column_id` "
+"opérant la logique de routage. Exemple : router les tâches issues de besoin "
+"entre les colonnes `Besoin (Méthode)` et `Besoins (Chantier)`"
 
 #. module: carpentry_planning
 #: model:ir.model.fields,help:carpentry_planning.field_carpentry_planning_milestone_wizard__shift
@@ -207,11 +198,11 @@ msgstr ""
 #. module: carpentry_planning
 #: model:ir.model.fields,help:carpentry_planning.field_project_assignment__project_fold
 msgid ""
-"If enabled, this stage will be displayed as folded in the Kanban view of "
-"your projects. Projects in a folded stage are considered as closed."
+"If enabled, this stage will be displayed as folded in the Kanban view of your "
+"projects. Projects in a folded stage are considered as closed."
 msgstr ""
-"Si activé, l'étape sera repliée dans le vue Kanban de vos projets. Les "
-"projets dans une étape repliée sont considérés comme terminés."
+"Si activé, l'étape sera repliée dans le vue Kanban de vos projets. Les projets "
+"dans une étape repliée sont considérés comme terminés."
 
 #. module: carpentry_planning
 #. odoo-javascript
@@ -219,6 +210,17 @@ msgstr ""
 #, python-format
 msgid "Initially available budget"
 msgstr "Budget initialement disponible"
+
+#. module: carpentry_planning
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_group_launch__is_done
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone__is_done
+msgid "Is Done"
+msgstr "Terminé ?"
+
+#. module: carpentry_planning
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone__is_last
+msgid "Is Last"
+msgstr "Dernier"
 
 #. module: carpentry_planning
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_card____last_update
@@ -244,6 +246,7 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: carpentry_planning
+#: model:ir.model,name:carpentry_planning.model_carpentry_group_launch
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone__launch_id
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone_wizard__launch_id
 #: model_terms:ir.ui.view,arch_db:carpentry_planning.carpentry_planning_search
@@ -251,19 +254,29 @@ msgid "Launch"
 msgstr "Lancement"
 
 #. module: carpentry_planning
-#. odoo-javascript
-#: code:addons/carpentry_planning/static/src/planning/planning_left_side_panel.xml:0
-#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_card__launch_ids
-#, python-format
-msgid "Launches"
-msgstr "Lancements"
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone__shortcut
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone_type__shortcut
+msgid "Launch shortcut"
+msgstr "Raccourci lancement"
 
 #. module: carpentry_planning
 #. odoo-javascript
 #: code:addons/carpentry_planning/static/src/planning/planning_view.xml:0
 #, python-format
-msgid "Launches planning"
-msgstr "Planning par lancement"
+msgid "Launch:"
+msgstr "Lancement :"
+
+#. module: carpentry_planning
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_card__launch_ids
+msgid "Launches"
+msgstr "Lancements"
+
+#. module: carpentry_planning
+#. odoo-javascript
+#: code:addons/carpentry_planning/static/src/planning/planning_left_side_panel.xml:0
+#, python-format
+msgid "Launches ("
+msgstr "Lancements ("
 
 #. module: carpentry_planning
 #: model_terms:ir.ui.view,arch_db:carpentry_planning.carpentry_planning_project_milestone_table
@@ -274,6 +287,11 @@ msgstr "Dates du planning par lancement"
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone_wizard__milestone_id
 msgid "Milestone"
 msgstr "Jalon"
+
+#. module: carpentry_planning
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_group_launch__milestone_shortcut
+msgid "Milestone Shortcut"
+msgstr "Raccourci de jalon"
 
 #. module: carpentry_planning
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone__milestone_type_id
@@ -294,11 +312,9 @@ msgstr "Modèle"
 #. odoo-python
 #: code:addons/carpentry_planning/models/carpentry_planning_column.py:0
 #, python-format
-msgid ""
-"Model of identifier %s cannot be chosen (not foreseen for it). Column: %s"
+msgid "Model of identifier %s cannot be chosen (not foreseen for it). Column: %s"
 msgstr ""
-"Le modèle de l'identifiant %s n'est pas prévu pour cette opération. "
-"Colonne: %s"
+"Le modèle de l'identifiant %s n'est pas prévu pour cette opération. Colonne: %s"
 
 #. module: carpentry_planning
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_column__name
@@ -334,13 +350,6 @@ msgid "No launches to display."
 msgstr "Aucun lancement à afficher."
 
 #. module: carpentry_planning
-#. odoo-python
-#: code:addons/carpentry_planning/models/project_project.py:0
-#, python-format
-msgid "No next project for this user."
-msgstr "C'était le dernier projet pour cet utilisateur."
-
-#. module: carpentry_planning
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone_wizard__offset
 msgid "Offset in week(s)"
 msgstr "Décalage en semaine(s)"
@@ -359,6 +368,11 @@ msgstr "Détails"
 #: model:ir.ui.menu,name:carpentry_planning.menu_project_planning
 msgid "Planning"
 msgstr ""
+
+#. module: carpentry_planning
+#: model:ir.model,name:carpentry_planning.model_carpentry_planning_card
+msgid "Planning Card"
+msgstr "Cartes du planning"
 
 #. module: carpentry_planning
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_mixin__planning_card_color_class
@@ -450,11 +464,22 @@ msgid "Previous"
 msgstr "Précédent"
 
 #. module: carpentry_planning
+#: model:ir.model,name:carpentry_planning.model_project_project
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_card__project_id
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone__project_id
 #: model_terms:ir.ui.view,arch_db:carpentry_planning.carpentry_planning_search
 msgid "Project"
 msgstr "Projet"
+
+#. module: carpentry_planning
+#: model:ir.model,name:carpentry_planning.model_project_assignment
+msgid "Project Assignment"
+msgstr "Affectation du projet"
+
+#. module: carpentry_planning
+#: model:ir.model,name:carpentry_planning.model_project_role
+msgid "Project Role"
+msgstr "Rôle du projet"
 
 #. module: carpentry_planning
 #. odoo-javascript
@@ -482,8 +507,16 @@ msgid "Reserved budget so far"
 msgstr "Budget réservé jusqu'à présent"
 
 #. module: carpentry_planning
+#. odoo-javascript
+#: code:addons/carpentry_planning/static/src/planning/planning_view.xml:0
+#, python-format
+msgid "Select a launch to show the planning"
+msgstr "Choisir un lancement pour afficher le planning"
+
+#. module: carpentry_planning
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_card__sequence
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_column__sequence
+#: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone__sequence
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_milestone_type__sequence
 msgid "Sequence"
 msgstr "Séquence"
@@ -502,6 +535,13 @@ msgstr "Décalage"
 #: model:ir.model.fields,field_description:carpentry_planning.field_carpentry_planning_card__shortname
 msgid "Shortname"
 msgstr "Nom court"
+
+#. module: carpentry_planning
+#. odoo-javascript
+#: code:addons/carpentry_planning/static/src/planning/planning_left_side_panel.xml:0
+#, python-format
+msgid "Show or hide the finished launches"
+msgstr "Afficher ou cacher les lancements terminés"
 
 #. module: carpentry_planning
 #: model:ir.model.fields.selection,name:carpentry_planning.selection__carpentry_planning_milestone_type__type__start
@@ -557,17 +597,26 @@ msgstr "Semaine"
 #. module: carpentry_planning
 #: model:ir.model.fields,help:carpentry_planning.field_carpentry_planning_column__fold
 msgid "Whether the column is hidden in the planning (for all users)."
+msgstr "Si la colonne est cachée dans le planning (pour tous les utilisateurs)."
+
+#. module: carpentry_planning
+#: model:ir.model.fields,help:carpentry_planning.field_carpentry_planning_milestone__shortcut
+#: model:ir.model.fields,help:carpentry_planning.field_carpentry_planning_milestone_type__shortcut
+msgid ""
+"Whether the state can be controlled from the launchs' select panel. The "
+"column's icon will be displayed next to the launch. It will be green if the "
+"milestone is done."
 msgstr ""
-"Si la colonne est cachée dans le planning (pour tous les utilisateurs)."
+"Si oui ou non le statut peut être modifié depuis le panneau de sélection des "
+"lancements. L'icône de la colonne sera affichée à côté du lancement. Elle sera "
+"verte si le jalon est terminé."
 
 #. module: carpentry_planning
 #: model:ir.model.fields,help:carpentry_planning.field_project_assignment__config_planning_next_project
 #: model:ir.model.fields,help:carpentry_planning.field_project_role__config_planning_next_project
 msgid ""
-"Whether this role is used to generate the 'Next projects' list on the "
-"planning."
-msgstr ""
-"Si ce rôle est affiché dans la colonne \"Projets suivants\" du planning."
+"Whether this role is used to generate the 'Next projects' list on the planning."
+msgstr "Si ce rôle est affiché dans la colonne \"Projets suivants\" du planning."
 
 #. module: carpentry_planning
 #: model:ir.model.fields,help:carpentry_planning.field_carpentry_planning_milestone__project_id
@@ -578,3 +627,10 @@ msgstr "Parmis vos projets favoris"
 #: model:ir.model.fields,help:carpentry_planning.field_carpentry_planning_column__icon
 msgid "fa fa-xxxx"
 msgstr ""
+
+#. module: carpentry_planning
+#. odoo-javascript
+#: code:addons/carpentry_planning/static/src/planning/planning_left_side_panel.xml:0
+#, python-format
+msgid "{{milestone.column_name}} done"
+msgstr "{{milestone.column_name}} terminé"

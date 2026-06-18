@@ -40,7 +40,7 @@ class PlanningMilestoneType(models.Model):
         string="Launch shortcut",
         help="Whether the state can be controlled from the launchs' select panel. "
              "The column's icon will be displayed next to the launch. It will be "
-             "green if the date is filled in.",
+             "green if the milestone is done.",
         default=False,
     )
 
