@@ -3,7 +3,6 @@
 
     <!-- Planning Dashboard KPI Card: margins -->
     <t t-name="carpentry_planning.PlanningDashboard.margins" owl="1">
-        <t t-log="data" />
         <t t-foreach="data['margins']" t-as="margin" t-key="margin_index">
             <h6 t-esc="margin.label" class="mt-2 mb-0" />
             <div t-att-class="margin.class">
