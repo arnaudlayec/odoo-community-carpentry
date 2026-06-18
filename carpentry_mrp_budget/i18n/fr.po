@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 22:19+0000\n"
-"PO-Revision-Date: 2026-01-22 23:35+0100\n"
+"POT-Creation-Date: 2026-06-18 15:15+0000\n"
+"PO-Revision-Date: 2026-06-18 17:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -67,6 +67,11 @@ msgid "Budget date"
 msgstr "Date de budget"
 
 #. module: carpentry_mrp_budget
+#: model:ir.model,name:carpentry_mrp_budget.model_carpentry_budget_reservation
+msgid "Budget reservation"
+msgstr "Réservation de budget"
+
+#. module: carpentry_mrp_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
 msgid "Budget reservation total:"
 msgstr "Budget total réservé :"
@@ -93,7 +98,7 @@ msgstr "Budget vérifié?"
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_analytic_ids
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__budget_analytic_ids
 msgid "Budgets"
-msgstr "Budgets"
+msgstr ""
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__budget_analytic_ids_components
@@ -151,6 +156,11 @@ msgstr "Dépense"
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.view_move_search
 msgid "Expense on project"
 msgstr "Dépense sur affaire"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model,name:carpentry_mrp_budget.model_carpentry_budget_expense_detail
+msgid "Expenses Detail"
+msgstr "Détail de la dépense"
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,help:carpentry_mrp_budget.field_stock_move__price_unit
@@ -245,6 +255,11 @@ msgstr "Ordre de Fabrication des composants"
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_stock_picking__project_id
 msgid "Project"
 msgstr "Projet"
+
+#. module: carpentry_mrp_budget
+#: model:ir.model,name:carpentry_mrp_budget.model_carpentry_budget_remaining
+msgid "Project & launches remaining budgets"
+msgstr "Budget restant (rapport)"
 
 #. module: carpentry_mrp_budget
 #: model:ir.model.fields,field_description:carpentry_mrp_budget.field_mrp_production__readonly_budget_analytic_ids
@@ -411,7 +426,7 @@ msgstr "Ordres de travail"
 #. module: carpentry_mrp_budget
 #: model_terms:ir.ui.view,arch_db:carpentry_mrp_budget.mrp_production_form_view
 msgid "h:min"
-msgstr "h:min"
+msgstr ""
 
 #. module: carpentry_mrp_budget
 #. odoo-python
