@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <div class="bg-white border-end o_search_panel overflow-auto p-2 ps-4"
-        t-name="carpentry_planning.PlanningLeftSidePanel" owl="1"
+    <div owl="1"
+        t-name="carpentry_planning.PlanningLeftSidePanel"
+        class="bg-white border-end o_search_panel o_search_panel_large overflow-auto p-2 ps-4"
     >
         <!-- Launches (like multi="one") -->
         <header class="h6 text-uppercase my-3 d-flex">
             <div class="flex-grow-1">
-                Launches
+                Launches (<t t-out="launchIds.length || 0" />)
+
+                <span name="lazy_display"
+                     t-on-click="() => this.toggleLazyDisplay()"
+                     title="Show or hide the finished launches"
+                     class="mx-2 cursor-pointer"
+                >
+                    <i t-attf-class="fa fa-eye{{state.lazyDisplay ? '-slash' : ''}}" />
+                    <i t-attf-class="ms-2 fa fa-toggle-{{state.lazyDisplay ? 'off' : 'on'}}" />
+                </span>
             </div>
             <div>
+                <!-- Before / After -->
                 <i t-attf-class="fa fa-chevron-left mx-1 {{goLeft ? 'cursor-pointer' : 'text-muted'}}"
                    title="Previous" t-on-click="() => this.move(-1)" data-hotkey="ArrowLeft" />
                 <i t-attf-class="fa fa-chevron-right mx-1 {{goRight ? 'cursor-pointer' : 'text-muted'}}"
@@ -37,18 +48,30 @@
                 'text-decoration-line-through text-muted': state.is_done and !props.isSelected
             }"
             t-on-click.self="() => props.selectLaunch(props.launch)"
-        >
-            <div title="Click to toggle status" t-on-click="toggleLaunch">
-                <i t-attf-class="fa {{state.is_done ? 'fa-check-square-o' : 'fa-square-o'}}" />
+        >   
+            <div t-on-click="openLaunch" title="Open details">
+                <i class="fa fa-file-text" />
             </div>
-            
             <div t-esc="props.launch.name"
                  t-on-click="() => props.selectLaunch(props.launch)"
                  class="flex-grow-1 mx-2" />
             
-            <div t-on-click="openLaunch" title="Open details">
-                <i class="fa fa-file-text" />
-            </div>
+            <!-- Milestones shortcuts -->
+            <t t-foreach="state.milestone_shortcut"
+               t-as="milestone"
+               t-key="milestone.id"
+            >
+                <t t-set="btnColor" t-value="''" />
+                <t t-set="btnColor" t-if="milestone.is_done"  t-value="'btn-success'" />
+                <t t-set="btnColor" t-elif="props.isSelected" t-value="'text-white'" />
+                <div
+                    t-attf-title="{{milestone.column_name}} done"
+                    t-attf-class="ms-2 btn py-0 px-1 {{btnColor}}"
+                    t-on-click="() => this.toggleMilestone(milestone)"
+                >
+                    <i t-att-class="milestone.column_icon" />
+                </div>
+            </t>
         </li>
     </t>
 

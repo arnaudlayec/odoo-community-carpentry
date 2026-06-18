@@ -3,9 +3,10 @@
 import { kanbanView } from "@web/views/kanban/kanban_view";
 import { KanbanController } from "@web/views/kanban/kanban_controller";
 import { KanbanRenderer } from "@web/views/kanban/kanban_renderer";
+import { onPatched, onWillPatch, useRef } from "@odoo/owl";
 import { PlanningModel } from "./planning_model";
 import { registry } from '@web/core/registry';
-import { useService } from "@web/core/utils/hooks";
+import { useService, } from "@web/core/utils/hooks";
 
 import { PlanningDashboard } from "./planning_dashboard";
 import { PlanningLeftSidePanel } from "./planning_left_side_panel";
@@ -15,10 +16,17 @@ export class PlanningRendered extends KanbanRenderer {
     setup() {
         super.setup();
         this.actionService = useService('action');
+        
+        onPatched(() => {
+            const model = this.props.list.model;
+            if (model._pendingScroll) {
+                model._pendingScroll = false;
+                this.scrollToKanbanTop();
+            }
+        });
     }
     openMilestone(milestone) {
         const actionReload = async () => await this.props.list.model.load(this.props.list);
-        console.log("openMilestone", actionReload, this.props.list.model, this.props.list);
 
         this.actionService.doAction({
             'type': 'ir.actions.act_window',
@@ -30,6 +38,13 @@ export class PlanningRendered extends KanbanRenderer {
         }, {
             onClose: actionReload
         });
+    }
+
+    scrollToKanbanTop() {
+        const el = document.querySelector('.o_carpentry_planning_title');
+        if (el) {
+            el.scrollIntoView();
+        }
     }
 }
 PlanningRendered.template = "carpentry_planning.PlanningRendered";

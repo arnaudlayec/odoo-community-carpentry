@@ -15,15 +15,21 @@
             <div class="o_carpentry_planning">
                 <PlanningDashboard model="model" />
                 
-                <h2 class="p-4 pb-2 mb-0 bg-white">
-                    Launches planning
+                <h2 class="o_carpentry_planning_title p-4 pb-2 mb-0 bg-white">
+                    <t t-if="model.launchId">
+                        Launch:
+                        <span t-esc="model.launchName" />
 
-                    <button type="button" class="btn btn-primary btn-sm mx-2"
-                        t-on-click.prevent="openPlanningMilestones"
-                    >
-                        <span class="fa fa-calendar" />
-                        View dates
-                    </button>
+                        <button type="button" class="btn btn-primary btn-sm mx-2"
+                            t-on-click.prevent="openPlanningMilestones"
+                        >
+                            <span class="fa fa-calendar" />
+                            View dates
+                        </button>
+                    </t>
+                    <t t-else="">
+                        Select a launch to show the planning
+                    </t>
                 </h2>
                 <div name="sub-root" class="d-flex">
                     <PlanningLeftSidePanel model="model" />

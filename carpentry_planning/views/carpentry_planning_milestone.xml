@@ -96,7 +96,6 @@
     />
 
 
-
     <!-- Milestone type (tree) - for config -->
     <record id="carpentry_planning_milestone_type_tree" model="ir.ui.view">
         <field name="name">carpentry.planning.milestone.type.tree</field>
@@ -108,6 +107,7 @@
                 <field name="name" />
                 <field name="icon" />
                 <field name="type" />
+                <field name="shortcut" widget="boolean_toggle" />
                 <field name="column_id" />
             </tree>
         </field>

@@ -10,12 +10,33 @@ export class PlanningLeftSidePanel_LaunchItem extends Component {
         
         this.orm = useService("orm");
         this.action = useService("action");
-        this.state = useState({is_done: this.props.launch.is_done});
+        this.state = useState({
+            is_done: this.props.launch.is_done,
+            milestone_shortcut: this.props.launch.milestone_shortcut ? this.props.launch.milestone_shortcut.data : [] 
+        });
     }
-    
-    toggleLaunch () {
-        this.state.is_done = !this.state.is_done;
-        this.orm.write("carpentry.group.launch", [this.props.launch.id], {is_done: this.state.is_done});
+
+    toggleMilestone(milestone) {
+        // Milestone color
+        const done_new = !milestone.is_done;
+        const state_milestone = this.state.milestone_shortcut.find(
+            (vals) => { return vals.id == milestone.id}
+        )
+        if (state_milestone) {
+            state_milestone.is_done = done_new;
+        }
+
+        // Launch `is_last` (substriked)
+        if (milestone.is_last) {
+            this.state.is_done = done_new;
+        }
+
+        // ORM save
+        this.orm.write(
+            "carpentry.planning.milestone",
+            [milestone.id],
+            {is_done: done_new},
+        );
     }
     openLaunch() {
         this.action.doAction({
@@ -40,19 +61,31 @@ PlanningLeftSidePanel_LaunchItem.props = {
 // List (left side pannel)
 export class PlanningLeftSidePanel extends Component {
     setup () {
-        this.state = useState({selectedLaunchId: this.props.model.launchId});
+        this.state = useState({
+            selectedLaunchId: this.props.model.launchId,
+            lazyDisplay: true,
+        });
     }
-    
-    // Pre-Select 1st opened launch
+
     get launchIds() {
-        return this.props.model.data.launchIds || {};
+        let launchs = this.props.model.data.launchIds || {};
+        if (launchs && Array.isArray(launchs) && this.state.lazyDisplay) {
+            launchs = launchs.filter(
+                (launch) => { return !launch.is_done; }
+            );
+        }
+        return launchs;
     }
-    // Filtering by launch
+
     selectLaunch(launch) {
         if (launch) {
             this.props.model.setLaunch(launch); // model
             this.state.selectedLaunchId = launch.id; // reload left side panel
         }
+    }
+
+    toggleLazyDisplay() {
+        this.state.lazyDisplay = !this.state.lazyDisplay;
     }
 
     // Simili-pager (prev, next)

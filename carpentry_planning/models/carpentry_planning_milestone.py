@@ -29,11 +29,17 @@ class PlanningMilestone(models.Model):
     )
     date = fields.Date(
         string='Date',
-        default=False
+        default=False,
     )
     date_week = fields.Char(
         string='Week',
         compute='_compute_date_week',
+    )
+    is_done = fields.Boolean(
+        default=False,
+    )
+    is_last = fields.Boolean(
+        compute="_compute_is_last",
     )
 
     # related fields
@@ -46,6 +52,12 @@ class PlanningMilestone(models.Model):
     type = fields.Selection(
         related='milestone_type_id.type',
         store=True
+    )
+    shortcut = fields.Boolean(
+        related='milestone_type_id.shortcut',
+    )
+    sequence = fields.Integer(
+        related='milestone_type_id.sequence',
     )
     column_id = fields.Many2one(
         related='milestone_type_id.column_id',
@@ -86,7 +98,20 @@ class PlanningMilestone(models.Model):
         """ Compute the week of the date """
         for milestone in self:
             milestone.date_week = milestone.date and _('W%s', milestone.date.isocalendar()[1])
+    
+    @api.depends("sequence", "launch_id")
+    def _compute_is_last(self):
+        for milestone in self:
+            milestone.is_last = bool(
+                milestone == milestone.launch_id.milestone_ids._get_last()
+            )
 
     #===== Logics =====#
     def _should_shift(self):
         return self.type in ['start', 'end']
+
+    def _get_last(self):
+        """Return last milestone (as per sequence) in the recordset"""
+        return self.filtered(
+            lambda x: x.sequence == max(self.mapped("sequence"))
+        )

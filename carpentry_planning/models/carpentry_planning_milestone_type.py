@@ -19,7 +19,7 @@ class PlanningMilestoneType(models.Model):
         string='Icon'
     )
     column_id = fields.Many2one(
-        'carpentry.planning.column',
+        comodel_name='carpentry.planning.column',
         string='Planning column',
         required=True,
         ondelete='cascade'
@@ -35,6 +35,13 @@ class PlanningMilestoneType(models.Model):
         ],
         default=False, # False is any kind of date (e.g. a milestone like "Go for purchase")
         required=False
+    )
+    shortcut = fields.Boolean(
+        string="Launch shortcut",
+        help="Whether the state can be controlled from the launchs' select panel. "
+             "The column's icon will be displayed next to the launch. It will be "
+             "green if the date is filled in.",
+        default=False,
     )
 
     #===== CRUD =====#

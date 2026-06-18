@@ -9,6 +9,8 @@ export class PlanningModel extends KanbanModel {
 
         this.data = {};
         this.launchId = null;
+        this.launchName = null;
+        this._pendingScroll = false;
     }
 
     // We need to ensure ORM is called only with both `project_id` and `launch_ids` in domain
@@ -28,11 +30,12 @@ export class PlanningModel extends KanbanModel {
 
     // Columns headers
     async loadColumnHeaders() {
-        const groupsIds = this.root.groups.map((group) => group.resId);
+        const columnIds = this.root.groups.map((group) => group.resId);
         this.headersKeepLast = this.headersKeepLast || new KeepLast();
         this.data.headers = await this.headersKeepLast.add(this.orm.silent.call(
-            "carpentry.planning.column", "get_headers_data",
-            [groupsIds, this.launchId]
+            "carpentry.planning.column",
+            "get_headers_data",
+            [columnIds, this.launchId]
         ));
     }
 
@@ -50,9 +53,13 @@ export class PlanningModel extends KanbanModel {
     async loadLaunchIds() {
         if (this.projectId && !this.data.launchIds) {
             this.launchKeepLast = this.launchKeepLast || new KeepLast();
-            this.data.launchIds = await this.launchKeepLast.add(this.orm.silent.searchRead(
-                "carpentry.group.launch", [['project_id', '=', this.projectId]], ["name", "is_done"]
-            ));
+            this.data.launchIds = await this.launchKeepLast.add(
+                this.orm.silent.searchRead(
+                    "carpentry.group.launch",
+                    [['project_id', '=', this.projectId]],
+                    ["name", "is_done", "milestone_shortcut"]
+                )
+            );
             if (!this.launchId) {
                 this.preSelectLaunch();
             }
@@ -68,7 +75,10 @@ export class PlanningModel extends KanbanModel {
         }
     }
     setLaunch(launch) {
+        this._pendingScroll = true; // arm scrolling flag for `onPatched`. See Renderer
         this.launchId = launch.id;
+        this.launchName = launch.name;
+
         this.env.searchModel.setDomainParts({
             launch: {
                 domain: [["launch_ids", "=", launch.id]],

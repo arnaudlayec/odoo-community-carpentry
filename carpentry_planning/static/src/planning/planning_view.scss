@@ -15,11 +15,14 @@
     //     display: none;
     // }
 
-    /*
-        Hide 'No Data' banner, which appears when project has launch(es) and no
-        planning card to display (plans, needs, etc...), but overlaps planning's tasks list
+    /* Hide 'No Data' banner, which appears when project has launch(es) and no
+       planning card to display (plans, needs, etc...), but overlaps planning's tasks list
     */
     .o_view_nocontent {
         display: none;
     }
+}
+
+.o_search_panel.o_search_panel_large {
+    width: 250px;
 }
