@@ -375,7 +375,7 @@ class CarpentryMrpImportWizard(models.TransientModel):
                 'product_uom': product.uom_id.id,
                 'location_id': picking.location_id.id,
                 'location_dest_id': picking.location_dest_id.id,
-                'company_id': picking.company_id,
+                'company_id': picking.company_id.id,
             }
         else:
             raise exceptions.UserError(_("Operation not supported."))
