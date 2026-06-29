@@ -4,6 +4,7 @@ from odoo import models, fields, api, exceptions, _
 from odoo.osv import expression
 
 from odoo.tools import float_is_zero, float_compare
+from odoo.tools.misc import str2bool
 
 class CarpentryBudgetReservation(models.Model):
     """ This model is quite similar to `carpentry.affectation`,
@@ -160,11 +161,16 @@ class CarpentryBudgetReservation(models.Model):
         if self._context.get('silence_constrain_amount_reserved'):
             # was useful for migration, left it, can be useful afterwards
             return
-        
-        reservation = self.filtered(
+
+        IrConfig = self.env['ir.config_parameter'].sudo()
+        if str2bool(IrConfig.get_param('carpentry.allow_negative_budget', default='False')):
+            # don't raise if we allow negative budget
+            return
+
+        reservation_negative_budget = self.filtered(
             lambda x: x._float_compare(0, x.amount_remaining) == 1
         )
-        if bool(reservation):
+        if bool(reservation_negative_budget):
             raise exceptions.ValidationError(_(
                 "The reserved budget is higher than the one available in the project:\n\n"
                 "Launchs: %(launchs)s\n"
