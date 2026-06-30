@@ -5,14 +5,14 @@ import { useService } from "@web/core/utils/hooks";
 
 // Launch item (<li> element)
 export class PlanningLeftSidePanel_LaunchItem extends Component {
-    setup () {
+    setup() {
         super.setup();
-        
+
         this.orm = useService("orm");
         this.action = useService("action");
         this.state = useState({
             is_done: this.props.launch.is_done,
-            milestone_shortcut: this.props.launch.milestone_shortcut ? this.props.launch.milestone_shortcut.data : [] 
+            milestone_shortcut: this.props.launch.milestone_shortcut ? this.props.launch.milestone_shortcut.data : []
         });
     }
 
@@ -20,22 +20,23 @@ export class PlanningLeftSidePanel_LaunchItem extends Component {
         // Milestone color
         const done_new = !milestone.is_done;
         const state_milestone = this.state.milestone_shortcut.find(
-            (vals) => { return vals.id == milestone.id}
+            (vals) => { return vals.id == milestone.id }
         )
         if (state_milestone) {
             state_milestone.is_done = done_new;
         }
 
-        // Launch `is_last` (substriked)
+        // Launch `is_done` (substriked)
         if (milestone.is_last) {
             this.state.is_done = done_new;
+            this.props.launch.is_done = done_new;
         }
 
         // ORM save
         this.orm.write(
             "carpentry.planning.milestone",
             [milestone.id],
-            {is_done: done_new},
+            { is_done: done_new },
         );
     }
     openLaunch() {
@@ -46,7 +47,7 @@ export class PlanningLeftSidePanel_LaunchItem extends Component {
             views: [[false, 'form']],
             name: this.props.launch.name,
             target: 'new',
-            context: {'carpentry_planning': true}
+            context: { 'carpentry_planning': true }
         });
     }
 }
@@ -60,10 +61,11 @@ PlanningLeftSidePanel_LaunchItem.props = {
 
 // List (left side pannel)
 export class PlanningLeftSidePanel extends Component {
-    setup () {
+    setup() {
         this.state = useState({
             selectedLaunchId: this.props.model.launchId,
             lazyDisplay: true,
+            launchCount: 0
         });
     }
 
@@ -96,7 +98,7 @@ export class PlanningLeftSidePanel extends Component {
         const lastIndex = this.launchIds.length - 1
         return this.launchIds.length > 1 && this.state.selectedLaunchId != this.launchIds[lastIndex].id
     }
-    move (direction) {
+    move(direction) {
         const currentIndex = this.launchIds.findIndex((launch) => launch.id == this.state.selectedLaunchId);
         if (currentIndex + direction >= 0 && currentIndex + direction < this.launchIds.length) {
             this.selectLaunch(this.launchIds[currentIndex + direction]);
