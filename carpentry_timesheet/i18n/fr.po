@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 22:19+0000\n"
-"PO-Revision-Date: 2026-01-22 23:28+0100\n"
+"POT-Creation-Date: 2026-07-01 18:30+0000\n"
+"PO-Revision-Date: 2026-07-01 20:32+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.4.2\n"
+
+#. module: carpentry_timesheet
+#: model:ir.model,name:carpentry_timesheet.model_hr_timesheet_sheet_line_abstract
+msgid "Abstract Timesheet Sheet Line"
+msgstr "Lignes des feuilles de temps"
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__allow_timesheets
@@ -47,7 +52,7 @@ msgid ""
 "purchase orders, vendor bills, expenses etc.).\n"
 "By default, the analytic account of the project is set. However, it can be changed on each task individually if necessary."
 msgstr ""
-"Compte analytique auquel est lié cette tâche et ses feuilles de temps.\n"
+"Compte analytique auquel sont liés cette tâche et ses feuilles de temps.\n"
 "Suivez les coûts et les revenus de votre tâche en paramétrant ce compte analytique sur vos documents associés (par ex. commandes "
 "clients, factures, bons de commande, factures fournisseurs, notes de frais, etc.).\n"
 "Par défaut, le compte analytique du projet est défini. Toutefois, il peut être changé sur chaque tâche individuellement si nécessaire."
@@ -60,7 +65,7 @@ msgstr "Assignés"
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_hr_timesheet_sheet__add_line_analytic_id
 msgid "Budget"
-msgstr "Budget"
+msgstr ""
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__date_budget
@@ -70,7 +75,7 @@ msgstr "Date budgétaire"
 #. module: carpentry_timesheet
 #: model:ir.model,name:carpentry_timesheet.model_carpentry_budget_reservation
 msgid "Budget reservation"
-msgstr "Budget reservation"
+msgstr "Réservation de budget"
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__reservation_ids
@@ -85,12 +90,12 @@ msgstr "Unité"
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__budget_verified
 msgid "Budget verified?"
-msgstr "Budget verified?"
+msgstr "Budget vérifié ?"
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__budget_analytic_ids
 msgid "Budgets"
-msgstr "Budgets"
+msgstr ""
 
 #. module: carpentry_timesheet
 #: model:ir.ui.menu,name:carpentry_timesheet.carpentry_timesheet_report_by_week
@@ -106,6 +111,11 @@ msgstr "Peut réserver du budget"
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__currency_id
 msgid "Currency"
 msgstr "Devise"
+
+#. module: carpentry_timesheet
+#: model:ir.model.fields,field_description:carpentry_timesheet.field_hr_timesheet_sheet_line__effective_hours
+msgid "Effective Hours"
+msgstr "Heures effectives"
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__expense_ids
@@ -126,6 +136,13 @@ msgstr "Pour les tâches uniquement. Sera le compte analytique définit sur les 
 #: model:ir.model.fields,help:carpentry_timesheet.field_project_task__launch_ids
 msgid "For budget & times distribution and follow-up per launch on the planning"
 msgstr "Pour la répartition et le suivi par lancement du budget et des temps saisis dans le planning"
+
+#. module: carpentry_timesheet
+#. odoo-javascript
+#: code:addons/carpentry_timesheet/static/src/component/x2many_2d_matrix_renderer/x2many_2d_matrix_renderer.xml:0
+#, python-format
+msgid "Hours spent"
+msgstr "Heures passées"
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,help:carpentry_timesheet.field_hr_timesheet_sheet__add_line_project_id
@@ -180,12 +197,12 @@ msgstr "Autres dépenses"
 #. module: carpentry_timesheet
 #: model_terms:ir.ui.view,arch_db:carpentry_timesheet.view_task_kanban
 msgid "Performance"
-msgstr "Performance"
+msgstr ""
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__performance
 msgid "Performance (%)"
-msgstr "Performance (%)"
+msgstr ""
 
 #. module: carpentry_timesheet
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__planned_hours_required
@@ -208,6 +225,13 @@ msgstr "Cartes du planning"
 #, python-format
 msgid "Please select both Project and Task to add a line."
 msgstr "Veuillez sélectionner un projet et une tâche pour ajouter une ligne."
+
+#. module: carpentry_timesheet
+#. odoo-javascript
+#: code:addons/carpentry_timesheet/static/src/component/x2many_2d_matrix_renderer/x2many_2d_matrix_renderer.xml:0
+#, python-format
+msgid "Progress"
+msgstr "Avancement"
 
 #. module: carpentry_timesheet
 #: model:ir.model,name:carpentry_timesheet.model_project_project
@@ -258,7 +282,11 @@ msgid "Remaining time"
 msgstr "Temps restant"
 
 #. module: carpentry_timesheet
+#. odoo-javascript
+#: code:addons/carpentry_timesheet/static/src/component/x2many_2d_matrix_renderer/x2many_2d_matrix_renderer.xml:0
+#: model:ir.model.fields,field_description:carpentry_timesheet.field_hr_timesheet_sheet_line__reserved_budget
 #: model:ir.model.fields,field_description:carpentry_timesheet.field_project_task__total_budget_reserved
+#, python-format
 msgid "Reserved budget"
 msgstr "Budget réservé"
 

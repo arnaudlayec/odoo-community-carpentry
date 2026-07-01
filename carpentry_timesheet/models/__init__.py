@@ -2,6 +2,7 @@
 
 from . import account_analytic_account
 from . import hr_timesheet_sheet
+from . import hr_timesheet_sheet_line
 
 from . import carpentry_budget_reservation
 from . import project_task

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="carpentry_timesheet.X2Many2DMatrixCarpentryTimesheetField"
+       t-inherit="web_widget_x2many_2d_matrix.X2Many2DMatrixField"
+       owl="1"
+    >
+        <X2Many2DMatrixRenderer position="replace">
+            <!-- We just change the component's name -->
+            <X2Many2DMatrixCarpentryTimesheetRenderer
+                list="list"
+                matrixFields="props.matrixFields"
+                showRowTotals="props.showRowTotals"
+                showColumnTotals="props.showColumnTotals"
+                setDirty="(isDirty) => this.setDirty(isDirty)"
+                onUpdate="(x, y, value) => this.commitChange(x, y, value)"
+                readonly="props.readonly"
+            />
+        </X2Many2DMatrixRenderer>
+    </t>
+</templates>

@@ -4,7 +4,7 @@
     <record id="view_hr_timesheet_sheet_kanban" model="ir.ui.view">
         <field name="name">hr_timesheet.sheet.kanban.carpentry</field>
         <field name="model">hr_timesheet.sheet</field>
-        <field name="inherit_id" ref="hr_timesheet_sheet.view_hr_timesheet_sheet_kanban"/>
+        <field name="inherit_id" ref="hr_timesheet_sheet.view_hr_timesheet_sheet_kanban" />
 
         <field name="arch" type="xml">
             <kanban position="attributes">
@@ -15,18 +15,25 @@
 
     <!-- Timesheet sheet form -->
     <record id="hr_timesheet_sheet_form" model="ir.ui.view">
-        <field name="name">hr.timesheet.sheet.tree.carpentry</field>
+        <field name="name">hr.timesheet.sheet.form.carpentry</field>
         <field name="model">hr_timesheet.sheet</field>
-        <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+        <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form" />
 
         <field name="arch" type="xml">
             <!-- Add `Analytic` filter between Project & Task -->
             <field name="add_line_project_id" position="after">
                 <field name="is_internal_project" invisible="1" />
-                <field name="add_line_analytic_id"
-                    attrs="{'invisible': [('is_internal_project', '=', True)]}"
-                />
+                <field name="add_line_analytic_id" attrs="{'invisible': [('is_internal_project', '=', True)]}" />
             </field>
+
+            <!-- Customize widget `x2many_2d_matrix` -->
+            <field name="line_ids" position="attributes">
+                <attribute name="widget">x2many_2d_matrix_carpentry_timesheet</attribute>
+            </field>
+            <xpath expr="//field[@name='line_ids']/tree" position="inside">
+                <field name="effective_hours" />
+                <field name="reserved_budget" />
+            </xpath>
 
             <!-- *** 'Details' tab *** -->
             <!-- Order `timesheet_ids` by date (like in Task view) -->
@@ -51,17 +58,12 @@
     <record id="view_hr_timesheet_sheet_filter" model="ir.ui.view">
         <field name="name">hr_timesheet.sheet.filter</field>
         <field name="model">hr_timesheet.sheet</field>
-        <field name="inherit_id" ref="hr_timesheet_sheet.view_hr_timesheet_sheet_filter"/>
+        <field name="inherit_id" ref="hr_timesheet_sheet.view_hr_timesheet_sheet_filter" />
 
         <field name="arch" type="xml">
             <search position="inside">
                 <separator groups="hr_timesheet.group_hr_timesheet_approver" />
-                <filter
-                    string="My Department"
-                    name="my_department"
-                    domain="[('employee_id.department_id.member_ids.user_id', '=', uid)]"
-                    groups="hr_timesheet.group_hr_timesheet_approver"
-                />
+                <filter string="My Department" name="my_department" domain="[('employee_id.department_id.member_ids.user_id', '=', uid)]" groups="hr_timesheet.group_hr_timesheet_approver" />
             </search>
         </field>
     </record>

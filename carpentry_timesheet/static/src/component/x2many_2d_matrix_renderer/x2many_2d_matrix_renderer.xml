@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="carpentry_timesheet.X2Many2DMatrixCarpentryTimesheetRenderer"
+        t-inherit="web_widget_x2many_2d_matrix.X2Many2DMatrixRenderer"
+        owl="1"
+    >
+        <th t-foreach="columns" position="before">
+            <th name="progress" />
+        </th>
+        <td t-foreach="columns" position="before">
+            <td name="progress" t-att-class="{
+                'text-danger': getRowProcess(row) >= 100,
+                'text-warning': getRowProcess(row) >= 90,
+            }">
+                <span name="total_expense" t-esc="getRowExpense(row)" title="Hours spent" />h
+                /
+                <span name="reserved_budget" t-esc="getRowBudget(row)" title="Reserved budget" />h
+
+                <t t-if="getRowBudget(row)">
+                    (<span name="progress" t-esc="getRowProcess(row)" title="Progress" /> %)
+                </t>
+            </td>
+        </td>
+        <xpath expr="//tfoot//th[@t-foreach='columns']" position="before">
+            <th name="progress_foot" />
+        </xpath>
+    </t>
+</templates>
