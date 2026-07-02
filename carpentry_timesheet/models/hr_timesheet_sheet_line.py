@@ -16,7 +16,6 @@ class SheetLine(models.TransientModel):
     def _compute_effective_hours(self):
         """We need `effective_hours` of the tasks without the times in the current
         timesheets, because they are added by OWL when displayed"""
-        self.sheet_id.ensure_one()
         for line in self:
             timesheets = line.task_id.timesheet_ids.filtered(
                 lambda x: x.sheet_id != line.sheet_id
