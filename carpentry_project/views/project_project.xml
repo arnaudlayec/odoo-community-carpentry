@@ -81,15 +81,7 @@
         <field name="inherit_id" ref="project.view_project" />
 
         <field name="arch" type="xml">
-            <!-- Order by `sequence_code` -->
-            <tree position="attributes">
-                <attribute name="default_order">sequence_code DESC, sequence, name, id</attribute>
-            </tree>
-
             <!-- Hides some fields from tree view -->
-            <field name="sequence" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
             <field name="user_id" position="attributes">
                 <attribute name="optional">hide</attribute>
             </field>
@@ -107,20 +99,6 @@
             <field name="stage_id" position="after">
                 <field name="active" position="move" />
             </field>
-        </field>
-    </record>
-
-    <!-- Project's Kanban -->
-    <record id="view_project_kanban" model="ir.ui.view">
-        <field name="name">project.project.kanban.aluval</field>
-        <field name="model">project.project</field>
-        <field name="inherit_id" ref="project.view_project_kanban" />
-
-        <field name="arch" type="xml">
-            <!-- Order by `sequence_code` -->
-            <kanban position="attributes">
-                <attribute name="default_order">sequence_code DESC, sequence, name, id</attribute>
-            </kanban>
         </field>
     </record>
 
