@@ -80,5 +80,5 @@ class ProjectProject(models.Model):
                 'view_mode': 'form',
                 'res_id': project_id_,
             }
-        
+
         return action

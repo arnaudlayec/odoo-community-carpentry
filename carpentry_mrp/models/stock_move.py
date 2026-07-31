@@ -34,7 +34,28 @@ class StockMove(models.Model):
     product_default_code = fields.Char(related='product_id.default_code')
     product_name = fields.Char(related='product_id.name')
 
-    #===== CRUD =====#
+    #===== Compute =====#
+    def _compute_launch_ids(self):
+        """ Computes `launch_ids` from Picking or MO """
+        for move in self:
+            move.launch_ids = move.picking_id.launch_ids | move.raw_material_production_id.launch_ids
+    
+    def _search_launch_ids(self, operator, value):
+        return ['|',
+            ('picking_id.launch_ids', operator, value),
+            ('raw_material_production_id.launch_ids', operator, value),
+        ]
+
+    @api.depends('quantity_done')
+    def _compute_is_done(self):
+        """ Overrwrite native field to order move_raw_ids by `done` """
+        super()._compute_is_done()
+        prec = self.env['decimal.precision'].precision_get('Product Unit of Measure')
+        for move in self:
+            comp = float_compare(move.quantity_done, move.product_uom_qty, precision_digits=prec)
+            move.is_done = bool(comp >= 0)
+
+    #===== ORM =====#
     def write(self, vals):
         """ For MO's components, ensure `product_uom_qty` is >= `quantity_done`
             Because `product_uom_qty` is used for for stock forecast
@@ -72,27 +93,6 @@ class StockMove(models.Model):
             # If components can be canceled: cancel & delete
             (to_cancel - to_zero)._action_cancel()
             super(StockMove, to_cancel - to_zero).unlink()
-
-    #===== Compute =====#
-    def _compute_launch_ids(self):
-        """ Computes `launch_ids` from Picking or MO """
-        for move in self:
-            move.launch_ids = move.picking_id.launch_ids | move.raw_material_production_id.launch_ids
-    
-    def _search_launch_ids(self, operator, value):
-        return ['|',
-            ('picking_id.launch_ids', operator, value),
-            ('raw_material_production_id.launch_ids', operator, value),
-        ]
-    
-    @api.depends('quantity_done')
-    def _compute_is_done(self):
-        """ Overrwrite native field to order move_raw_ids by `done` """
-        super()._compute_is_done()
-        prec = self.env['decimal.precision'].precision_get('Product Unit of Measure')
-        for move in self:
-            comp = float_compare(move.quantity_done, move.product_uom_qty, precision_digits=prec)
-            move.is_done = bool(comp >= 0)
 
     #===== Planning =====#
     def _get_planning_domain(self):
