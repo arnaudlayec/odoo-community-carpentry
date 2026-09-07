@@ -8,8 +8,7 @@ class StockQuant(models.Model):
     """ These logics are quite ugly, c.f. plan of the module `mrp_raw_material_confirmation`
         to rather update `stock.quant`.`quantity`
     """
-
-    _inherit = ['stock.quant']
+    _inherit = 'stock.quant'
 
     quantity_minus_outgoing_raw_material = fields.Float(
         string='Quantity (with real-time production)',
@@ -47,6 +46,7 @@ class StockQuant(models.Model):
 
 
     # === OVERRIDE OCA'S METHOD OF MODULE `stock_no_negative` ===
+    @api.constrains("product_id", "quantity")
     def check_negative_qty(self):
         # To provide an option to skip the check when necessary.
         # e.g. mrp_subcontracting_skip_no_negative - passes the context
